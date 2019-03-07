@@ -9,6 +9,10 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
+
+// require("./configs/passport");
 
 mongoose
   .connect("mongodb://localhost/server", { useNewUrlParser: true })
@@ -35,6 +39,14 @@ app.use(
   })
 );
 
+app.use(
+  session({
+    secret: "some secret goes here",
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
 // Middleware Setup
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -50,6 +62,9 @@ app.use(
     sourceMap: true
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");

@@ -1,25 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import axios from "axios";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { test: [] };
+  }
+
+  getApi = () => {
+    axios.get(`http://localhost:5000/`).then(responseFromApi => {
+      console.log(responseFromApi);
+      this.setState({
+        test: responseFromApi.data
+      });
+    });
+  };
+
+  componentDidMount() {
+    this.getApi();
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <p>{this.state.test.test}</p>
       </div>
     );
   }
