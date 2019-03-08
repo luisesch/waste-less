@@ -1,33 +1,90 @@
 import React, { Component } from "react";
 import "./App.css";
-import axios from "axios";
+// import axios from "axios";
+import { Switch, Route } from "react-router-dom";
+import Home from "./components/auth/Home";
+import Signup from "./components/auth/Signup";
+import Navbar from "./components/Navbar";
+import AuthService from "./components/auth/auth-service";
+import Dashboard from "./components/Dashboard";
+import Welcome from "./components/auth/Welcome";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = { test: [] };
+  constructor(props) {
+    super(props);
+    this.state = { loggedInUser: null };
+    this.service = new AuthService();
   }
 
-  getApi = () => {
-    axios.get(`http://localhost:5000/`).then(responseFromApi => {
-      console.log(responseFromApi);
-      this.setState({
-        test: responseFromApi.data
-      });
+  fetchUser() {
+    if (this.state.loggedInUser === null) {
+      this.service
+        .loggedin()
+        .then(response => {
+          this.setState({
+            loggedInUser: response
+          });
+        })
+        .catch(err => {
+          this.setState({
+            loggedInUser: false
+          });
+        });
+    }
+  }
+
+  getTheUser = userObj => {
+    this.setState({
+      loggedInUser: userObj
     });
   };
 
-  componentDidMount() {
-    this.getApi();
-  }
-
   render() {
-    return (
-      <div className="App">
-        <p>{this.state.test.test}</p>
-      </div>
-    );
+    this.fetchUser();
+    //if user is logged in
+    if (this.state.loggedInUser) {
+      return (
+        <div className="App">
+          <Navbar
+            userInSession={this.state.loggedInUser}
+            getUser={this.getTheUser}
+          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Dashboard userInSession={this.state.loggedInUser} />
+              )}
+            />
+            <Route
+              exact
+              path="/welcome"
+              render={() => <Welcome userInSession={this.state.loggedInUser} />}
+            />
+          </Switch>
+        </div>
+      );
+      //if user is not logged in
+    } else {
+      return (
+        <div className="App">
+          <Navbar userInSession={this.state.loggedInUser} />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => <Home getUser={this.getTheUser} />}
+            />
+            <Route
+              exact
+              path="/signup"
+              render={props => <Signup {...props} getUser={this.getTheUser} />}
+            />
+          </Switch>
+        </div>
+      );
+    }
   }
 }
-
 export default App;
