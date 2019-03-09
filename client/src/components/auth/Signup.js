@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
+    this.state = { username: "", password: "", message: "" };
     this.service = new AuthService();
   }
 
@@ -17,12 +17,17 @@ class Signup extends Component {
     this.service
       .signup(username, password)
       .then(response => {
-        this.setState({
-          username: "",
-          password: ""
-        });
-        this.props.getUser(response);
-        this.props.history.push("/welcome");
+        if (response.message) {
+          this.setState({ message: response.message });
+        } else {
+          this.setState({
+            username: "",
+            password: "",
+            message: ""
+          });
+          this.props.getUser(response);
+          this.props.history.push("/welcome");
+        }
       })
       .catch(error => console.log(error));
   };
@@ -53,6 +58,10 @@ class Signup extends Component {
 
           <input type="submit" value="Signup" />
         </form>
+
+        <div className="message">
+          <p>{this.state.message}</p>
+        </div>
 
         <p>
           Already have an account?
