@@ -1,0 +1,16 @@
+<h2 class="text-center mt-4 mb-4">Welcome to your profile, {{user.username}}</h2>
+
+
+<section class="user-info p-3 mb-5 light-green">
+  <div class="row text-center">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <img src={{user.photo}} class="img-fluid rounded-circle profile-pic">
+    </div>
+    <div class="col-2 px-0">
+      <form action="/profile/{{user._id}}/edit" method="get" class="text-right">
+        <button class="btn light-green edit-button pt-0"><img src="/images/gear_icon.png" class="img-fluid"></button>
+      </form>
+    </div>
+  </div>
+</section>
