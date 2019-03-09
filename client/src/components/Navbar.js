@@ -23,31 +23,31 @@ class Navbar extends Component {
   render() {
     if (this.state.loggedInUser) {
       return (
-        <nav className="nav-style">
-          <ul>
-            <li>
-              <Link to="/">
+        <nav className="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
+              <Link to="/" className="navbar-brand">Home</Link>
+              <form className="form-inline">
+              <Link to="/" className="navbar-brand">Dashboard</Link>
+              <Link to="/league" className="navbar-brand">League</Link>
+              <Link to="/profile" className="navbar-brand">Profile</Link>
+              <button className="mx-2"> Score </button>
+              <Link to="/" className="navbar-brand">
                 <button onClick={() => this.logoutUser()}>Logout</button>
               </Link>
-            </li>
-          </ul>
+              </form>
         </nav>
       );
     } else {
       return (
-        <nav className="nav-style">
-          <ul>
-            <li>
-              <Link to="/" style={{ textDecoration: "none" }}>
+        <nav className="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
+               <Link to="/" className="navbar-brand">Home</Link>
+               <form className="form-inline">              
+              <Link to="/" className="navbar-brand" style={{ textDecoration: "none" }}>
                 Login
               </Link>
-            </li>
-            <li>
-              <Link to="/signup" style={{ textDecoration: "none" }}>
+              <Link to="/signup" className="navbar-brand" style={{ textDecoration: "none" }}>
                 Signup
               </Link>
-            </li>
-          </ul>
+              </form>
         </nav>
       );
     }
