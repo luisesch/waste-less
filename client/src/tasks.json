@@ -1,0 +1,37 @@
+[
+  {
+    "description": "coffee",
+    "points": 5,
+    "category": "To go"
+  },
+  {
+    "description": "shampoo",
+    "points": 10,
+    "category": "Bathroom"
+  },
+  {
+    "description": "bee wrap",
+    "points": 15,
+    "category": "Kitchen"
+  },
+  {
+    "description": "dishwasher",
+    "points": 20,
+    "category": "Cleaning"
+  },
+  {
+    "description": "no plastic",
+    "points": 25,
+    "category": "Food"
+  },
+  {
+    "description": "own bag",
+    "points": 5,
+    "category": "Shopping"
+  },
+  {
+    "description": "paper",
+    "points": 10,
+    "category": "Office"
+  }
+]

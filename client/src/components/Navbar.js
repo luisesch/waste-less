@@ -21,6 +21,7 @@ class Navbar extends Component {
   };
 
   render() {
+    //if user is logged in
     if (this.state.loggedInUser) {
       return (
         <nav className="nav-style">
@@ -33,6 +34,7 @@ class Navbar extends Component {
           </ul>
         </nav>
       );
+      // if user is not logged in
     } else {
       return (
         <nav className="nav-style">

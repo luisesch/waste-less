@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import AuthService from "./components/auth/auth-service";
 import Dashboard from "./components/Dashboard";
 import Welcome from "./components/auth/Welcome";
+import Tasks from "./components/Tasks";
 
 class App extends Component {
   constructor(props) {
@@ -62,6 +63,7 @@ class App extends Component {
               path="/welcome"
               render={() => <Welcome userInSession={this.state.loggedInUser} />}
             />
+            <Route exact path="/tasks" component={Tasks} />
           </Switch>
         </div>
       );
