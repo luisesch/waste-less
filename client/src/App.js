@@ -9,6 +9,7 @@ import AuthService from "./components/auth/auth-service";
 import Dashboard from "./components/Dashboard";
 import Welcome from "./components/auth/Welcome";
 import Tasks from "./components/Tasks";
+import CreateLeague from "./components/CreateLeague";
 
 class App extends Component {
   constructor(props) {
@@ -77,6 +78,16 @@ class App extends Component {
               exact
               path="/tasks"
               render={() => <Tasks setScore={this.raiseScore} />}
+            />
+            <Route
+              exact
+              path="/newteam"
+              render={props => (
+                <CreateLeague
+                  {...props}
+                  userInSession={this.state.loggedInUser}
+                />
+              )}
             />
           </Switch>
         </div>

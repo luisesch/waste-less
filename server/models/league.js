@@ -6,6 +6,12 @@ const leagueSchema = new Schema(
     id: String,
     name: String,
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
+    members: [
+      {
+        id: { type: Schema.Types.ObjectId, ref: "User" },
+        confirmed: false
+      }
+    ],
     status: {
       type: String,
       enum: ["active", "completed"],

@@ -7,6 +7,7 @@ class Dashboard extends Component {
       <p>
         Welcome to your dashboard, {this.props.userInSession.username} <br />
         Find new tasks <Link to="/tasks">here</Link>
+        Create new team <Link to="/newteam">here</Link>
       </p>
     );
   }

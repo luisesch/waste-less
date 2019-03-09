@@ -3,13 +3,16 @@ const leagueRoutes = express.Router();
 
 const League = require("../models/league");
 
+// create new league
 leagueRoutes.post("/leagues", (req, res, next) => {
   const name = req.body.name;
   const administrator = req.body.administrator;
+  const members = req.body.members;
 
   const aNewLeague = new League({
     name: name,
-    administrator: administrator
+    administrator: administrator,
+    members: members
   });
 
   aNewLeague.save(err => {

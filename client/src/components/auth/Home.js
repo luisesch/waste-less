@@ -22,9 +22,6 @@ class Home extends Component {
 
         // this.props.history.push("/profile");
       })
-      .then(() => {
-        console.log(this.props);
-      })
       .catch(error => console.log(error));
   };
 
