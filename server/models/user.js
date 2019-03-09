@@ -10,7 +10,7 @@ const userSchema = new Schema(
     photo: { type: String, default: "/images/default_profile.jpg" },
     googleID: String,
     leagues: [{ type: Schema.Types.ObjectId, ref: "Travel" }],
-    score: Number,
+    score: { type: Number, default: 0 },
     status: {
       type: String,
       enum: ["Pending Confirmation", "Active"],

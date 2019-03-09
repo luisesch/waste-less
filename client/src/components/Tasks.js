@@ -21,6 +21,11 @@ class Tasks extends Component {
     this.setState({ filtered: filteredTasks });
   };
 
+  scoreHandler = event => {
+    let points = Number(event.target.value);
+    this.props.setScore(points);
+  };
+
   render() {
     return (
       <div>
@@ -30,7 +35,15 @@ class Tasks extends Component {
           {this.state.filtered.map((task, index) => {
             return (
               <li key={index}>
-                {task.description}: {task.points}
+                {task.description} <br />
+                <button
+                  name="points"
+                  type="submit"
+                  value={task.points}
+                  onClick={this.scoreHandler}
+                >
+                  {task.points}
+                </button>
               </li>
             );
           })}
