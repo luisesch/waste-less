@@ -82,5 +82,6 @@ app.use("/", index);
 app.use("/api", require("./routes/auth-routes"));
 app.use("/api", require("./routes/league-routes"));
 app.use("/api", require("./routes/user-routes"));
+app.use("/api", require("./routes/task-routes"));
 
 module.exports = app;

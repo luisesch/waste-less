@@ -10,17 +10,19 @@ import Dashboard from "./components/Dashboard";
 import Welcome from "./components/auth/Welcome";
 import Tasks from "./components/Tasks";
 import CreateLeague from "./components/CreateLeague";
+import TaskService from "./components/task-service";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedInUser: null };
-    this.service = new AuthService();
+    this.authService = new AuthService();
+    this.taskService = new TaskService();
   }
 
   fetchUser() {
     if (this.state.loggedInUser === null) {
-      this.service
+      this.authService
         .loggedin()
         .then(response => {
           this.setState({
@@ -43,12 +45,14 @@ class App extends Component {
 
   raiseScore = points => {
     let newScore = this.state.loggedInUser.score + points;
-    console.log(newScore);
-    this.setState({
-      loggedInUser: {
-        score: newScore
-      }
-    });
+    this.taskService
+      .updateScore(newScore, this.state.loggedInUser)
+      .then(response =>
+        this.setState({
+          loggedInUser: response
+        })
+      )
+      .catch(err => console.log(err));
   };
 
   render() {
