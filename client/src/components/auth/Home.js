@@ -43,17 +43,15 @@ class Home extends Component {
 						<br />
 						<br />
 						<br />
-						<br />
-						<label class="text-center font-weight-bold" for="exampleCheck1">
-							<h1>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy{' '}</h1>
+						<label className="text-center font-weight-bold" htmlFor="exampleCheck1">
+							<h1 className="Header"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</h1>
 						</label>
 					</div>
 					<div className="rightBar col-5">
 						<br />
 						<br />
-						<Link to="/login" className="navbar-brand">
-							Login with your account
-						</Link>
+						<h3 className="fontForm">Login with your account</h3>
+							
 						<br />
 						<br />
 
@@ -64,21 +62,21 @@ class Home extends Component {
 									name="username"
 									value={this.state.username}
 									onChange={(e) => this.handleChange(e)}
-									class="form-control"
+									className="form-control"
 									id="exampleInputEmail1"
 									aria-describedby="emailHelp"
 									placeholder="Username"
 								/>
 
-								<small id="emailHelp" class="form-text text-muted">
+								<small id="emailHelp" className="form-text text-muted">
 									We'll never share your email with anyone else.
 								</small>
 							</div>
 
-							<div class="form-group">
+							<div className="form-group">
 								<input
 									type="password"
-									class="form-control"
+									className="form-control"
 									name="password"
 									value={this.state.password}
 									onChange={(e) => this.handleChange(e)}
@@ -87,9 +85,9 @@ class Home extends Component {
 								/>
 							</div>
 
-							<div class="form-group form-check">
-								<input type="checkbox" class="form-check-input" id="exampleCheck1" />
-								<label class="form-check-label" for="exampleCheck1">
+							<div className="form-group form-check">
+								<input type="checkbox" className="form-check-input" id="exampleCheck1" />
+								<label className="form-check-label" htmlFor="exampleCheck1">
 									I accept the terms of use and privacy statement{' '}
 								</label>
 							</div>
