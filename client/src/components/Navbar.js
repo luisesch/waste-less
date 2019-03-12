@@ -30,9 +30,9 @@ class Navbar extends Component {
               <Link to="/" className="navbar-brand">Dashboard</Link>
               <Link to="/league" className="navbar-brand">League</Link>
               <Link to="/profile" className="navbar-brand">Profile</Link>
-              <button className="mx-2"> Score </button>
+              <button className="mx-2" type="button" class="btn btn-outline-success"> Score </button>
               <Link to="/" className="navbar-brand">
-                <button onClick={() => this.logoutUser()}>Logout</button>
+              <button onClick={() => this.logoutUser()} type="button" className="btn btn-outline-dark">Logout</button>
               </Link>
               </form>
         </nav>
