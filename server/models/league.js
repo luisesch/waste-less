@@ -8,8 +8,8 @@ const leagueSchema = new Schema(
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
     members: [
       {
-        id: { type: Schema.Types.ObjectId, ref: "User" },
-        confirmed: false
+        info: { type: Schema.Types.ObjectId, ref: "User" },
+        confirmed: { type: Boolean, default: false }
       }
     ],
     status: {

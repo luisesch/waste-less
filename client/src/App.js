@@ -6,11 +6,12 @@ import Home from "./components/auth/Home";
 import Signup from "./components/auth/Signup";
 import Navbar from "./components/Navbar";
 import AuthService from "./components/auth/auth-service";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/user/Dashboard";
 import Welcome from "./components/auth/Welcome";
-import Tasks from "./components/Tasks";
-import CreateLeague from "./components/CreateLeague";
-import TaskService from "./components/task-service";
+import Tasks from "./components/tasks/Tasks";
+import CreateLeague from "./components/league/CreateLeague";
+import TaskService from "./components/tasks/task-service";
+import MyLeague from "./components/league/MyLeague";
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends Component {
       this.authService
         .loggedin()
         .then(response => {
+          // console.log(response);
           this.setState({
             loggedInUser: response
           });
@@ -90,6 +92,16 @@ class App extends Component {
                 <CreateLeague
                   {...props}
                   userInSession={this.state.loggedInUser}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/league"
+              render={props => (
+                <MyLeague
+                  userInSession={this.state.loggedInUser}
+                  getUser={this.getTheUser}
                 />
               )}
             />

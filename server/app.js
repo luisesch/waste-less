@@ -11,6 +11,7 @@ const path = require("path");
 const cors = require("cors");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const passport = require("passport");
 
 require("./configs/passport");
@@ -65,8 +66,8 @@ app.use(
   session({
     secret: "some secret goes here",
     resave: true,
-    saveUninitialized: true
-    // store: new MongoStore({ mongooseConnection: mongoose.connection })
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 
