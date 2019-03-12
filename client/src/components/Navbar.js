@@ -41,15 +41,25 @@ class Navbar extends Component {
     } else {
       return (
         <nav className="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
-               <Link to="/" className="navbar-brand">Home</Link>
-               <form className="form-inline">              
-              <Link to="/" className="navbar-brand" style={{ textDecoration: "none" }}>
-                Login
-              </Link>
-              <Link to="/signup" className="navbar-brand" style={{ textDecoration: "none" }}>
-                Signup
-              </Link>
-              </form>
+          <Link to="/" className="navbar-brand">
+            Home
+          </Link>
+          <form className="form-inline">
+            <Link
+              to="/"
+              className="navbar-brand"
+              style={{ textDecoration: "none" }}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
+              className="navbar-brand"
+              style={{ textDecoration: "none" }}
+            >
+              Signup
+            </Link>
+          </form>
         </nav>
       );
     }

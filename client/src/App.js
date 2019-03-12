@@ -43,6 +43,16 @@ class App extends Component {
     });
   };
 
+  raiseScore = points => {
+    let newScore = this.state.loggedInUser.score + points;
+    console.log(newScore);
+    this.setState({
+      loggedInUser: {
+        score: newScore
+      }
+    });
+  };
+
   render() {
     this.fetchUser();
     //if user is logged in
@@ -66,7 +76,11 @@ class App extends Component {
               path="/welcome"
               render={() => <Welcome userInSession={this.state.loggedInUser} />}
             />
-            <Route exact path="/tasks" component={Tasks} />
+            <Route
+              exact
+              path="/tasks"
+              render={() => <Tasks setScore={this.raiseScore} />}
+            />
           </Switch>
           <Footer/>
         </div>
