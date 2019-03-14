@@ -8,10 +8,15 @@ import Navbar from "./components/Navbar";
 import AuthService from "./components/auth/auth-service";
 import Dashboard from "./components/user/Dashboard";
 import Welcome from "./components/auth/Welcome";
+
 import Tasks from "./components/tasks/Tasks";
 import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
 import MyLeague from "./components/league/MyLeague";
+import Footer from "./components/Footer";
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 class App extends Component {
   constructor(props) {
@@ -106,13 +111,16 @@ class App extends Component {
               )}
             />
           </Switch>
+          <Footer/>
         </div>
       );
       //if user is not logged in
     } else {
       return (
-        <div className="App">
+        <div className="App container-responsive fixed">
           <Navbar userInSession={this.state.loggedInUser} />
+         
+          <div className="rightBar container-responsive absolute">
           <Switch>
             <Route
               exact
@@ -125,9 +133,12 @@ class App extends Component {
               render={props => <Signup {...props} getUser={this.getTheUser} />}
             />
           </Switch>
+          <Footer/>
+          </div>
         </div>
       );
     }
   }
 }
+
 export default App;
