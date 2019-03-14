@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import tasks from "../tasks.json";
-import Search from "./Search";
+import tasks from "../../tasks.json";
+import Search from "./TaskSearch";
 // import { Link } from "react-router-dom";
 
 class Tasks extends Component {

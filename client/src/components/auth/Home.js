@@ -21,14 +21,10 @@ class Home extends Component {
 				this.setState({ username: '', password: '' });
 				this.props.getUser(response);
 				// this.props.history.push("/profile");
+      })
+      .catch(error => console.log(error));
+  };
 
-				// this.props.history.push("/profile");
-			})
-			.then(() => {
-				console.log(this.props);
-			})
-			.catch((error) => console.log(error));
-	};
 
 	handleChange = (event) => {
 		const { name, value } = event.target;

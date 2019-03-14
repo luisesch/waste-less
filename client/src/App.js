@@ -6,25 +6,32 @@ import Home from "./components/auth/Home";
 import Signup from "./components/auth/Signup";
 import Navbar from "./components/Navbar";
 import AuthService from "./components/auth/auth-service";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/user/Dashboard";
 import Welcome from "./components/auth/Welcome";
-import Tasks from "./components/Tasks";
+
+import Tasks from "./components/tasks/Tasks";
+import CreateLeague from "./components/league/CreateLeague";
+import TaskService from "./components/tasks/task-service";
+import MyLeague from "./components/league/MyLeague";
 import Footer from "./components/Footer";
 
 import 'bootstrap/dist/css/bootstrap.css';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedInUser: null };
-    this.service = new AuthService();
+    this.authService = new AuthService();
+    this.taskService = new TaskService();
   }
 
   fetchUser() {
     if (this.state.loggedInUser === null) {
-      this.service
+      this.authService
         .loggedin()
         .then(response => {
+          // console.log(response);
           this.setState({
             loggedInUser: response
           });
@@ -45,12 +52,14 @@ class App extends Component {
 
   raiseScore = points => {
     let newScore = this.state.loggedInUser.score + points;
-    console.log(newScore);
-    this.setState({
-      loggedInUser: {
-        score: newScore
-      }
-    });
+    this.taskService
+      .updateScore(newScore, this.state.loggedInUser)
+      .then(response =>
+        this.setState({
+          loggedInUser: response
+        })
+      )
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -80,6 +89,26 @@ class App extends Component {
               exact
               path="/tasks"
               render={() => <Tasks setScore={this.raiseScore} />}
+            />
+            <Route
+              exact
+              path="/newteam"
+              render={props => (
+                <CreateLeague
+                  {...props}
+                  userInSession={this.state.loggedInUser}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/league"
+              render={props => (
+                <MyLeague
+                  userInSession={this.state.loggedInUser}
+                  getUser={this.getTheUser}
+                />
+              )}
             />
           </Switch>
           <Footer/>

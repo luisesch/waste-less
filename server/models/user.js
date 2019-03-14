@@ -9,7 +9,7 @@ const userSchema = new Schema(
     motto: String,
     photo: { type: String, default: "/images/default_profile.jpg" },
     googleID: String,
-    leagues: [{ type: Schema.Types.ObjectId, ref: "Travel" }],
+    league: { type: Schema.Types.ObjectId, ref: "League" },
     score: { type: Number, default: 0 },
     status: {
       type: String,
