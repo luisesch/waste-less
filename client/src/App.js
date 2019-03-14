@@ -16,7 +16,9 @@ import MyLeague from "./components/league/MyLeague";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null };
+    this.state = {
+      loggedInUser: []
+    };
     this.authService = new AuthService();
     this.taskService = new TaskService();
   }
@@ -26,7 +28,6 @@ class App extends Component {
       this.authService
         .loggedin()
         .then(response => {
-          // console.log(response);
           this.setState({
             loggedInUser: response
           });
@@ -91,7 +92,9 @@ class App extends Component {
               render={props => (
                 <CreateLeague
                   {...props}
+                  // updateUser={this.fetchUser}
                   userInSession={this.state.loggedInUser}
+                  getUser={this.getTheUser}
                 />
               )}
             />
@@ -99,10 +102,7 @@ class App extends Component {
               exact
               path="/league"
               render={props => (
-                <MyLeague
-                  userInSession={this.state.loggedInUser}
-                  getUser={this.getTheUser}
-                />
+                <MyLeague userInSession={this.state.loggedInUser} />
               )}
             />
           </Switch>
