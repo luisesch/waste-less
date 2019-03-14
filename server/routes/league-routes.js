@@ -18,7 +18,7 @@ leagueRoutes.get("/leagues/:userId", (req, res, next) => {
 
 leagueRoutes.post("/members", (req, res, next) => {
   const leagueId = req.body.leagueId;
-
+  console.log(leagueId);
   League.findById(leagueId)
     .populate("members.info")
     .exec((err, response) => {
