@@ -15,8 +15,7 @@ import TaskService from "./components/tasks/task-service";
 import MyLeague from "./components/league/MyLeague";
 import Footer from "./components/Footer";
 
-import 'bootstrap/dist/css/bootstrap.css';
-
+import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   constructor(props) {
@@ -72,46 +71,41 @@ class App extends Component {
             userInSession={this.state.loggedInUser}
             getUser={this.getTheUser}
           />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Dashboard userInSession={this.state.loggedInUser} />
-              )}
-            />
-            <Route
-              exact
-              path="/welcome"
-              render={() => <Welcome userInSession={this.state.loggedInUser} />}
-            />
-            <Route
-              exact
-              path="/tasks"
-              render={() => <Tasks setScore={this.raiseScore} />}
-            />
-            <Route
-              exact
-              path="/newteam"
-              render={props => (
-                <CreateLeague
-                  {...props}
-                  userInSession={this.state.loggedInUser}
+          <body>
+            <div className="fixfooter text-center">
+              <Switch>
+                <Route exact path="/" render={() => <Dashboard />} />
+                <Route exact path="/welcome" render={() => <Welcome />} />
+                <Route
+                  exact
+                  path="/tasks"
+                  render={() => <Tasks setScore={this.raiseScore} />}
                 />
-              )}
-            />
-            <Route
-              exact
-              path="/league"
-              render={props => (
-                <MyLeague
-                  userInSession={this.state.loggedInUser}
-                  getUser={this.getTheUser}
+                <Route
+                  exact
+                  path="/newleague"
+                  render={props => (
+                    // only thing that's needed is id and that doesn't change
+                    <CreateLeague
+                      {...props}
+                      userInSession={this.state.loggedInUser}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Switch>
-          <Footer/>
+                <Route
+                  exact
+                  path="/league"
+                  render={props => (
+                    <MyLeague
+                      userInSession={this.state.loggedInUser}
+                      getUser={this.getTheUser}
+                    />
+                  )}
+                />
+              </Switch>
+            </div>
+          </body>
+          <Footer />
         </div>
       );
       //if user is not logged in
@@ -119,21 +113,23 @@ class App extends Component {
       return (
         <div className="App container-responsive fixed">
           <Navbar userInSession={this.state.loggedInUser} />
-         
+
           <div className="rightBar container-responsive absolute">
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => <Home getUser={this.getTheUser} />}
-            />
-            <Route
-              exact
-              path="/signup"
-              render={props => <Signup {...props} getUser={this.getTheUser} />}
-            />
-          </Switch>
-          <Footer/>
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => <Home getUser={this.getTheUser} />}
+              />
+              <Route
+                exact
+                path="/signup"
+                render={props => (
+                  <Signup {...props} getUser={this.getTheUser} />
+                )}
+              />
+            </Switch>
+            <Footer />
           </div>
         </div>
       );
