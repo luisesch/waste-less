@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./components/auth/Home";
 import Signup from "./components/auth/Signup";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
 import Dashboard from "./components/user/Dashboard";
 import Welcome from "./components/auth/Welcome";
@@ -63,6 +64,7 @@ class App extends Component {
 
   render() {
     this.fetchUser();
+
     //if user is logged in
     if (this.state.loggedInUser) {
       return (
@@ -71,40 +73,51 @@ class App extends Component {
             userInSession={this.state.loggedInUser}
             getUser={this.getTheUser}
           />
-          <body>
-            <div className="fixfooter text-center">
-              <Switch>
-                <Route exact path="/" render={() => <Dashboard />} />
-                <Route exact path="/welcome" render={() => <Welcome />} />
-                <Route
-                  exact
-                  path="/tasks"
-                  render={() => <Tasks setScore={this.raiseScore} />}
-                />
-                <Route
-                  exact
-                  path="/newleague"
-                  render={props => (
-                    // only thing that's needed is id and that doesn't change
-                    <CreateLeague
-                      {...props}
-                      userInSession={this.state.loggedInUser}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path="/league"
-                  render={props => (
-                    <MyLeague
-                      userInSession={this.state.loggedInUser}
-                      getUser={this.getTheUser}
-                    />
-                  )}
-                />
-              </Switch>
-            </div>
-          </body>
+          <div className="fixfooter text-center">
+            <Switch>
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/"
+                component={Dashboard}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/welcome"
+                component={Welcome}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/tasks"
+                component={() => <Tasks setScore={this.raiseScore} />}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/newleague"
+                component={props => (
+                  // only thing that's needed is id and that doesn't change
+                  <CreateLeague
+                    {...props}
+                    userInSession={this.state.loggedInUser}
+                  />
+                )}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/league"
+                component={props => (
+                  <MyLeague
+                    userInSession={this.state.loggedInUser}
+                    getUser={this.getTheUser}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
           <Footer />
         </div>
       );
@@ -117,16 +130,47 @@ class App extends Component {
           <div className="rightBar container-responsive absolute">
             <Switch>
               <Route
+                user={this.state.loggedInUser}
                 exact
                 path="/"
-                render={() => <Home getUser={this.getTheUser} />}
+                component={() => <Home getUser={this.getTheUser} />}
               />
               <Route
+                user={this.state.loggedInUser}
                 exact
                 path="/signup"
-                render={props => (
+                component={props => (
                   <Signup {...props} getUser={this.getTheUser} />
                 )}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/league"
+                component={props => (
+                  <MyLeague
+                    userInSession={this.state.loggedInUser}
+                    getUser={this.getTheUser}
+                  />
+                )}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/newleague"
+                component={props => (
+                  // only thing that's needed is id and that doesn't change
+                  <CreateLeague
+                    {...props}
+                    userInSession={this.state.loggedInUser}
+                  />
+                )}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/tasks"
+                component={() => <Tasks setScore={this.raiseScore} />}
               />
             </Switch>
             <Footer />
