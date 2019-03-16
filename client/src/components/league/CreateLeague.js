@@ -29,9 +29,12 @@ class CreateLeague extends Component {
         });
       })
       .catch(err => console.log(err));
-    this.userService.showAll().then(response => {
-      this.setState({ users: response });
-    });
+    this.userService
+      .showAll()
+      .then(response => {
+        this.setState({ users: response });
+      })
+      .catch(err => console.log(err));
   }
 
   handleChange = event => {

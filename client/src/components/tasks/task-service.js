@@ -13,7 +13,8 @@ class TaskService {
     // console.log(newScore);
     return this.service
       .post("/user/score", { newScore, user })
-      .then(response => response.data);
+      .then(response => response.data)
+      .catch(err => console.log(err));
   };
 }
 

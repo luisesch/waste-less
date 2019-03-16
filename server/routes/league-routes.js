@@ -71,7 +71,9 @@ leagueRoutes.post("/leagues", (req, res, next) => {
         { _id: member.info },
         { $set: { league: { info: aNewLeague._id, confirmed: false } } },
         { new: true }
-      ).then(response => console.log(response))
+      )
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
     );
 
     // Send the team's information to the frontend
@@ -87,15 +89,17 @@ leagueRoutes.post("/addMember", (req, res, next) => {
     { _id: userId },
     { $set: { league: { info: leagueId, confirmed: false } } },
     { new: true }
-  ).then(response => res.status(200).json(response));
+  )
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
 });
 
 //get members
 leagueRoutes.get("/leagues/:leagueId/members", (req, res, next) => {
   const leagueId = req.params.leagueId;
-  User.find({ "league.info": leagueId }).then(response =>
-    res.status(200).json(response)
-  );
+  User.find({ "league.info": leagueId })
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
 });
 
 // enter league
@@ -107,7 +111,9 @@ leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
     { _id: userId },
     { $set: { league: { info: leagueId, confirmed: true } } },
     { new: true }
-  ).then(response => res.status(200).json(response));
+  )
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
 });
 
 leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
@@ -117,7 +123,9 @@ leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
     { _id: leagueId },
     { $set: { status: "active" }, $currentDate: { startDate: true } },
     { new: true }
-  ).then(response => res.status(200).json(response));
+  )
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
 });
 
 module.exports = leagueRoutes;
