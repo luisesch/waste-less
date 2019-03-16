@@ -33,29 +33,16 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <div className="row min-vh-100">
-          <div className="leftBar col-7">
-            <br />
-            <br />
-            <br />
-            <label
-              className="text-center font-weight-bold"
-              htmlFor="exampleCheck1"
-            >
-              <h1 className="Header">
-                {" "}
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy
-              </h1>
-            </label>
+        <div className="row">
+          <div className="leftBar col-xs-12 col-md-7 pt-5">
+            <h1 className="header">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+              nonumy
+            </h1>
           </div>
-          <div className="rightBar col-5">
-            <br />
-            <br />
-            <h3 className="fontForm">Login with your account</h3>
 
-            <br />
-            <br />
+          <div className="rightBar col-xs-12 col-md-5 pt-5 px-5">
+            <h3 className="fontForm">Login with your account</h3>
 
             <form onSubmit={this.handleFormSubmit}>
               <div className="form-group">

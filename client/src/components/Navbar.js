@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "./auth/auth-service";
+import "./Navbar.css";
 
 class Navbar extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Navbar extends Component {
     //if user is logged in
     if (this.state.loggedInUser) {
       return (
-        <nav className="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
+        <nav className="navbar navbar-light bg-light navbar-fixed-top">
           <Link to="/" className="navbar-brand">
             Home
           </Link>

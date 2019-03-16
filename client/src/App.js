@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 // import axios from "axios";
 import { Switch, Route } from "react-router-dom";
@@ -15,8 +16,6 @@ import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
 import MyLeague from "./components/league/MyLeague";
 import Footer from "./components/Footer";
-
-import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   constructor(props) {
@@ -125,10 +124,10 @@ class App extends Component {
       //if user is not logged in
     } else {
       return (
-        <div className="App container-responsive fixed">
+        <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
 
-          <div className="rightBar container-responsive absolute">
+          <div className="container-fluid">
             <Switch>
               <Route
                 user={this.state.loggedInUser}
