@@ -6,8 +6,8 @@ const User = require("../models/user");
 // get all users
 userRoutes.get("/users", (req, res, next) => {
   User.find()
-    .then(allLeagues => {
-      res.status(200).json(allLeagues);
+    .then(allUser => {
+      res.status(200).json(allUsers);
     })
     .catch(err => {
       res.json(err);

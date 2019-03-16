@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import LeagueService from "./league-service";
 import UserService from "../user/user-service";
 import UserSearch from "../user/UserSearch";
+import AuthService from "../auth/auth-service";
 
 class CreateLeague extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      loggedInUser: null,
       name: "",
       members: [],
       users: null,
@@ -15,12 +17,24 @@ class CreateLeague extends Component {
     };
     this.leagueService = new LeagueService();
     this.userService = new UserService();
+    this.authService = new AuthService();
   }
 
   componentDidMount() {
-    this.userService.showAll().then(response => {
-      this.setState({ users: response });
-    });
+    this.authService
+      .loggedin()
+      .then(response => {
+        this.setState({
+          loggedInUser: response
+        });
+      })
+      .catch(err => console.log(err));
+    this.userService
+      .showAll()
+      .then(response => {
+        this.setState({ users: response });
+      })
+      .catch(err => console.log(err));
   }
 
   handleChange = event => {
@@ -40,7 +54,7 @@ class CreateLeague extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     const name = this.state.name;
-    const administrator = this.props.userInSession._id;
+    const administrator = this.state.loggedInUser._id;
 
     let members = [];
     this.state.members.forEach(member => {

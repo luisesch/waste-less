@@ -21,7 +21,9 @@ import "bootstrap/dist/css/bootstrap.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null };
+    this.state = {
+      loggedInUser: null
+    };
     this.authService = new AuthService();
     this.taskService = new TaskService();
   }
@@ -31,7 +33,6 @@ class App extends Component {
       this.authService
         .loggedin()
         .then(response => {
-          // console.log(response);
           this.setState({
             loggedInUser: response
           });

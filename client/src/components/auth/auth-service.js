@@ -12,21 +12,29 @@ class AuthService {
   signup = (username, password) => {
     return this.service
       .post("/signup", { username, password })
-      .then(response => response.data);
+      .then(response => response.data)
+      .catch(err => console.log(err));
   };
 
   login = (username, password) => {
     return this.service
       .post("/login", { username, password })
-      .then(response => response.data);
+      .then(response => response.data)
+      .catch(err => console.log(err));
   };
 
   logout = () => {
-    return this.service.post("/logout", {}).then(response => response.data);
+    return this.service
+      .post("/logout", {})
+      .then(response => response.data)
+      .catch(err => console.log(err));
   };
 
   loggedin = () => {
-    return this.service.get("/loggedin").then(response => response.data);
+    return this.service
+      .get("/loggedin")
+      .then(response => response.data)
+      .catch(err => console.log(err));
   };
 }
 
