@@ -16,7 +16,8 @@ class MyLeague extends Component {
       selectedMember: [],
       filteredUsers: [],
       users: null,
-      loggedInUser: null
+      loggedInUser: null,
+      allConfirmed: true
     };
     this.leagueService = new LeagueService();
     this.userService = new UserService();
@@ -36,16 +37,17 @@ class MyLeague extends Component {
           this.setState({ league: false });
           // if user has league
         } else {
-          const leagueId = this.state.loggedInUser.league;
-          //get current league
+          const leagueId = this.state.loggedInUser.league.info;
+          // console.log(leagueId);
+          //get user's league
           this.leagueService
             .getLeague(leagueId)
             .then(response => this.setState({ league: response }));
-          //get members of current league
+
           this.leagueService
             .getMembers(leagueId)
             .then(response => this.setState({ members: response }));
-          //get all users
+
           this.userService.showAll().then(response => {
             this.setState({ users: response });
           });
@@ -70,8 +72,7 @@ class MyLeague extends Component {
   addUser = async event => {
     const userId = event.target.value;
     const leagueId = this.state.league._id;
-    const res = await this.leagueService.addMember(leagueId, userId);
-    await this.setState({ league: res });
+    await this.leagueService.addMember(leagueId, userId);
 
     this.leagueService
       .getMembers(leagueId)
@@ -81,21 +82,45 @@ class MyLeague extends Component {
   deleteMember = async event => {
     let leagueId = this.state.league._id;
     let memberId = event.target.value;
-    const res = await this.leagueService.deleteMember(leagueId, memberId);
-    await this.setState({ league: res });
+    await this.leagueService.deleteMember(leagueId, memberId);
 
     this.leagueService
       .getMembers(leagueId)
       .then(response => this.setState({ members: response }));
   };
 
+  enterLeague = () => {
+    this.leagueService
+      .enterLeague(this.state.loggedInUser._id, this.state.league._id)
+      .then(response => this.setState({ loggedInUser: response }));
+  };
+
+  startLeague = async () => {
+    const leagueId = this.state.league._id;
+    await this.leagueService.startLeague(this.state.league._id);
+
+    this.leagueService
+      .getLeague(leagueId)
+      .then(response => this.setState({ league: response }));
+  };
+
   render() {
-    if (!this.state.league) {
+    //if state doesn't exist or is still empty - to avoid bug"
+    if (!this.state.league || Object.entries(this.state.league).length === 0) {
       return (
         <div>
           <p>You haven't created any leagues yet.</p>
           <Link to="/newleague">Create new league</Link>
         </div>
+      );
+    } else if (!this.state.loggedInUser.league.confirmed) {
+      return (
+        <p>
+          You have been invited to join the league{" "}
+          <strong>{this.state.league.name}</strong>.
+          <br />
+          <button onClick={this.enterLeague}>Join league</button>
+        </p>
       );
     } else {
       return (
@@ -103,48 +128,85 @@ class MyLeague extends Component {
           <h2>Your league</h2>
           <h3>Name</h3>
           <p>{this.state.league.name}</p>
+
           <h3>Members</h3>
-          <ul>
-            {this.state.members.map((member, index) => {
-              return (
-                <li key={index}>
-                  {member.info.username} <br />
-                  {member.info.confirmed ? "confirmed" : "waiting"}
-                  <br />
-                  <button
-                    name="deleteMember"
-                    type="submit"
-                    value={member.info._id}
-                    onClick={this.deleteMember}
-                  >
-                    Delete
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <p>
-            <strong>Add members</strong>
-          </p>
-          <UserSearch searchUsers={this.searchUserHandler} />
-          <ul>
-            {this.state.filteredUsers.map((user, index) => {
-              // turn object into string
-              return (
-                <li key={index}>
-                  {user.username}
-                  <button
-                    className="btn"
-                    htmlFor="user"
-                    value={user._id}
-                    onClick={this.addUser}
-                  >
-                    Add
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          {/* show delete button and status of members, only if loggedin user s administrator */}
+          {this.state.league.administrator._id ===
+          this.state.loggedInUser._id ? (
+            <ul>
+              <li>
+                Admin:
+                {this.state.league.administrator.username}
+              </li>
+
+              {this.state.members.map((member, index) => {
+                return (
+                  <li key={index}>
+                    {member.username} <br />
+                    {member.league.confirmed ? "confirmed" : "waiting"}
+                    <br />
+                    <button
+                      name="deleteMember"
+                      type="submit"
+                      value={member._id}
+                      onClick={this.deleteMember}
+                    >
+                      Delete
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            // if loggedin user is not administrator, only show member names
+            <ul>
+              <li>
+                Admin:
+                {this.state.league.administrator.username}
+              </li>
+
+              {this.state.members.map((member, index) => {
+                return <li key={index}>{member.username}</li>;
+              })}
+            </ul>
+          )}
+
+          {/* only show add option, if loggedin user is administrator */}
+          {this.state.league.administrator._id ===
+          this.state.loggedInUser._id ? (
+            <div>
+              <p>
+                <strong>Add members</strong>
+              </p>
+              <UserSearch searchUsers={this.searchUserHandler} />
+              <ul>
+                {this.state.filteredUsers.map((user, index) => {
+                  // turn object into string
+                  return (
+                    <li key={index}>
+                      {user.username}
+                      <button
+                        className="btn"
+                        htmlFor="user"
+                        value={user._id}
+                        onClick={this.addUser}
+                      >
+                        Add
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              {/* check, if all members have confirmed */}
+              {this.state.members.every(member => {
+                return member.league.confirmed === true;
+              }) ? (
+                <button onClick={this.startLeague}>Let the games begin</button>
+              ) : (
+                <button>Waiting for all members to confirm</button>
+              )}
+            </div>
+          ) : null}
         </div>
       );
     }

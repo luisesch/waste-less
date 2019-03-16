@@ -21,9 +21,9 @@ class LeagueService {
       .then(response => response.data);
   };
 
-  getMembers = leagueId => {
+  enterLeague = (userId, leagueId) => {
     return this.service
-      .post("/members", { leagueId })
+      .put("leagues/" + leagueId + "/enterLeague/" + userId)
       .then(response => response.data);
   };
 
@@ -36,6 +36,18 @@ class LeagueService {
   addMember = (leagueId, userId) => {
     return this.service
       .post("/addMember", { leagueId, userId })
+      .then(response => response.data);
+  };
+
+  getMembers = leagueId => {
+    return this.service
+      .get("/leagues/" + leagueId + "/members")
+      .then(response => response.data);
+  };
+
+  startLeague = leagueId => {
+    return this.service
+      .put("/leagues/" + leagueId + "/start")
       .then(response => response.data);
   };
 }
