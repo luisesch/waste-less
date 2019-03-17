@@ -6,17 +6,12 @@ const leagueSchema = new Schema(
     id: String,
     name: String,
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
-    members: [
-      {
-        info: { type: Schema.Types.ObjectId, ref: "User" },
-        confirmed: { type: Boolean, default: false }
-      }
-    ],
     status: {
       type: String,
-      enum: ["active", "completed"],
-      default: "active"
-    }
+      enum: ["waiting", "active", "completed"],
+      default: "waiting"
+    },
+    startDate: Date
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

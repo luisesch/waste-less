@@ -10,7 +10,12 @@ class UserService {
   }
 
   showAll = () => {
-    return this.service.get("/users").then(response => response.data);
+    return this.service
+      .get("/users")
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => console.log(err));
   };
 }
 
