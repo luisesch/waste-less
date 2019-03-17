@@ -41,7 +41,7 @@ class Navbar extends Component {
             <button
               className="mx-2"
               type="button"
-              class="btn btn-outline-success"
+              className="btn btn-outline-success"
             >
               Score {this.state.loggedInUser.score}
             </button>

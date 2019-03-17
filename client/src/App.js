@@ -15,6 +15,7 @@ import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
 import MyLeague from "./components/league/MyLeague";
 import Footer from "./components/Footer";
+import Profile from "./components/user/Profile";
 
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -115,6 +116,12 @@ class App extends Component {
                     getUser={this.getTheUser}
                   />
                 )}
+              />
+                <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/profile"
+                component={Profile}
               />
             </Switch>
           </div>
