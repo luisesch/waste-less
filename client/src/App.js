@@ -3,8 +3,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 // import axios from "axios";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/auth/Home";
-import Signup from "./components/auth/Signup";
+import HomeSignup from "./components/auth/Home-signup";
+import HomeLogin from "./components/auth/Home-login";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
@@ -134,15 +134,15 @@ class App extends Component {
                 exact
                 path="/"
                 component={props => (
-                  <Home {...props} getUser={this.getTheUser} />
+                  <HomeSignup {...props} getUser={this.getTheUser} />
                 )}
               />
               <Route
                 user={this.state.loggedInUser}
                 exact
-                path="/signup"
+                path="/login"
                 component={props => (
-                  <Signup {...props} getUser={this.getTheUser} />
+                  <HomeLogin {...props} getUser={this.getTheUser} />
                 )}
               />
               <ProtectedRoute

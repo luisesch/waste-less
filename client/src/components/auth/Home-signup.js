@@ -49,7 +49,6 @@ class Home extends Component {
             </h1>
           </div>
           <div className="rightBar col-xs-12 col-md-5 pt-5 px-5">
-            <Login login={this.login} />
             <Signup signup={this.signup} />
           </div>
         </div>

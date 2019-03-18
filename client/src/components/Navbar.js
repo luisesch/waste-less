@@ -63,14 +63,14 @@ class Navbar extends Component {
           </Link>
           <form className="form-inline">
             <Link
-              to="/"
+              to="/login"
               className="navbar-brand"
               style={{ textDecoration: "none" }}
             >
               Login
             </Link>
             <Link
-              to="/signup"
+              to="/"
               className="navbar-brand"
               style={{ textDecoration: "none" }}
             >

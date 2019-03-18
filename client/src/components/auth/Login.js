@@ -10,7 +10,7 @@ class Login extends Component {
   }
 
   handleFormSubmit = event => {
-    // event.preventDefault();
+    event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
 
@@ -37,10 +37,6 @@ class Login extends Component {
               aria-describedby="emailHelp"
               placeholder="Username"
             />
-
-            <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone else.
-            </small>
           </div>
 
           <div className="form-group">
@@ -54,17 +50,6 @@ class Login extends Component {
             />
           </div>
 
-          <div className="form-group form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              I accept the terms of use and privacy statement{" "}
-            </label>
-          </div>
-
           <button type="submit" className="btn btn-primary" value="Login">
             Submit
           </button>
@@ -72,8 +57,7 @@ class Login extends Component {
           <br />
         </form>
         <p>
-          You don't have an account?
-          <Link to={"/signup"}> Sign up</Link> here
+          Don't have an account yet? Sign up<Link to={"/"}> here</Link>
         </p>
       </div>
     );

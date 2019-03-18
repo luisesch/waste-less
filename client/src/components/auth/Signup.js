@@ -52,6 +52,17 @@ class Signup extends Component {
             />
           </div>
 
+          <div className="form-group form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+            />
+            <label className="form-check-label" htmlFor="exampleCheck1">
+              I accept the terms of use and privacy statement{" "}
+            </label>
+          </div>
+
           <button type="submit" className="btn btn-primary" value="Signup">
             Submit
           </button>
@@ -63,7 +74,7 @@ class Signup extends Component {
 
         <p>
           Already have an account?
-          <Link to={"/"}> Login</Link>
+          <Link to={"/login"}> Login</Link>
         </p>
       </div>
     );
