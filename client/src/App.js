@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 // import axios from "axios";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/auth/Home";
-import Signup from "./components/auth/Signup";
+import HomeSignup from "./components/auth/Home-signup";
+import HomeLogin from "./components/auth/Home-login";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
@@ -16,8 +17,6 @@ import TaskService from "./components/tasks/task-service";
 import MyLeague from "./components/league/MyLeague";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
-
-import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
   constructor(props) {
@@ -132,23 +131,25 @@ class App extends Component {
       //if user is not logged in
     } else {
       return (
-        <div className="App container-responsive fixed">
+        <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
 
-          <div className="rightBar container-responsive absolute">
+          <div className="container-fluid">
             <Switch>
               <Route
                 user={this.state.loggedInUser}
                 exact
                 path="/"
-                component={() => <Home getUser={this.getTheUser} />}
+                component={props => (
+                  <HomeSignup {...props} getUser={this.getTheUser} />
+                )}
               />
               <Route
                 user={this.state.loggedInUser}
                 exact
-                path="/signup"
+                path="/login"
                 component={props => (
-                  <Signup {...props} getUser={this.getTheUser} />
+                  <HomeLogin {...props} getUser={this.getTheUser} />
                 )}
               />
               <ProtectedRoute
