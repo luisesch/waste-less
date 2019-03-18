@@ -18,24 +18,28 @@ class Home extends Component {
       .login(username, password)
       .then(response => {
         this.props.getUser(response);
+        this.props.history.push("/");
       })
       .catch(error => console.log(error));
   };
 
   signup = (username, password) => {
-    this.service.signup(username, password).then(response => {
-      if (response.message) {
-        this.setState({ message: response.message });
-      } else {
-        this.setState({
-          username: "",
-          password: "",
-          message: ""
-        });
-        this.props.getUser(response);
-        this.props.history.push("/welcome");
-      }
-    });
+    this.service
+      .signup(username, password)
+      .then(response => {
+        if (response.message) {
+          this.setState({ message: response.message });
+        } else {
+          this.setState({
+            username: "",
+            password: "",
+            message: ""
+          });
+          this.props.getUser(response);
+          this.props.history.push("/welcome");
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   render() {
