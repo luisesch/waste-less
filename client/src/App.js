@@ -133,7 +133,9 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/"
-                component={() => <Home getUser={this.getTheUser} />}
+                component={props => (
+                  <Home {...props} getUser={this.getTheUser} />
+                )}
               />
               <Route
                 user={this.state.loggedInUser}

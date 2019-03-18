@@ -1,33 +1,41 @@
 import React, { Component } from "react";
 import AuthService from "./auth-service";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// import { Switch, Route } from "react-router-dom";
+import Login from "./Login";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Home.css";
+import Signup from "./Signup";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "" };
     this.service = new AuthService();
   }
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
+  login = (username, password) => {
     this.service
       .login(username, password)
       .then(response => {
-        this.setState({ username: "", password: "" });
         this.props.getUser(response);
-        // this.props.history.push("/profile");
       })
       .catch(error => console.log(error));
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  signup = (username, password) => {
+    this.service.signup(username, password).then(response => {
+      if (response.message) {
+        this.setState({ message: response.message });
+      } else {
+        this.setState({
+          username: "",
+          password: "",
+          message: ""
+        });
+        this.props.getUser(response);
+        this.props.history.push("/welcome");
+      }
+    });
   };
 
   render() {
@@ -40,61 +48,9 @@ class Home extends Component {
               nonumy
             </h1>
           </div>
-
           <div className="rightBar col-xs-12 col-md-5 pt-5 px-5">
-            <h3 className="fontForm">Login with your account</h3>
-
-            <form onSubmit={this.handleFormSubmit}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  name="username"
-                  value={this.state.username}
-                  onChange={e => this.handleChange(e)}
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Username"
-                />
-
-                <small id="emailHelp" className="form-text text-muted">
-                  We'll never share your email with anyone else.
-                </small>
-              </div>
-
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={this.state.password}
-                  onChange={e => this.handleChange(e)}
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                />
-              </div>
-
-              <div className="form-group form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  I accept the terms of use and privacy statement{" "}
-                </label>
-              </div>
-
-              <button type="submit" className="btn btn-primary" value="Login">
-                Submit
-              </button>
-              <br />
-              <br />
-            </form>
-            <p>
-              You don't have an account?
-              <Link to={"/signup"}> Sign up</Link> here
-            </p>
+            <Login login={this.login} />
+            <Signup signup={this.signup} />
           </div>
         </div>
       </div>

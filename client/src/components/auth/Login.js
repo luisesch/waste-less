@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthService from "./auth-service";
 import { Link } from "react-router-dom";
 
-class Signup extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = { username: "", password: "", message: "" };
@@ -10,10 +10,11 @@ class Signup extends Component {
   }
 
   handleFormSubmit = event => {
-    event.preventDefault();
+    // event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    this.props.signup(username, password);
+
+    this.props.login(username, password);
   };
 
   handleChange = event => {
@@ -24,7 +25,7 @@ class Signup extends Component {
   render() {
     return (
       <div>
-        <h3 className="fontForm">Signup</h3>
+        <h3 className="fontForm">Login with your account</h3>
         <form onSubmit={this.handleFormSubmit}>
           <div className="form-group">
             <input
@@ -33,11 +34,12 @@ class Signup extends Component {
               value={this.state.username}
               onChange={e => this.handleChange(e)}
               className="form-control"
+              aria-describedby="emailHelp"
               placeholder="Username"
             />
 
             <small id="emailHelp" className="form-text text-muted">
-              We'll never share your email with anyone.
+              We'll never share your email with anyone else.
             </small>
           </div>
 
@@ -52,22 +54,30 @@ class Signup extends Component {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" value="Signup">
+          <div className="form-group form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+            />
+            <label className="form-check-label" htmlFor="exampleCheck1">
+              I accept the terms of use and privacy statement{" "}
+            </label>
+          </div>
+
+          <button type="submit" className="btn btn-primary" value="Login">
             Submit
           </button>
+          <br />
+          <br />
         </form>
-
-        <div className="message">
-          <p>{this.state.message}</p>
-        </div>
-
         <p>
-          Already have an account?
-          <Link to={"/"}> Login</Link>
+          You don't have an account?
+          <Link to={"/signup"}> Sign up</Link> here
         </p>
       </div>
     );
   }
 }
 
-export default Signup;
+export default Login;
