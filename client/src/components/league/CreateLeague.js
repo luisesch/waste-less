@@ -29,6 +29,7 @@ class CreateLeague extends Component {
         });
       })
       .catch(err => console.log(err));
+    // get all users
     this.userService
       .showAll()
       .then(response => {
@@ -78,6 +79,7 @@ class CreateLeague extends Component {
       this.setState({ filteredUsers: [] });
     } else {
       let filteredUsers = this.state.users.filter(user => {
+        console.log(user);
         const userLowerCase = user.username.toLowerCase();
         const filter = query;
         return userLowerCase.includes(filter);
