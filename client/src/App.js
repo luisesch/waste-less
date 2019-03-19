@@ -79,7 +79,7 @@ class App extends Component {
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
-                path="/"
+                path="/dashboard"
                 component={Dashboard}
               />
               <ProtectedRoute
@@ -117,7 +117,7 @@ class App extends Component {
                   />
                 )}
               />
-                <ProtectedRoute
+              <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
                 path="/profile"
