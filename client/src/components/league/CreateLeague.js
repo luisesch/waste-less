@@ -69,7 +69,7 @@ class CreateLeague extends Component {
           name: "",
           members: []
         });
-        this.props.history.push("/league");
+        this.props.history.push("/myleague");
       })
       .catch(error => console.log(error));
   };

@@ -4,14 +4,12 @@ const leagueRoutes = express.Router();
 const League = require("../models/league");
 const User = require("../models/user");
 
-let utc = new Date()
-  .toJSON()
-  .slice(0, 10)
-  .replace(/-/g, "/");
+const moment = require("moment");
 
 // get one league by ID
 leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
   // console.log("getting league");
+  console.log(moment().format("MMM Do YY"));
   const leagueId = req.params.leagueId;
   // console.log(req.params.leagueId);
 
@@ -117,10 +115,29 @@ leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
 
 leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
   const leagueId = req.params.leagueId;
+  const startDate = moment().format("L");
 
   League.findOneAndUpdate(
     { _id: leagueId },
-    { $set: { status: "active" }, $currentDate: { startDate: true } },
+    { $set: { status: "active", startDate: startDate } },
+    { new: true }
+  )
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
+});
+
+// if 30 days are over, change status of league to "completed" and move league to completedLeagues Array
+leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
+  const leagueId = req.params.leagueId;
+
+  User.updateMany(
+    { "league.info": leagueId },
+    { $push: { completedLeagues: leagueId } }
+  );
+
+  League.findOneAndUpdate(
+    { _id: leagueId },
+    { $set: { status: "completed" } },
     { new: true }
   )
     .then(response => res.status(200).json(response))

@@ -14,7 +14,7 @@ import Welcome from "./components/auth/Welcome";
 import Tasks from "./components/tasks/Tasks";
 import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
-import MyLeague from "./components/league/MyLeague";
+import Highscore from "./components/league/Highscore";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
 
@@ -79,7 +79,7 @@ class App extends Component {
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
-                path="/dashboard"
+                path="/myleague"
                 component={Dashboard}
               />
               <ProtectedRoute
@@ -109,9 +109,9 @@ class App extends Component {
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
-                path="/league"
+                path="/myleague/highscore"
                 component={props => (
-                  <MyLeague
+                  <Highscore
                     userInSession={this.state.loggedInUser}
                     getUser={this.getTheUser}
                   />
@@ -155,31 +155,27 @@ class App extends Component {
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
-                path="/league"
-                component={props => (
-                  <MyLeague
-                    userInSession={this.state.loggedInUser}
-                    getUser={this.getTheUser}
-                  />
-                )}
+                path="/myleague"
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
                 path="/newleague"
-                component={props => (
-                  // only thing that's needed is id and that doesn't change
-                  <CreateLeague
-                    {...props}
-                    userInSession={this.state.loggedInUser}
-                  />
-                )}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
                 path="/tasks"
-                component={() => <Tasks setScore={this.raiseScore} />}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/profile"
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/myleague/highscore"
               />
             </Switch>
             <Footer />

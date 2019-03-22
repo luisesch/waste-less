@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import LeagueService from "./league-service";
+import Moment from "moment";
 
 class ActiveLeague extends Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class ActiveLeague extends Component {
     this.state = {
       league: this.props.league,
       loggedInUser: this.props.loggedInUser,
-      members: []
+      members: [],
+      endDate: ""
     };
     this.leagueService = new LeagueService();
   }
@@ -19,9 +21,13 @@ class ActiveLeague extends Component {
     this.leagueService
       .getMembers(leagueId)
       .then(response => {
-        let sortedMembers = [...response];
-        sortedMembers.sort((a, b) => b.score - a.score);
-        this.setState({ members: sortedMembers });
+        response.sort((a, b) => b.score - a.score);
+        this.setState({
+          members: response,
+          endDate: Moment(this.state.league.startDate, "L")
+            .add(30, "days")
+            .calendar()
+        });
       })
       .catch(err => console.log(err));
   }
@@ -33,7 +39,8 @@ class ActiveLeague extends Component {
       return (
         <div>
           <h2>{this.state.league.name}</h2>
-          <p>Started on: {this.state.league.startDate.slice(0, -14)}</p>
+          <p>Started on: {this.state.league.startDate}</p>
+          <p>Ends {Moment(this.state.endDate, "L").fromNow()}</p>
           <table className="table">
             <thead>
               <tr>

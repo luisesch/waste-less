@@ -5,7 +5,6 @@ import AuthService from "./auth-service";
 import Login from "./Login";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Home.css";
-import Signup from "./Signup";
 
 class Home extends Component {
   constructor(props) {
@@ -18,7 +17,7 @@ class Home extends Component {
       .login(username, password)
       .then(response => {
         this.props.getUser(response);
-        this.props.history.push("/dashboard");
+        this.props.history.push("/myleague");
       })
       .catch(error => console.log(error));
   };

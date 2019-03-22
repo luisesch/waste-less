@@ -11,7 +11,7 @@ const leagueSchema = new Schema(
       enum: ["waiting", "active", "completed"],
       default: "waiting"
     },
-    startDate: Date
+    startDate: String
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
