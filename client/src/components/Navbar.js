@@ -26,15 +26,15 @@ class Navbar extends Component {
     if (this.state.loggedInUser) {
       return (
         <nav className="navbar navbar-light bg-light navbar-fixed-top">
-          <Link to="/" className="navbar-brand">
+          <Link to="/myleague" className="navbar-brand">
             Home
           </Link>
           <form className="form-inline">
-            <Link to="/dashboard" className="navbar-brand">
-              Dashboard
+            <Link to="/tasks" className="navbar-brand">
+              Tasks
             </Link>
-            <Link to="/league" className="navbar-brand">
-              League
+            <Link to="/myleague" className="navbar-brand">
+              My league
             </Link>
             <Link to="/profile" className="navbar-brand">
               Profile
@@ -42,15 +42,14 @@ class Navbar extends Component {
             <button className="mx-2 btn btn-outline-success" type="button">
               Score {this.state.loggedInUser.score}
             </button>
-            <Link to="/" className="navbar-brand">
-              <button
-                onClick={() => this.logoutUser()}
-                type="button"
-                className="btn btn-outline-dark"
-              >
-                Logout
-              </button>
-            </Link>
+
+            <button
+              onClick={() => this.logoutUser()}
+              type="button"
+              className="btn btn-outline-dark"
+            >
+              Logout
+            </button>
           </form>
         </nav>
       );

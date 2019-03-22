@@ -57,6 +57,13 @@ class LeagueService {
       .then(response => response.data)
       .catch(err => console.log(err));
   };
+
+  endLeague = leagueId => {
+    return this.service
+      .put("/leagues/" + leagueId + "/end")
+      .then(response => response.data)
+      .catch(err => console.log(err));
+  };
 }
 
 export default LeagueService;

@@ -13,6 +13,7 @@ const userSchema = new Schema(
       info: { type: Schema.Types.ObjectId, ref: "League" },
       confirmed: { type: Boolean, default: false }
     },
+    completedLeagues: [{ type: Schema.Types.ObjectId, ref: "League" }],
     score: { type: Number, default: 0 },
     status: {
       type: String,
