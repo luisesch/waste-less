@@ -1,11 +1,13 @@
 [
   {
     "description": "coffee",
+    "popup": "buy a coffee and bring your own cup",
     "points": 5,
     "category": "To go"
   },
   {
     "description": "shampoo",
+    "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
     "points": 10,
     "category": "Bathroom"
   },
