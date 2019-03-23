@@ -130,16 +130,30 @@ leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
 leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
   const leagueId = req.params.leagueId;
 
-  User.updateMany(
-    { "league.info": leagueId },
-    { $push: { completedLeagues: leagueId } }
-  );
+  // User.updateMany(
+  //   { "league.info": leagueId },
+  //   { $push: { completedLeagues: leagueId } }
+  // );
 
   League.findOneAndUpdate(
     { _id: leagueId },
     { $set: { status: "completed" } },
     { new: true }
   )
+    .then(response => {
+      User.updateMany(
+        { "league.info": leagueId },
+        { $push: { completedLeagues: leagueId } }
+      ).then(response => console.log(response));
+      res.status(200).json(response);
+    })
+    .catch(err => console.log(err));
+});
+
+leagueRoutes.get("/archive/:userId", (req, res, next) => {
+  const userId = req.params.userId;
+  User.findById({ _id: userId })
+    .populate("completedLeagues")
     .then(response => res.status(200).json(response))
     .catch(err => console.log(err));
 });
