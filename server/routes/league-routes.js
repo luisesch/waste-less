@@ -17,7 +17,6 @@ leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
 
   League.findById(leagueId)
     .populate("administrator")
-    .populate("members.info")
     .exec((err, response) => {
       if (err) {
         console.log(err);

@@ -30,7 +30,7 @@ class Navbar extends Component {
             Home
           </Link>
           <form className="form-inline">
-            <Link to="/" className="navbar-brand">
+            <Link to="/dashboard" className="navbar-brand">
               Dashboard
             </Link>
             <Link to="/league" className="navbar-brand">

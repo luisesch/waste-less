@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import AuthService from '../auth/auth-service';
@@ -145,6 +146,8 @@ class Profile extends Component {
 			// </div>
 		);
 	}
+
+
 }
 
 export default Profile;

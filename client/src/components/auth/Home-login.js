@@ -18,7 +18,7 @@ class Home extends Component {
       .login(username, password)
       .then(response => {
         this.props.getUser(response);
-        this.props.history.push("/");
+        this.props.history.push("/dashboard");
       })
       .catch(error => console.log(error));
   };
