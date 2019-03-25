@@ -79,7 +79,7 @@ class CreateLeague extends Component {
       this.setState({ filteredUsers: [] });
     } else {
       let filteredUsers = this.state.users.filter(user => {
-        console.log(user);
+        // console.log(user);
         const userLowerCase = user.username.toLowerCase();
         const filter = query;
         return userLowerCase.includes(filter);
