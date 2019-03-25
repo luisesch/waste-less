@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
 import Dashboard from "./components/user/Dashboard";
 import Welcome from "./components/auth/Welcome";
+import Archive from "./components/league/Archive";
 
 import Tasks from "./components/tasks/Tasks";
 import CreateLeague from "./components/league/CreateLeague";
@@ -122,6 +123,12 @@ class App extends Component {
                 exact
                 path="/profile"
                 component={Profile}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/archive"
+                component={Archive}
               />
             </Switch>
           </div>
