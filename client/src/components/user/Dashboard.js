@@ -18,7 +18,7 @@ class Dashboard extends Component {
       selectedMember: [],
       members: [],
       league: {},
-      endDate: "",
+      endDate: "03/26/2019",
       firstThree: []
     };
     this.authService = new AuthService();
@@ -143,18 +143,18 @@ class Dashboard extends Component {
 
   // check, if league is over/30 days have passed
   leagueOver = () => {
-    const leagueId = this.state.loggedInUser.league.info;
+    const leagueId = this.state.league._id;
     if (
-      Moment().format("L") === this.state.endDate ||
-      (Moment(this.state.endDate, "L")
-        .fromNow()
-        .indexOf("ago") >= 0 &&
-        this.state.league.status === "active")
+      (Moment().format("L") === this.state.endDate ||
+        Moment(this.state.endDate, "L")
+          .fromNow()
+          .indexOf("ago") >= 0) &&
+      this.state.league.status === "active"
     ) {
       this.leagueService
         .endLeague(leagueId)
         .then(response => {
-          // console.log(response);
+          console.log(response);
           this.setState({
             league: response
           });

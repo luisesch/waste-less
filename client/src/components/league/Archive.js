@@ -40,7 +40,13 @@ class Archive extends Component {
         <h2>Completed leagues</h2>
         <ul>
           {this.state.leagues.map((league, index) => {
-            return <li key={index}>{league.name}</li>;
+            return (
+              <li key={index}>
+                {league.info.name}
+                <br />
+                <Link to={`/archive/${league.info._id}`}>Details</Link>
+              </li>
+            );
           })}
         </ul>
       </div>

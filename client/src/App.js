@@ -18,6 +18,7 @@ import TaskService from "./components/tasks/task-service";
 import Highscore from "./components/league/Highscore";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
+import ArchiveDetail from "./components/league/ArchiveDetail";
 
 class App extends Component {
   constructor(props) {
@@ -129,6 +130,12 @@ class App extends Component {
                 exact
                 path="/archive"
                 component={Archive}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/archive/:id"
+                component={ArchiveDetail}
               />
             </Switch>
           </div>
