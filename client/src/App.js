@@ -3,12 +3,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 // import axios from "axios";
 import { Switch, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import HomeSignup from "./components/auth/Home-signup";
 import HomeLogin from "./components/auth/Home-login";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
-import Dashboard from "./components/user/Dashboard";
+import MyLeague from "./components/user/MyLeague";
 import Welcome from "./components/auth/Welcome";
 import Archive from "./components/league/Archive";
 
@@ -18,7 +19,6 @@ import TaskService from "./components/tasks/task-service";
 import Highscore from "./components/league/Highscore";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
-import ArchiveDetail from "./components/league/ArchiveDetail";
 
 class App extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/myleague"
-                component={Dashboard}
+                component={props => <MyLeague {...props} />}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
@@ -135,7 +135,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/archive/:id"
-                component={ArchiveDetail}
+                component={Archive}
               />
             </Switch>
           </div>
@@ -200,4 +200,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
