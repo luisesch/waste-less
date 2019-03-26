@@ -212,6 +212,7 @@ class Dashboard extends Component {
                     <br />
                     <button
                       name="deleteMember"
+                      className="btn btn-primary"
                       type="submit"
                       value={member._id}
                       onClick={this.deleteMember}
@@ -251,7 +252,7 @@ class Dashboard extends Component {
                     <li key={index}>
                       {user.username}
                       <button
-                        className="btn"
+                        className="btn btn-primary"
                         htmlFor="user"
                         value={user._id}
                         onClick={this.addUser}
@@ -266,9 +267,9 @@ class Dashboard extends Component {
               {this.state.members.every(member => {
                 return member.league.confirmed === true;
               }) ? (
-                <button onClick={this.startLeague}>Let the games begin</button>
+                <button onClick={this.startLeague} className="btn btn-primary">Let the games begin</button>
               ) : (
-                <button>Waiting for all members to confirm</button>
+                <button className="btn btn-primary">Waiting for all members to confirm</button>
               )}
             </div>
           ) : null}
@@ -282,9 +283,10 @@ class Dashboard extends Component {
             <div className="col-lg-7">
               <img
                 className="img-fluid rounded mb-4 mb-lg-0"
-                src="http://placehold.it/900x400"
+                src={this.state.league.photo}
                 alt=""
               />
+                          
             </div>
             <div className="col-lg-5">
               <h1 className="font-weight-light">
