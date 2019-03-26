@@ -12,7 +12,7 @@ class UserSearch extends Component {
   handleChange = event => {
     event.preventDefault();
     let query = event.target.value;
-    console.log(query);
+    // console.log(query);
     this.props.searchUsers(query);
   };
 

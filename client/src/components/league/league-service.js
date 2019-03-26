@@ -73,6 +73,15 @@ class LeagueService {
       .catch(err => console.log(err));
   };
 
+
+
+  getArchive = userId => {
+    return this.service
+      .get("/archive/" + userId)
+      .then(response => response.data)
+      .catch(err => console.log(err));
+  };
+
 }
 
 export default LeagueService;

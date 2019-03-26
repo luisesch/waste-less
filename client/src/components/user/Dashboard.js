@@ -18,7 +18,7 @@ class Dashboard extends Component {
       selectedMember: [],
       members: [],
       league: {},
-      endDate: "",
+      endDate: "03/21/2019",
       firstThree: []
     };
     this.authService = new AuthService();
@@ -43,10 +43,10 @@ class Dashboard extends Component {
           .getLeague(leagueId)
           .then(response => {
             this.setState({
-              league: response,
-              endDate: Moment(response.startDate, "L")
-                .add(30, "days")
-                .calendar()
+              league: response
+              // endDate: Moment(response.startDate, "L")
+              //   .add(30, "days")
+              //   .calendar()
             });
           })
           .catch(err => console.log(err));
@@ -128,15 +128,16 @@ class Dashboard extends Component {
   leagueOver = () => {
     const leagueId = this.state.loggedInUser.league.info;
     if (
-      Moment().format("L") === this.state.enddate ||
-      Moment(this.state.endDate, "L")
+      Moment().format("L") === this.state.endDate ||
+      (Moment(this.state.endDate, "L")
         .fromNow()
-        .indexOf("ago") >= 0
+        .indexOf("ago") >= 0 &&
+        this.state.league.status === "active")
     ) {
       this.leagueService
         .endLeague(leagueId)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           this.setState({
             league: response
           });
@@ -162,6 +163,7 @@ class Dashboard extends Component {
       );
       // if league has recently been completed and user has joined a new league
     } else if (this.state.league.status === "completed") {
+      this.leagueOver();
       return (
         <div>
           <p>
