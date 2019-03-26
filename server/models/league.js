@@ -6,6 +6,7 @@ const leagueSchema = new Schema(
     id: String,
     name: String,
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
+    photo: { type: String, default: "/images/default_profile.jpg" },
     status: {
       type: String,
       enum: ["waiting", "active", "completed"],
