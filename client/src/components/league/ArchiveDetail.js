@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import AuthService from "../auth/auth-service";
 import LeagueService from "../league/league-service";
 import "bootstrap/dist/css/bootstrap.css";
@@ -12,7 +11,6 @@ class Archive extends Component {
       league: {},
       members: []
     };
-    this.id = props.match.params.id;
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
   }
@@ -29,7 +27,7 @@ class Archive extends Component {
       .catch(err => console.log(err));
 
     this.leagueService
-      .getLeague(this.id)
+      .getLeague(this.props.id)
       .then(response => {
         this.setState({
           league: response
@@ -38,9 +36,8 @@ class Archive extends Component {
       .catch(err => console.log(err));
 
     this.leagueService
-      .getExMembers(this.id)
+      .getExMembers(this.props.id)
       .then(response => {
-        console.log(response);
         this.setState({
           members: response
         });
@@ -54,19 +51,39 @@ class Archive extends Component {
       // if league has recently been completed and user has joined a new league
     } else {
       return (
-        <div>
-          <h2>Completed league: {this.state.league.name}</h2>
-          {/* not working right now, will work with new date */}
-          <p>Ended on: {this.state.league.endDate}</p>
-          <ul>
-            {this.state.members.map((member, index) => {
-              return (
-                <li key={index}>
-                  {member.username}: {member.score}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="row p-3">
+          <div className="col-md-4 col-xs-12 text-left">
+            <h3>{this.state.league.name}</h3>
+            <p>Ended on: {this.state.league.endDate}</p>
+          </div>
+          <div className="col-md-8 col-xs-12">
+            <table className="table">
+              <thead className="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Member</th>
+                  <th scope="col">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.members.map((member, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className={
+                        member._id === this.state.loggedInUser._id &&
+                        "table-info"
+                      }
+                    >
+                      <th scope="row">{index + 1}</th>
+                      <td>{member.username}</td>
+                      <td>{member.score}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     }

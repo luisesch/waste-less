@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import AuthService from "../auth/auth-service";
 import LeagueService from "../league/league-service";
+import ArchiveDetail from "./ArchiveDetail";
+
 import "bootstrap/dist/css/bootstrap.css";
+import "./Archive.css";
 
 class Archive extends Component {
   constructor(props) {
@@ -38,20 +42,25 @@ class Archive extends Component {
     return (
       <div>
         <h2>Completed leagues</h2>
-        <ul>
+        <div className="row p-3">
           {this.state.leagues.map((league, index) => {
             return (
-              <li key={index}>
-                {league.info.name}
-                <br />
-                <Link to={`/archive/${league.info._id}`}>Details</Link>
-              </li>
+              <div key={index} className="col-3">
+                <Link to={`/archive/${league.info._id}`}>
+                  <button className="btn btn-outline-info btn-lg w-100">
+                    {league.info.name}
+                  </button>
+                </Link>
+              </div>
             );
           })}
-        </ul>
+        </div>
+        {this.props.match.params.id && (
+          <ArchiveDetail id={this.props.match.params.id} />
+        )}
       </div>
     );
   }
 }
 
-export default Archive;
+export default withRouter(Archive);
