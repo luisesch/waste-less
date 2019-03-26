@@ -152,7 +152,7 @@ class WaitingLeague extends Component {
                     <li key={index}>
                       {user.username}
                       <button
-                        className="btn"
+                        className="btn btn-primary"
                         htmlFor="user"
                         value={user._id}
                         onClick={this.addUser}
@@ -167,9 +167,13 @@ class WaitingLeague extends Component {
               {this.state.members.every(member => {
                 return member.league.confirmed === true;
               }) ? (
-                <button onClick={this.startLeague}>Let the games begin</button>
+                <button onClick={this.startLeague} className="btn btn-primary">
+                  Let the games begin
+                </button>
               ) : (
-                <button>Waiting for all members to confirm</button>
+                <button className="btn btn-primary">
+                  Waiting for all members to confirm
+                </button>
               )}
             </div>
           ) : null}
