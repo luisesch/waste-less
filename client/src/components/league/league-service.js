@@ -59,6 +59,13 @@ class LeagueService {
       .catch(err => console.log(err));
   };
 
+  getExMembers = leagueId => {
+    return this.service
+      .get("/leagues/" + leagueId + "/exmembers")
+      .then(response => response.data)
+      .catch(err => console.log(err));
+  };
+
   startLeague = leagueId => {
     return this.service
       .put("/leagues/" + leagueId + "/start")

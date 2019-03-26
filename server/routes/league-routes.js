@@ -103,6 +103,14 @@ leagueRoutes.get("/leagues/:leagueId/members", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+//get ex-members
+leagueRoutes.get("/leagues/:leagueId/exmembers", (req, res, next) => {
+  const leagueId = req.params.leagueId;
+  User.find({ "completedLeagues.info": leagueId })
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
+});
+
 // enter league
 leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
   const userId = req.params.userId;
@@ -120,10 +128,13 @@ leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
 leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
   const leagueId = req.params.leagueId;
   const startDate = moment().format("L");
+  const endDate = moment()
+    .add(30, "day")
+    .format("L");
 
   League.findOneAndUpdate(
     { _id: leagueId },
-    { $set: { status: "active", startDate: startDate } },
+    { $set: { status: "active", startDate: startDate, endDate: endDate } },
     { new: true }
   )
     .then(response => res.status(200).json(response))
@@ -134,30 +145,28 @@ leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
 leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
   const leagueId = req.params.leagueId;
 
-  // User.updateMany(
-  //   { "league.info": leagueId },
-  //   { $push: { completedLeagues: leagueId } }
-  // );
-
   League.findOneAndUpdate(
     { _id: leagueId },
     { $set: { status: "completed" } },
     { new: true }
-  )
-    .then(response => {
-      User.updateMany(
-        { "league.info": leagueId },
-        { $push: { completedLeagues: leagueId } }
-      ).then(response => console.log(response));
-      res.status(200).json(response);
-    })
-    .catch(err => console.log(err));
+  ).then(response => {
+    User.find({ "league.info": leagueId }).then(users =>
+      Promise.all(
+        users.map(user => {
+          user.completedLeagues.push({ info: leagueId, score: user.score });
+          return user.save();
+        })
+      ).then(() => {
+        res.status(200).json(response);
+      })
+    );
+  });
 });
 
 leagueRoutes.get("/archive/:userId", (req, res, next) => {
   const userId = req.params.userId;
   User.findById({ _id: userId })
-    .populate("completedLeagues")
+    .populate("completedLeagues.info")
     .then(response => res.status(200).json(response))
     .catch(err => console.log(err));
 });

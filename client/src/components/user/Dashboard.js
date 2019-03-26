@@ -18,7 +18,7 @@ class Dashboard extends Component {
       selectedMember: [],
       members: [],
       league: {},
-      endDate: "03/21/2019",
+      endDate: "03/26/2019",
       firstThree: []
     };
     this.authService = new AuthService();
@@ -44,9 +44,6 @@ class Dashboard extends Component {
           .then(response => {
             this.setState({
               league: response
-              // endDate: Moment(response.startDate, "L")
-              //   .add(30, "days")
-              //   .calendar()
             });
           })
           .catch(err => console.log(err));
@@ -70,6 +67,26 @@ class Dashboard extends Component {
           .catch(err => console.log(err));
       }
     });
+  }
+
+  componentDidUpdate() {
+    if (
+      this.state.endDate.length <= 0 &&
+      this.state.league.status === "active"
+    ) {
+      const leagueId = this.state.loggedInUser.league.info;
+      this.leagueService
+        .getLeague(leagueId)
+        .then(response => {
+          this.setState({
+            league: response,
+            endDate: Moment(response.startDate, "L")
+              .add(30, "days")
+              .calendar()
+          });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   searchUserHandler = query => {
@@ -126,18 +143,18 @@ class Dashboard extends Component {
 
   // check, if league is over/30 days have passed
   leagueOver = () => {
-    const leagueId = this.state.loggedInUser.league.info;
+    const leagueId = this.state.league._id;
     if (
-      Moment().format("L") === this.state.endDate ||
-      (Moment(this.state.endDate, "L")
-        .fromNow()
-        .indexOf("ago") >= 0 &&
-        this.state.league.status === "active")
+      (Moment().format("L") === this.state.endDate ||
+        Moment(this.state.endDate, "L")
+          .fromNow()
+          .indexOf("ago") >= 0) &&
+      this.state.league.status === "active"
     ) {
       this.leagueService
         .endLeague(leagueId)
         .then(response => {
-          // console.log(response);
+          console.log(response);
           this.setState({
             league: response
           });
