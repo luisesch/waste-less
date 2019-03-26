@@ -35,7 +35,7 @@ class MyLeague extends Component {
 
   render() {
     if (this.state.firstThree.length === 0) {
-      return <p>Loading</p>;
+      return <p>Loading</p>
     } else {
       return (
         <div>
@@ -43,9 +43,10 @@ class MyLeague extends Component {
             <div className="col-lg-7">
               <img
                 className="img-fluid rounded mb-4 mb-lg-0"
-                src="http://placehold.it/900x400"
+                src={this.state.league.photo}
                 alt=""
               />
+                          
             </div>
             <div className="col-lg-5">
               <h1 className="font-weight-light">

@@ -1,5 +1,6 @@
 const express = require("express");
 const leagueRoutes = express.Router();
+const parser = require("../configs/cloudinary")
 
 const League = require("../models/league");
 const User = require("../models/user");
@@ -37,16 +38,19 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
 });
 
 // create new league
-leagueRoutes.post("/leagues", (req, res, next) => {
+leagueRoutes.post("/leagues", parser.single('picture'), (req, res, next) => {
+  console.log('req.body', req.body)
   const name = req.body.name;
   const administratorId = req.body.administrator;
-  const members = req.body.members;
+  const members = req.body.members || []; // because multipart/form-data sends undefined when passed an empty array
 
+  console.log(req.file.url)
   // console.log("members:", members);
 
   const aNewLeague = new League({
     name: name,
-    administrator: administratorId
+    administrator: administratorId,
+    photo: req.file.url
   });
 
   aNewLeague.save(err => {
@@ -62,7 +66,7 @@ leagueRoutes.post("/leagues", (req, res, next) => {
       { $set: { league: { info: aNewLeague._id, confirmed: true } } },
       { new: true }
     ).then(response => console.log(response));
-
+    
     members.forEach(member =>
       User.findOneAndUpdate(
         { _id: member.info },

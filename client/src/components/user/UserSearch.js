@@ -21,12 +21,13 @@ class UserSearch extends Component {
 
     return (
       <div>
-        <label className="label">Find users: </label>
+        {/* <label className="label">Find users: </label> */}
         <div className="control">
           <input
             onChange={this.handleChange}
             type="text"
-            className="input search-bar"
+            // className="form-control"
+            className="input search-bar form-control"
             name="query"
             placeholder="Find friends"
             value={this.state.name}

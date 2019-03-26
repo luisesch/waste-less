@@ -23,7 +23,6 @@ class Profile extends Component {
 	}
 	handleSubmit(e) {
 		e.preventDefault();
-		// Reuse of the method "addPicture" from the file '../api'
 		api.addPicture(this.state.file, this.state.loggedInUser._id);
 	}
 
@@ -54,7 +53,7 @@ class Profile extends Component {
 							<img className="card-img-top" src={this.state.loggedInUser.photo} alt="default" />
 
 							<form onSubmit={(e) => this.handleSubmit(e)}>
-								<input type="file" onChange={(e) => this.handleChange(e)} /> <br />
+								<input  type="file" onChange={(e) => this.handleChange(e)} /> <br />
 								<button type="submit">Save new profile picture</button>
 							</form>
 
