@@ -11,15 +11,17 @@ class LeagueService {
 
   create = (name, administrator, members, file) => {
     const formData = new FormData();
-    
-    formData.append("picture", file)
-    formData.append("name", name)
-    formData.append("administrator", administrator)
-    formData.append("members", members)
+
+    formData.append("picture", file);
+    formData.append("name", name);
+    formData.append("administrator", administrator);
+    formData.append("members", members);
     return this.service
-      .post("/leagues", formData,  { headers: {
-        'Content-Type': 'multipart/form-data',
-      }})
+      .post("/leagues", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
       .then(response => response.data)
       .catch(err => console.log(err));
   };
@@ -80,15 +82,12 @@ class LeagueService {
       .catch(err => console.log(err));
   };
 
-
-
   getArchive = userId => {
     return this.service
       .get("/archive/" + userId)
       .then(response => response.data)
       .catch(err => console.log(err));
   };
-
 }
 
 export default LeagueService;

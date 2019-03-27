@@ -14,6 +14,7 @@ class MyLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      league: this.props.league,
       firstThree: []
     };
     this.authService = new AuthService();
@@ -35,7 +36,7 @@ class MyLeague extends Component {
 
   render() {
     if (this.state.firstThree.length === 0) {
-      return <p>Loading</p>
+      return <p>Loading</p>;
     } else {
       return (
         <div>
@@ -46,7 +47,6 @@ class MyLeague extends Component {
                 src={this.state.league.photo}
                 alt=""
               />
-                          
             </div>
             <div className="col-lg-5">
               <h1 className="font-weight-light">
