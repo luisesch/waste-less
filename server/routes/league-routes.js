@@ -1,6 +1,6 @@
 const express = require("express");
 const leagueRoutes = express.Router();
-const parser = require("../configs/cloudinary")
+const parser = require("../configs/cloudinary");
 
 const League = require("../models/league");
 const User = require("../models/user");
@@ -10,7 +10,7 @@ const moment = require("moment");
 // get one league by ID
 leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
   // console.log("getting league");
-  console.log(moment().format("MMM Do YY"));
+  // console.log(moment().format("MMM Do YY"));
   const leagueId = req.params.leagueId;
   // console.log(req.params.leagueId);
 
@@ -38,19 +38,22 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
 });
 
 // create new league
-leagueRoutes.post("/leagues", parser.single('picture'), (req, res, next) => {
-  console.log('req.body', req.body)
+leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const name = req.body.name;
   const administratorId = req.body.administrator;
   const members = req.body.members || []; // because multipart/form-data sends undefined when passed an empty array
+  let photo = "";
 
-  console.log(req.file.url)
-  // console.log("members:", members);
+  if (!req.file) {
+    photo = "/images/default_profile.jpg";
+  } else {
+    photo = req.file.url;
+  }
 
   const aNewLeague = new League({
     name: name,
     administrator: administratorId,
-    photo: req.file.url
+    photo: photo
   });
 
   aNewLeague.save(err => {
@@ -66,7 +69,7 @@ leagueRoutes.post("/leagues", parser.single('picture'), (req, res, next) => {
       { $set: { league: { info: aNewLeague._id, confirmed: true } } },
       { new: true }
     ).then(response => console.log(response));
-    
+
     members.forEach(member =>
       User.findOneAndUpdate(
         { _id: member.info },
