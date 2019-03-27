@@ -20,7 +20,7 @@ class MyLeague extends Component {
       loggedInUser: {},
       members: [],
       league: {},
-      endDate: "",
+      endDate: "03/21/2019",
       firstThree: []
     };
     this.authService = new AuthService();
@@ -96,7 +96,6 @@ class MyLeague extends Component {
       this.leagueService
         .endLeague(leagueId)
         .then(response => {
-          console.log(response);
           this.setState({
             league: response
           });
@@ -122,7 +121,6 @@ class MyLeague extends Component {
       );
       // if league has recently been completed and user has joined a new league
     } else if (this.state.league.status === "completed") {
-      this.leagueOver();
       return (
         <div>
           <p>

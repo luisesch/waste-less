@@ -39,27 +39,31 @@ class Archive extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <h2>Completed leagues</h2>
-        <div className="row p-3">
-          {this.state.leagues.map((league, index) => {
-            return (
-              <div key={index} className="col-3">
-                <Link to={`/archive/${league.info._id}`}>
-                  <button className="btn btn-outline-info btn-lg w-100">
-                    {league.info.name}
-                  </button>
-                </Link>
-              </div>
-            );
-          })}
+    if (this.state.leagues.length <= 0) {
+      return <p>Loading</p>;
+    } else {
+      return (
+        <div>
+          <h2>Completed leagues</h2>
+          <div className="row p-3">
+            {this.state.leagues.map((league, index) => {
+              return (
+                <div key={index} className="col-3">
+                  <Link to={`/archive/${league.info._id}`}>
+                    <button className="btn btn-outline-info btn-lg w-100">
+                      {league.info.name}
+                    </button>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+          {this.props.match.params.id && (
+            <ArchiveDetail id={this.props.match.params.id} />
+          )}
         </div>
-        {this.props.match.params.id && (
-          <ArchiveDetail id={this.props.match.params.id} />
-        )}
-      </div>
-    );
+      );
+    }
   }
 }
 
