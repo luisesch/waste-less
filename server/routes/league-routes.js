@@ -41,8 +41,10 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
 leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const name = req.body.name;
   const administratorId = req.body.administrator;
-  const members = req.body.members || []; // because multipart/form-data sends undefined when passed an empty array
+  const members = JSON.parse(req.body.members) || []; // because multipart/form-data sends undefined when passed an empty array
   let photo = "";
+
+  console.log(typeof req.body.members);
 
   if (!req.file) {
     photo = "/images/default_profile.jpg";
@@ -72,7 +74,7 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
 
     members.forEach(member =>
       User.findOneAndUpdate(
-        { _id: member.info },
+        { username: member },
         { $set: { league: { info: aNewLeague._id, confirmed: false } } },
         { new: true }
       )

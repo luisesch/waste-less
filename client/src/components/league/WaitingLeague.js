@@ -29,9 +29,15 @@ class WaitingLeague extends Component {
       .then(response => this.setState({ members: response }))
       .catch(err => console.log(err));
 
+    // get all users except the loggedin, so they can't select themselves
     this.userService
       .showAll()
       .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
         this.setState({ users: response });
       })
       .catch(err => console.log(err));
@@ -41,9 +47,14 @@ class WaitingLeague extends Component {
     if (query.length < 1) {
       this.setState({ filteredUsers: [] });
     } else {
-      let filteredUsers = this.state.users.filter(user => {
+      // only show users that aren't currently in any league
+      let leaguelessUsers = this.state.users.filter(user => {
+        return !user.league.hasOwnProperty("info");
+      });
+
+      let filteredUsers = leaguelessUsers.filter(user => {
         const userLowerCase = user.username.toLowerCase();
-        const filter = query;
+        const filter = query.toLowerCase();
         return userLowerCase.includes(filter);
       });
       this.setState({ filteredUsers: filteredUsers });
@@ -59,6 +70,19 @@ class WaitingLeague extends Component {
       .getMembers(leagueId)
       .then(response => this.setState({ members: response }))
       .catch(err => console.log(err));
+
+    // get all users again to see changes
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
+        this.setState({ users: response, filteredUsers: [] });
+      })
+      .catch(err => console.log(err));
   };
 
   deleteMember = async event => {
@@ -69,6 +93,19 @@ class WaitingLeague extends Component {
     this.leagueService
       .getMembers(leagueId)
       .then(response => this.setState({ members: response }))
+      .catch(err => console.log(err));
+
+    // get all users again to see changes
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
+        this.setState({ users: response, filteredUsers: [] });
+      })
       .catch(err => console.log(err));
   };
 
@@ -111,14 +148,17 @@ class WaitingLeague extends Component {
                     {member.username} <br />
                     {member.league.confirmed ? "confirmed" : "waiting"}
                     <br />
-                    <button
-                      name="deleteMember"
-                      type="submit"
-                      value={member._id}
-                      onClick={this.deleteMember}
-                    >
-                      Delete
-                    </button>
+                    {/* make sure admin can't delete himself */}
+                    {member._id !== this.state.loggedInUser._id && (
+                      <button
+                        name="deleteMember"
+                        type="submit"
+                        value={member._id}
+                        onClick={this.deleteMember}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </li>
                 );
               })}
@@ -145,33 +185,35 @@ class WaitingLeague extends Component {
                 <strong>Add members</strong>
               </p>
               <UserSearch searchUsers={this.searchUserHandler} />
-              <ul>
-                {this.state.filteredUsers.map((user, index) => {
-                  // turn object into string
-                  return (
-                    <li key={index}>
+              {this.state.filteredUsers.map((user, index) => {
+                // turn object into string
+                return (
+                  <div key={index}>
+                    <button
+                      className="btn btn-light w-100"
+                      htmlFor="user"
+                      value={user._id}
+                      onClick={this.addUser}
+                    >
                       {user.username}
-                      <button
-                        className="btn btn-primary"
-                        htmlFor="user"
-                        value={user._id}
-                        onClick={this.addUser}
-                      >
-                        Add
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+                    </button>
+                    <br />
+                  </div>
+                );
+              })}
+
               {/* check, if all members have confirmed */}
               {this.state.members.every(member => {
                 return member.league.confirmed === true;
               }) ? (
-                <button onClick={this.startLeague} className="btn btn-primary">
+                <button
+                  onClick={this.startLeague}
+                  className="btn btn-primary mt-3"
+                >
                   Let the games begin
                 </button>
               ) : (
-                <button className="btn btn-primary">
+                <button className="btn btn-primary mt-3">
                   Waiting for all members to confirm
                 </button>
               )}

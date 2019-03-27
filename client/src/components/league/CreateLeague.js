@@ -33,10 +33,16 @@ class CreateLeague extends Component {
         });
       })
       .catch(err => console.log(err));
-    // get all users
+
+    // get all users except the loggedin, so they can't select themselves
     this.userService
       .showAll()
       .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
         this.setState({ users: response });
       })
       .catch(err => console.log(err));
@@ -65,10 +71,22 @@ class CreateLeague extends Component {
   membersArr = [];
 
   selectUser = event => {
-    // turn string back into json
-    let memberAsObject = JSON.parse(event.target.value);
-    this.membersArr.push(memberAsObject);
-    this.setState({ members: this.membersArr });
+    this.membersArr.push(event.target.value);
+
+    // make sure user disappears from available user list once he is selected
+    let array = this.state.users;
+    let user = event.target.value;
+    for (var i = array.length - 1; i >= 0; i--) {
+      if (array[i].username === user) {
+        array.splice(i, 1);
+      }
+    }
+
+    this.setState({
+      members: this.membersArr,
+      users: array,
+      filteredUsers: []
+    });
   };
 
   handleFormSubmit = event => {
@@ -76,11 +94,7 @@ class CreateLeague extends Component {
     const name = this.state.name;
     const picture = this.state.picture;
     const administrator = this.state.loggedInUser._id;
-
-    let members = [];
-    this.state.members.forEach(member => {
-      members.push({ info: member._id, confirmed: false });
-    });
+    const members = this.state.members;
 
     this.leagueService
       .create(name, administrator, members, picture)
@@ -98,12 +112,17 @@ class CreateLeague extends Component {
     if (query.length < 1) {
       this.setState({ filteredUsers: [] });
     } else {
-      let filteredUsers = this.state.users.filter(user => {
-        console.log(user);
+      // only show users that aren't currently in any league
+      let leaguelessUsers = this.state.users.filter(user => {
+        return !user.league.hasOwnProperty("info");
+      });
+
+      let filteredUsers = leaguelessUsers.filter(user => {
         const userLowerCase = user.username.toLowerCase();
-        const filter = query;
+        const filter = query.toLowerCase();
         return userLowerCase.includes(filter);
       });
+
       this.setState({ filteredUsers: filteredUsers });
     }
   };
@@ -143,29 +162,24 @@ class CreateLeague extends Component {
                   {this.state.members.map((member, index) => {
                     return (
                       <div key={index}>
-                        <p>{member.username}</p>
+                        <p>{member}</p>
                       </div>
                     );
                   })}
                   <UserSearch searchUsers={this.searchUserHandler} />
                   <div className="form-check">
                     {this.state.filteredUsers.map((user, index) => {
-                      // turn object into string
-                      let userAsString = JSON.stringify(user);
                       return (
-                        <div key={index}>
-                          <input
-                            onChange={this.selectUser}
-                            className="form-control"
-                            type="checkbox"
-                            name="members"
-                            value={userAsString}
-                            id="user"
-                          />
-                          <label className="form-check-label" htmlFor="user">
-                            {user.username}
-                          </label>
-                        </div>
+                        <button
+                          key={index}
+                          onClick={this.selectUser}
+                          className="form-control btn btn-light"
+                          name="members"
+                          value={user.username}
+                          id="user"
+                        >
+                          {user.username}
+                        </button>
                       );
                     })}
                   </div>
