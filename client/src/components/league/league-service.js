@@ -15,7 +15,7 @@ class LeagueService {
     formData.append("picture", file);
     formData.append("name", name);
     formData.append("administrator", administrator);
-    formData.append("members", members);
+    formData.append("members", JSON.stringify(members));
     return this.service
       .post("/leagues", formData, {
         headers: {
