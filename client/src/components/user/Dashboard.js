@@ -9,16 +9,19 @@ import "./Dashboard.css";
 
 import LeagueService from "../league/league-service";
 import Moment from "moment";
+import TaskService from "../tasks/task-service";
 
 class MyLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
       league: this.props.league,
-      firstThree: []
+      firstThree: [],
+      completedTasks: []
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
+    this.taskService = new TaskService();
   }
 
   componentDidMount() {
@@ -30,6 +33,17 @@ class MyLeague extends Component {
         sortedMembers.sort((a, b) => b.score - a.score);
         firstThree = sortedMembers.slice(0, 2);
         this.setState({ firstThree: firstThree });
+      })
+      .catch(err => console.log(err));
+
+    this.taskService
+      .getCompletedTasks(this.props.league._id)
+      .then(response => {
+        let tasks = [];
+        response.forEach(completedTask => {
+          tasks.push(completedTask.task);
+        });
+        this.setState({ completedTasks: tasks });
       })
       .catch(err => console.log(err));
   }
@@ -103,7 +117,30 @@ class MyLeague extends Component {
 
           <p className="m-0">See the latest tasks of your team</p>
           <div className="row">
-            <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
+            {this.state.completedTasks.map((task, index) => {
+              return (
+                <div
+                  key={index}
+                  className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3"
+                >
+                  <div className="card-body h-100">
+                    <h5 className="card-title">Card title</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      xy got {task.points} points for:
+                    </h6>
+                    <p className="card-text">{task.description}</p>
+                    <Link to="#" className="card-link">
+                      Card link
+                    </Link>
+                    <Link to="#" className="card-link">
+                      Another link
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
               <div className="card-body h-100">
                 <h5 className="card-title">Card title</h5>
                 <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -135,24 +172,7 @@ class MyLeague extends Component {
                   Another link
                 </Link>
               </div>
-            </div>
-
-            <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
-              <div className="card-body h-100">
-                <h5 className="card-title">Card title</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <Link to="#" className="card-link">
-                  Card link
-                </Link>
-                <Link to="#" className="card-link">
-                  Another link
-                </Link>
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
       );

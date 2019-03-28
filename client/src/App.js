@@ -53,15 +53,15 @@ class App extends Component {
     });
   };
 
-  raiseScore = points => {
+  raiseScore = (points, task) => {
     let newScore = this.state.loggedInUser.score + points;
     this.taskService
-      .updateScore(newScore, this.state.loggedInUser)
-      .then(response =>
+      .taskCompleted(newScore, this.state.loggedInUser, task)
+      .then(response => {
         this.setState({
           loggedInUser: response
-        })
-      )
+        });
+      })
       .catch(err => console.log(err));
   };
 
