@@ -51,38 +51,40 @@ class Archive extends Component {
       // if league has recently been completed and user has joined a new league
     } else {
       return (
-        <div className="row p-3">
-          <div className="col-md-4 col-xs-12 text-left">
-            <h3>{this.state.league.name}</h3>
-            <p>Ended on: {this.state.league.endDate}</p>
-          </div>
-          <div className="col-md-8 col-xs-12">
-            <table className="table">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Member</th>
-                  <th scope="col">Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.members.map((member, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      className={
-                        member._id === this.state.loggedInUser._id &&
-                        "table-info"
-                      }
-                    >
-                      <th scope="row">{index + 1}</th>
-                      <td>{member.username}</td>
-                      <td>{member.score}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+        <div className="container-fluid">
+          <div className="row p-3">
+            <div className="col-md-4 col-xs-12 text-left">
+              <h3>{this.state.league.name}</h3>
+              <p>Ended on: {this.state.league.endDate}</p>
+            </div>
+            <div className="col-md-8 col-xs-12">
+              <table className="table">
+                <thead className="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Member</th>
+                    <th scope="col">Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.members.map((member, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        className={
+                          member._id === this.state.loggedInUser._id &&
+                          "table-info"
+                        }
+                      >
+                        <th scope="row">{index + 1}</th>
+                        <td>{member.username}</td>
+                        <td>{member.score}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       );

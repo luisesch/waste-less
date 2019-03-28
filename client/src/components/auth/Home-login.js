@@ -43,13 +43,11 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
+      <div className="Home container">
         <div className="row">
           <div className="leftBar col-xs-12 col-md-7 pt-5">
-          <h1 className="header">
-              WASTE-LESS
-          </h1>
-          <h4>There is no plan(et) B</h4>
+            <h1 className="header">WASTE-LESS</h1>
+            <h4>There is no plan(et) B</h4>
           </div>
           <div className="rightBar col-xs-12 col-md-5 pt-5 px-5">
             <Login login={this.login} />

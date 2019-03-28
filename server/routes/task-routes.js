@@ -31,6 +31,7 @@ taskRoutes.post("/user/completeTask", (req, res, next) => {
 taskRoutes.get("/tasks/:leagueId", (req, res, next) => {
   const leagueId = req.params.leagueId;
   CompletedTask.find({ league: leagueId })
+    .populate("user")
     .then(response => res.status(200).json(response))
     .catch(err => console.log(err));
 });

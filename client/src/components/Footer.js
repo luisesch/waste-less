@@ -17,23 +17,6 @@ class Footer extends Component {
                 </p>
               </div>
 
-              {/* <hr className="w-100 clearfix d-md-none"/> */}
-
-              {/* <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2">
-      <h6 className="text-uppercase mb-2 font-weight-bold">Go to</h6>
-      <p>
-      <Link to={'/'}> Dashboard</Link>
-      </p>
-      <p>
-      <Link to={'/league'}> League </Link>
-      </p>
-      <p>
-      <Link to={'/profile'}> Your profile</Link>
-      </p>
-    </div> */}
-
-              {/* <hr className="w-100 clearfix d-md-none"/> */}
-
               <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2">
                 <h6 className="text-uppercase mb-2 font-weight-bold">
                   Contact
@@ -42,8 +25,6 @@ class Footer extends Component {
                 <p>waste-less.ironhack@gmail.com</p>
               </div>
             </div>
-
-            {/* <hr/> */}
 
             <div className="row d-flex align-items-center">
               <div className="col-md-7 col-lg-8">
