@@ -20,7 +20,7 @@ class MyLeague extends Component {
       loggedInUser: {},
       members: [],
       league: {},
-      endDate: "03/21/2019",
+      endDate: "",
       firstThree: []
     };
     this.authService = new AuthService();
