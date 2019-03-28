@@ -1,9 +1,8 @@
-
-import React, { Component } from 'react';
-import tasks from '../../tasks.json';
-import Search from './TaskSearch';
-import Popup from 'reactjs-popup';
-import 'bootstrap/dist/css/bootstrap.css';
+import React, { Component } from "react";
+import tasks from "../../tasks.json";
+import Search from "./TaskSearch";
+import Popup from "reactjs-popup";
+import "bootstrap/dist/css/bootstrap.css";
 import "./Tasks.css";
 
 // import { Link } from "react-router-dom";
@@ -26,6 +25,10 @@ class Tasks extends Component {
     this.setState({ filtered: filteredTasks });
   };
 
+  scoreHandler = event => {
+    let points = Number(event.target.value);
+    this.props.setScore(points);
+  };
 
 	scoreHandler = (event) => {
 		let points = Number(event.target.value);
@@ -88,6 +91,25 @@ class Tasks extends Component {
 		);
 	}
 
+                  <Popup
+                    trigger={
+                      <button className="btn btn-secondary" type="button">
+                        info
+                      </button>
+                    }
+                    position="right center"
+                  >
+                    <div>{task.popup}</div>
+                  </Popup>
+                </div>
+                <div className="card-footer text-muted">{task.category}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Tasks;

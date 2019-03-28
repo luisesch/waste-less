@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "./auth/auth-service";
 import "./Navbar.css";
+import LeagueService from "./league/league-service";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedInUser: null };
     this.service = new AuthService();
+    this.leagueService = new LeagueService();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,6 +25,7 @@ class Navbar extends Component {
 
   render() {
     //if user is logged in
+
     if (this.state.loggedInUser) {
       return (
         <nav className="navbar navbar-light bg-light navbar-fixed-top">
@@ -39,6 +42,7 @@ class Navbar extends Component {
             <Link to="/profile" className="navbar-brand">
               Profile
             </Link>
+
             <button className="mx-2 btn btn-outline-success" type="button">
               Score {this.state.loggedInUser.score}
             </button>
