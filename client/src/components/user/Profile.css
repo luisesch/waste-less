@@ -2,3 +2,9 @@
     background-color: mintcream
 }
 
+.card-img-top {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover; 
+}
+

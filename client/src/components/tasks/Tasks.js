@@ -54,10 +54,10 @@ class Tasks extends Component {
 
 							<div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3" key={index}>
 								<div className="card-body font-weight-light">
-									<img src={task.photo} className="card-img-top" alt="default" />
-
-									<h5 className="card-title">{task.description}</h5>
+								{/* w-100 p-3 h-75 */}
+									<img src={task.photo} className="card-img-top img-thumbnail" alt="default"/>
 									<br />
+									<h5 className="card-title">{task.description}</h5>
 									<button
 										className="points mx-2 btn btn-secondary"
 										type="submit"
@@ -77,6 +77,7 @@ class Tasks extends Component {
 									>
 										<div>{task.popup}</div>
 									</Popup>
+									<br /> <br />
 								</div>
 								<div className="card-footer text-muted">{task.category}</div>
 							</div>
