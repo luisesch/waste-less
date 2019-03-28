@@ -129,7 +129,7 @@ class CreateLeague extends Component {
 
   render() {
     return (
-      <div className="card">
+      <div className="card container-fluid">
         <div className="createLeague card-body">
           <div className="row">
             <div className="col-md-7 left">

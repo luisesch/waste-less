@@ -39,7 +39,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profileContainer">
+      <div className="profileContainer container">
         <div className="row">
           <div className="col-md-8">
             <h3 className="my-4">

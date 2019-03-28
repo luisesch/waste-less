@@ -1,7 +1,13 @@
-.middleBlock{
-    background-color: mintcream
+.middleBlock {
+  background-color: mintcream;
 }
 
-.text{
-    color: black
+.text {
+  color: black;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover;
 }

@@ -39,7 +39,7 @@ class Tasks extends Component {
 
   render() {
     return (
-      <div className="tasks">
+      <div className="tasks container">
         <h1>Tasks</h1>
         <Search searchTasks={this.searchTaskHandler} />
         <div className="row">
