@@ -1,95 +1,102 @@
 [
   {
-    "description": "coffee",
+    "id": "1",
+    "description": "coffee to go",
     "popup": "buy a coffee and bring your own cup",
     "points": 5,
-    "category": "To go"
+    "category": "To go",
+    "photo": "https://treadingmyownpath.com/wp-content/uploads/2017/11/Cupit-Kahla-Porcelain-Reusable-Coffee-Cup-550x389.jpg"
   },
   {
-    "description": "shampoo",
-    "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
-    "points": 10,
-    "category": "Bathroom"
-  },
-  {
-    "description": "bee wrap",
+    "id": "2",
+    "description": "use bee wrap/packaging",
+    "popup": "plastic free alternative to wrap your food for reuse",
     "points": 15,
-    "category": "Kitchen"
+    "category": "Kitchen", 
+    "photo": "https://www.demeter.de/sites/default/files/styles/demeter_ev_article/public/demeter.de/artikel/images/demeter-journal-39-bienenwachstuch-biodynamisch.png?itok=yzeA0TVX"
   },
   {
+    "id": "3",
     "description": "dishwasher",
     "points": 20,
-    "category": "Cleaning"
+    "category": "Cleaning", 
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
   },
   {
-    "description": "no plastic",
-    "points": 25,
-    "category": "Food"
-  },
-  {
+    "id": "4",
     "description": "own bag",
     "points": 5,
-    "category": "Shopping"
+    "category": "Shopping", 
+    "photo": "https://www.preis.de/news/wp-content/uploads/2018/02/zerowaste-beitrag-740x493.jpeg"
   },
   {
+      "id": "5",
+      "description": "Buy your food on a market",
+      "popup": "",
+      "points": 5,
+      "category": "Food",
+      "photo": "https://einbisschengruener.files.wordpress.com/2017/01/de-eemstuin.jpg?w=750&h=498"
+    },
+    {
+        "id": "6",
+        "description": "Wrap your food",
+        "popup": "in plastic-free materials",
+        "points": 5,
+        "category": "Food",
+        "photo": "https://nonagon.style/wp-content/uploads/2017/11/3-nonagon-style-zero-waste-kitchen-eco-friendly.jpg"
+      },
+      {
+          "id": "7",
+          "description": "Bring a bread bag",
+          "popup": "",
+          "points": 5,
+          "category": "Shopping", 
+          "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLcnupoK_wL6RuC0E-mzHZeDf2GakqVJqoMhheilV0rG7b9vja3Q"
+        },
+        {
+            "id": "8",
+            "description": "Cleaning (kitchen)",
+            "popup": "Buy plastic-free, compostable (wooden) brushes to use in the kitchen for cleaning and dishwashing, A Plastic-Free Sink is All-Natural and Non-Toxic",
+            "points": 5,
+            "category": "Kitchen", 
+            "photo": "https://www.toastenstein.com/wp-content/uploads/2018/07/zerowaste_toastenstein_sp%C3%BClb%C3%BCrste_schwamm-1024x674.jpg"
+          },
+{
+              "id": "9",
+              "description": "Kitchen roll (kitchen)",
+              "popup": "Use towels/cloths instead of kitchen roll",
+              "points": 5,
+              "category": "Kitchen", 
+              "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7ZeBLoyQJobZzLEULpoxV19GxNuiPZtgRURDQI4zTYz4KLWI-g"
+            },
+{
+                "id": "10",
+                "description": "Grocery shopping",
+                "popup": "ry grocery shopping without buying packaged food",
+                "points": 5,
+                "category": "Shopping", 
+                "photo": "https://www.blattgruen.blog/wp-content/uploads/2016/10/hg4.jpg"
+              },
+              {
+                  "id": "11",
+                  "description": "Avoid plastic bags",
+                  "popup": "",
+                  "points": 5,
+                  "category": "Shopping",
+                  "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
+                },
+  {
+      "id": "12",
+      "description": "shampoo and shower gel",
+      "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
+      "points": 10,
+      "category": "Bathroom",
+      "photo": "http://freemindedfolks-blog.com/wp-content/uploads/2018/05/zerowaster-6253.jpg"
+  },
+  {
+    "id": "13",
     "description": "paper",
     "points": 10,
     "category": "Office"
-  },
-  {
-    "description": "Buy your food on a market",
-    "popup": "",
-    "points": 5,
-    "category": "Food",
-    "photo": "https://www.respectfood.com/wp-content/uploads/sites/2/2018/10/5-steps-to-a-zero-waste-kitchen_01-1280x832.jpg"
-  },
-  {
-    "description": "Wrap your food in plastic-free materials",
-    "popup": "",
-    "points": 5,
-    "category": "Food",
-    "photo": "https://nonagon.style/wp-content/uploads/2017/11/3-nonagon-style-zero-waste-kitchen-eco-friendly.jpg"
-  },
-  {
-    "description": "Bring a bread bag",
-    "popup": "",
-    "points": 5,
-    "category": "Shopping",
-    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLcnupoK_wL6RuC0E-mzHZeDf2GakqVJqoMhheilV0rG7b9vja3Q"
-  },
-  {
-    "description": "Buy plastic-free, compostable (wooden) brushes",
-    "popup": "To use in the kitchen for cleaning and dishwashing, A Plastic-Free Sink is All-Natural and Non-Toxic",
-    "points": 5,
-    "category": "Kitchen",
-    "photo": "https://i.pinimg.com/originals/01/3e/cd/013ecdc8a1327c39420c6d14bafcd702.jpg"
-  },
-  {
-    "description": "Use towels/cloths instead of kitchen roll",
-    "popup": "",
-    "points": 5,
-    "category": "Kitchen",
-    "photo": "http://www.greenyourdecor.com/wp-content/uploads/2010/09/clothtowels1.jpg"
-  },
-  {
-    "description": "Try grocery shopping without buying packaged food",
-    "popup": "",
-    "points": 5,
-    "category": "Shopping",
-    "photo": "https://i2.wp.com/welovebudapest.com/wp-content/uploads/sites/3/2018/12/ligeti-csomagolasmentes-bolt_mudra-laszlo_20180411-12.jpg?resize=1920%2C1080&ssl=1"
-  },
-  {
-    "description": "Avoid plastic bags",
-    "popup": "",
-    "points": 5,
-    "category": "Shopping",
-    "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
-  },
-  {
-    "description": "shampoo",
-    "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
-    "points": 10,
-    "category": "Bathroom",
-    "photo": "http://freemindedfolks-blog.com/wp-content/uploads/2018/05/zerowaster-6253.jpg"
   }
 ]
