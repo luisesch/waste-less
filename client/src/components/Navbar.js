@@ -43,9 +43,10 @@ class Navbar extends Component {
               Profile
             </Link>
 
+
             <button className="mx-2 btn btn-outline-success" type="button">
               Score {this.state.loggedInUser.score}
-            </button>
+            </button> */}
 
             <button
               onClick={() => this.logoutUser()}

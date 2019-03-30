@@ -29,7 +29,7 @@ class UserSearch extends Component {
             // className="form-control"
             className="input search-bar form-control"
             name="query"
-            placeholder="Find friends"
+            placeholder="Add members"
             value={this.state.name}
           />
         </div>

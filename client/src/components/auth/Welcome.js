@@ -23,9 +23,27 @@ class Welcome extends Component {
 
   render() {
     return (
-      <div>
-        <p>Thank you for signing up, {this.state.loggedInUser.username}</p>
+
+      <div className="card">
+      <div className="createLeague card-body">
+        <div className="row">
+          <div className="col-md-7 left">
+            <img
+              className="img-fluid rounded mb-4 mb-lg-0"
+              src="http://trashisfortossers.com/wp-content/uploads/2017/10/beginners-guide-to-zero-waste-featured-image.jpg"
+              alt=""
+            />
+          </div>
+          <div className="col-md-5 right">
+              <h1 className="card-title font-weight-light">
+              Thank you for signing up, {this.state.loggedInUser.username} 
+              </h1>
+              <br />
         <Link to={"/"}>Check out your dashboard</Link>
+      </div>
+      </div>
+      </div>
+      <div className="card-footer text-muted"> There is no planet B </div>
       </div>
     );
   }
