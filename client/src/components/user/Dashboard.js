@@ -37,7 +37,7 @@ class MyLeague extends Component {
       .catch(err => console.log(err));
 
     this.taskService
-      .getCompletedTasks(this.props.league._id)
+      .getCompletedTasksLeague(this.props.league._id)
       .then(response => {
         let tasks = [];
         response.forEach(completedTask => {

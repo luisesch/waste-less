@@ -17,9 +17,19 @@ class TaskService {
       .catch(err => console.log(err));
   };
 
-  getCompletedTasks = leagueId => {
+  getCompletedTasksLeague = leagueId => {
     return this.service
       .get("/tasks/" + leagueId)
+      .then(response => {
+        console.log(response);
+        return response.data;
+      })
+      .catch(err => console.log(err));
+  };
+
+  getCompletedTasksUser = userId => {
+    return this.service
+      .get("/tasks/user/" + userId)
       .then(response => {
         console.log(response);
         return response.data;
