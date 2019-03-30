@@ -9,10 +9,7 @@ const moment = require("moment");
 
 // get one league by ID
 leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
-  // console.log("getting league");
-  // console.log(moment().format("MMM Do YY"));
   const leagueId = req.params.leagueId;
-  // console.log(req.params.leagueId);
 
   League.findById(leagueId)
     .populate("administrator")
@@ -27,7 +24,10 @@ leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
 
 // DELETE /leagues/:leagueID/members/:userID
 // POST /leagues/:leagueID/members
+// body --> { userID:  }
+// GET /leagues/:leagueID/members?ex=true
 //
+
 leagueRoutes.post("/deleteMember", (req, res, next) => {
   const memberId = req.body.memberId;
 
@@ -38,6 +38,18 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
   )
     .then(response => res.status(200).json(response))
     .catch(err => console.log(err));
+});
+
+leagueRoutes.delete("/leagues/:leagueId/delete", (req, res, next) => {
+  const leagueId = req.params.leagueId;
+
+  League.findByIdAndDelete(leagueId).then(response => {
+    User.update({ "league.info": leagueId }, { $unset: { league: {} } })
+      .then(() => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  });
 });
 
 // create new league
@@ -89,6 +101,8 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
     res.status(200).json(aNewLeague);
   });
 });
+
+// delete league
 
 leagueRoutes.post("/addMember", (req, res, next) => {
   const userId = req.body.userId;

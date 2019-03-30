@@ -2,22 +2,21 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import Popup from "reactjs-popup";
 
-import LeagueService from "../league/league-service";
+import LeagueService from "./league-service";
 
-class LeaveLeagueButton extends Component {
+class DeleteMemberButton extends Component {
   constructor(props) {
     super(props);
 
     this.leagueService = new LeagueService();
   }
 
-  leaveLeague = () => {
-    let leagueId = this.props.userInSession.league.info;
-    let memberId = this.props.userInSession._id;
+  deleteMember = () => {
+    let leagueId = this.props.user.league.info;
+    let memberId = this.props.user._id;
     this.leagueService
       .deleteMember(leagueId, memberId)
       .then(response => {
-        this.setState({ loggedInUser: response });
         this.props.history.push("/myleague");
       })
       .catch(err => console.log(err));
@@ -26,12 +25,14 @@ class LeaveLeagueButton extends Component {
   render() {
     return (
       <Popup
-        trigger={<button className="btn btn-danger">Leave league</button>}
+        trigger={
+          <button className="btn btn-danger">{this.props.children}</button>
+        }
         position="right center"
       >
         <div>
           <p>Are you sure?</p>
-          <button className="btn btn-danger" onClick={this.leaveLeague}>
+          <button className="btn btn-danger" onClick={this.deleteMember}>
             Yes!
           </button>
         </div>
@@ -40,4 +41,4 @@ class LeaveLeagueButton extends Component {
   }
 }
 
-export default withRouter(LeaveLeagueButton);
+export default withRouter(DeleteMemberButton);

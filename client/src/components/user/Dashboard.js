@@ -10,7 +10,7 @@ import "./Dashboard.css";
 import LeagueService from "../league/league-service";
 import Moment from "moment";
 import TaskService from "../tasks/task-service";
-import LeaveLeagueButton from "../league/LeaveLeagueButton";
+import DeleteMemberButton from "../league/DeleteMemberButton";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -58,7 +58,9 @@ class Dashboard extends Component {
         <div className="container">
           <div className="row">
             <div className="col-3">
-              <LeaveLeagueButton userInSession={this.props.userInSession} />
+              <DeleteMemberButton user={this.props.userInSession}>
+                Leave league
+              </DeleteMemberButton>
             </div>
             <div className="col-6" />
             <div className="col-3">

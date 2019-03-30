@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import LeagueService from "../league/league-service";
 import UserService from "../user/user-service";
 import "./WaitingLeague.css";
+import DeleteMemberButton from "./DeleteMemberButton";
 
 // import Moment from "moment";
 
@@ -180,14 +181,11 @@ class WaitingLeague extends Component {
                                   {/* make sure admin can't delete himself */}
                                   {member._id !==
                                     this.state.loggedInUser._id && (
-                                    <button
-                                      name="deleteMember"
-                                      type="submit"
-                                      value={member._id}
-                                      onClick={this.deleteMember}
+                                    <DeleteMemberButton
+                                      user={this.state.loggedInUser}
                                     >
                                       Delete
-                                    </button>
+                                    </DeleteMemberButton>
                                   )}
                                 </td>
                               </tr>
