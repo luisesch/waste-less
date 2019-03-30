@@ -64,7 +64,10 @@ class MyLeague extends Component {
               />
             </div>
             <div className="col-lg-5 col-xs-12 px-0">
+            <h5 className="font-weight-bold text-right pr-3">Score {this.props.userInSession.score}</h5>
+
               <h1 className="font-weight-light">
+              <br />
                 Dashboard of {this.props.league.name}
               </h1>
               <br />

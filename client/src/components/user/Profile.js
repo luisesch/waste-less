@@ -61,6 +61,7 @@ class Profile extends Component {
               Welcome to your profile, {this.state.loggedInUser.username}
               <br />
               <small>Have you been waste-less today?</small>
+              
             </h3>
 
             <div className="card mb-4">
@@ -95,7 +96,13 @@ class Profile extends Component {
             </div>
           </div>
 
+
+
+
           <div className="col-md-4">
+          <br />
+          <h5 className="font-weight-bold text-right pr-3">Score {this.state.loggedInUser.score}</h5>
+
             <div className="card my-4">
               <h5 className="card-header">Invitation</h5>
               <div className="card-body">

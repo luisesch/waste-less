@@ -122,19 +122,35 @@ class MyLeague extends Component {
       Object.entries(this.state.league).length === 0
     ) {
       return (
-        <div>
-          <p>You aren't currently member of any league.</p>
-          <Link to="/newleague">Create new league</Link>
-        </div>
+
+        <div className="card">
+      <div className="createLeague card-body">
+        <div className="row">
+          <div className="col-md-7 left">
+            <img
+              className="img-fluid rounded mb-4 mb-lg-0"
+              src="https://www.longevitylive.com/wp-content/uploads/2017/09/art-close-up-ecology-886521.jpg"
+              alt=""
+            />
+          </div>
+          <div className="col-md-5 right">
+              <h1 className="card-title font-weight-light">
+              You aren't currently member of any league.
+              </h1>
+              <br />
+              <Link to="/newleague">Create new league</Link>
+      </div>
+      </div>
+      </div>
+      <div className="card-footer text-muted">Let the games begin! </div>
+      </div>
+
       );
       // if league has recently been completed and user has joined a new league
     } else if (this.state.league.status === "completed") {
       return (
-        <div>
-          <p>
-            League {this.state.league.name} has been completed -
-            congratulations!
-          </p>
+
+        
           <Link to="/newleague">
             <button onClick={this.deleteMember}>
               Create new league or get invited to new leagues.
@@ -145,6 +161,39 @@ class MyLeague extends Component {
             Check out the results here
           </Link>
         </div>
+
+
+        <div className="card">
+      <div className="createLeague card-body">
+        <div className="row">
+          <div className="col-md-7 left">
+            <img
+              className="img-fluid rounded mb-4 mb-lg-0"
+              src="https://ecowarriorprincess.net/wp-content/uploads/2018/04/We-Cant-Recycle-Our-Way-to-Zero-Waste.jpg"
+              alt=""
+            />
+          </div>
+          <div className="col-md-5 right">
+              <h1 className="card-title font-weight-light">
+              League {this.state.league.name} has been completed -
+             congratulations!
+              </h1>
+              <br />
+<Link to="/newleague">
+            <button onClick={this.deleteMember}>
+              Create new league or get invited to new leagues.
+            </button>
+</Link> <br />
+              <p>
+            Check out the results{" "}
+             <Link to={`/archive/${this.state.league._id}`}>here</Link>
+           </p>{" "}
+      </div>
+      </div>
+      </div>
+      <div className="card-footer text-muted"> Wanna try again? </div>
+      </div>
+
       );
       // if user has been invited to join league, but not confirmed yet
     } else if (!this.state.loggedInUser.league.confirmed) {
