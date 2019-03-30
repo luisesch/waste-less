@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import tasks from "../../tasks.json";
 import Search from "./TaskSearch";
+import Category from "./CategorySearch";
 import Popup from "reactjs-popup";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Tasks.css";
@@ -16,13 +17,22 @@ class Tasks extends Component {
     };
   }
 
-  searchTaskHandler = query => {
+  searchNameHandler = query => {
     let filteredTasks = this.state.tasks.filter(task => {
       const taskLowerCase = task.description.toLowerCase();
       const filter = query;
       return taskLowerCase.includes(filter);
     });
     this.setState({ filtered: filteredTasks });
+  };
+
+  searchCategoryHandler = query => {
+    let filteredCategory = this.state.tasks.filter(task => {
+      const taskLowerCase = task.category.toLowerCase();
+      const filter = query.toLowerCase();
+      return taskLowerCase.includes(filter);
+    });
+    this.setState({ filtered: filteredCategory });
   };
 
   scoreHandler = event => {
@@ -41,7 +51,11 @@ class Tasks extends Component {
     return (
       <div className="tasks container">
         <h1>Tasks</h1>
-        <Search searchTasks={this.searchTaskHandler} />
+        <Search searchTasks={this.searchNameHandler} />
+
+		
+		<Category searchCategory={this.searchCategoryHandler} />
+
         <div className="row">
           {this.state.filtered.map((task, index) => {
             return (

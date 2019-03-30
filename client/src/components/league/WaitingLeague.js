@@ -173,7 +173,7 @@ class WaitingLeague extends Component {
                       alt="default"
                     />
                     </th>
-                    <td>
+                    <td className="text-centered">
                     {member.username}
                     </td>
                     <td>
@@ -184,6 +184,7 @@ class WaitingLeague extends Component {
                     {member._id !== this.state.loggedInUser._id && (
                       <button
                         name="deleteMember"
+                        className="btn btn-light w-100"
                         type="submit"
                         value={member._id}
                         onClick={this.deleteMember}
@@ -261,7 +262,7 @@ class WaitingLeague extends Component {
           <div className="col-md-7 left">
             <img
               className="img-fluid rounded mb-4 mb-lg-0"
-              src="https://www.gypsysoul.co.uk/wp-content/uploads/2018/07/zero-waste-life.jpg"
+              src="https://consciousbychloe.imgix.net/2018/06/consciousbychloe-5-Rs-zero-waste-ashley-hardy-vase-1.jpg"
               alt=""
             />
           </div>
