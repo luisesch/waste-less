@@ -45,6 +45,7 @@ class Archive extends Component {
       return (
         <div className="container">
           <h2>Completed leagues</h2>
+
           <div className="row p-3">
             {this.state.leagues.map((league, index) => {
               return (

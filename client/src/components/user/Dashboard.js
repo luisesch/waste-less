@@ -10,8 +10,9 @@ import "./Dashboard.css";
 import LeagueService from "../league/league-service";
 import Moment from "moment";
 import TaskService from "../tasks/task-service";
+import LeaveLeagueButton from "../league/LeaveLeagueButton";
 
-class MyLeague extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,6 +56,17 @@ class MyLeague extends Component {
     } else {
       return (
         <div className="container">
+          <div className="row">
+            <div className="col-3">
+              <LeaveLeagueButton userInSession={this.props.userInSession} />
+            </div>
+            <div className="col-6" />
+            <div className="col-3">
+              <h5 className="font-weight-bold text-right pr-3">
+                Score {this.props.userInSession.score}
+              </h5>
+            </div>
+          </div>
           <div className="row align-items-center my-5">
             <div className="col-lg-7 col-xs-12">
               <img
@@ -64,14 +76,12 @@ class MyLeague extends Component {
               />
             </div>
             <div className="col-lg-5 col-xs-12 px-0">
-            <h5 className="font-weight-bold text-right pr-3">Score {this.props.userInSession.score}</h5>
-
               <h1 className="font-weight-light">
-              <br />
+                <br />
                 Dashboard of {this.props.league.name}
               </h1>
               <br />
-              <h5>-Best of the League-</h5>
+              <h5>-Top 3-</h5>
 
               <div className="rightBox">
                 <table className="table">
@@ -170,4 +180,4 @@ class MyLeague extends Component {
   }
 }
 
-export default withRouter(MyLeague);
+export default withRouter(Dashboard);

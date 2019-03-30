@@ -73,9 +73,6 @@ class Archive extends Component {
                   {/* sort members by score of the completed league */}
                   {this.state.members
                     .sort((a, b) => {
-                      console.log(b.completedLeagues);
-                      console.log(a.completedLeagues);
-                      console.log(this.state.league._id);
                       return (
                         b.completedLeagues.find(
                           league => league.info === this.state.league._id
