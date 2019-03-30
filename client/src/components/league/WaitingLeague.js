@@ -5,6 +5,8 @@ import UserSearch from "../user/UserSearch";
 import "bootstrap/dist/css/bootstrap.css";
 import LeagueService from "../league/league-service";
 import UserService from "../user/user-service";
+import "./WaitingLeague.css";
+
 // import Moment from "moment";
 
 class WaitingLeague extends Component {
@@ -127,27 +129,57 @@ class WaitingLeague extends Component {
       return <p>Loading</p>;
     } else {
       return (
-        <div>
-          <h2>Your league</h2>
-          <h3>Name</h3>
-          <p>{this.state.league.name}</p>
+        <div className="card">
+      <div className="createLeague card-body">
+        <div className="row">
+        <div className="col-md-5">
+       
+          <h2 className="card-title font-weight-light">Your league</h2>
+          < br />
+          <div className="row">
+          <div className="col-md-11 text-left">
+          <h3 className="font-weight-light">Name: {this.state.league.name}</h3>
+          <h5 className="font-weight-light"> Admin: {this.state.league.administrator.username}</h5> 
+          <br />
 
-          <h3>Members</h3>
-          {/* show delete button and status of members, only if loggedin user s administrator */}
-          {this.state.league.administrator._id ===
+
+  {/* show delete button and status of members, only if loggedin user s administrator */}
+  {this.state.league.administrator._id ===
           this.state.loggedInUser._id ? (
-            <ul>
-              <li>
-                Admin:
-                {this.state.league.administrator.username}
-              </li>
-
+  
+            <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">  
+                <h3 className="font-weight-light">Members</h3>
+          </th>
+          </tr>
+            </thead>
+            <tbody>
+              <tr>
+            <div>
+               
+              
               {this.state.members.map((member, index) => {
                 return (
-                  <li key={index}>
-                    {member.username} <br />
-                    {member.league.confirmed ? "confirmed" : "waiting"}
-                    <br />
+
+
+                  <div key={index}>
+                  <th scope="row">
+                    
+                    <img
+                     className="profilePic rounded"
+                     src={member.photo}
+                      alt="default"
+                    />
+                    </th>
+                    <td>
+                    {member.username}
+                    </td>
+                    <td>
+                    ({member.league.confirmed ? "confirmed" : "waiting"})
+                    </td>
+                    <td>
                     {/* make sure admin can't delete himself */}
                     {member._id !== this.state.loggedInUser._id && (
                       <button
@@ -159,31 +191,31 @@ class WaitingLeague extends Component {
                         Delete
                       </button>
                     )}
-                  </li>
+                    </td>
+                </div>
                 );
               })}
-            </ul>
+            </div>
+            </tr>
+  </tbody>
+</table>
           ) : (
             // if loggedin user is not administrator, only show member names
-            <ul>
-              <li>
+            <div>
                 Admin:
                 {this.state.league.administrator.username}
-              </li>
 
               {this.state.members.map((member, index) => {
-                return <li key={index}>{member.username}</li>;
+                return <div key={index}>{member.username}</div>;
               })}
-            </ul>
+            </div>
           )}
 
           {/* only show add option, if loggedin user is administrator */}
           {this.state.league.administrator._id ===
           this.state.loggedInUser._id ? (
             <div>
-              <p>
-                <strong>Add members</strong>
-              </p>
+          
               <UserSearch searchUsers={this.searchUserHandler} />
               {this.state.filteredUsers.map((user, index) => {
                 // turn object into string
@@ -199,6 +231,7 @@ class WaitingLeague extends Component {
                     </button>
                     <br />
                   </div>
+                  
                 );
               })}
 
@@ -217,8 +250,25 @@ class WaitingLeague extends Component {
                   Waiting for all members to confirm
                 </button>
               )}
-            </div>
+           </div>
+           
+          
           ) : null}
+          </div>
+          </div>
+          </div>
+
+          <div className="col-md-7 left">
+            <img
+              className="img-fluid rounded mb-4 mb-lg-0"
+              src="https://www.gypsysoul.co.uk/wp-content/uploads/2018/07/zero-waste-life.jpg"
+              alt=""
+            />
+          </div>
+          </div>
+        </div>
+        <div className="card-footer text-muted"> There is no planet B </div>
+
         </div>
       );
     }
