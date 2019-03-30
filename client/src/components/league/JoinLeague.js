@@ -31,14 +31,32 @@ class JoinLeague extends Component {
       .catch(err => console.log(err));
   };
 
+  declineLeague = () => {
+    let leagueId = this.state.loggedInUser.league.info;
+    let memberId = this.state.loggedInUser._id;
+    this.leagueService
+      .deleteMember(leagueId, memberId)
+      .then(response => {
+        this.setState({ loggedInUser: response });
+        this.props.history.push("/myleague");
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
-      <p>
-        You have been invited to join the league
-        <strong>{this.state.league.name}</strong>.
+      <div>
+        <p>
+          You have been invited to join the league
+          <strong> {this.state.league.name}</strong>.
+        </p>
         <br />
         <button onClick={this.enterLeague}>Join league</button>
-      </p>
+        <br />
+        <button onClick={this.declineLeague}>
+          I don't want to join this league.
+        </button>
+      </div>
     );
   }
 }

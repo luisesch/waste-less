@@ -1,18 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../auth/auth-service";
+import TaskService from "../tasks/task-service";
 import "bootstrap/dist/css/bootstrap.css";
 import "./Profile.css";
 import api from "../../api";
+import Moment from "moment";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedInUser: {},
-      file: null
+      file: null,
+      completedTasks: []
     };
     this.authService = new AuthService();
+    this.taskService = new TaskService();
   }
 
   handleChange(e) {
@@ -33,6 +37,17 @@ class Profile extends Component {
         this.setState({
           loggedInUser: response
         });
+        this.taskService
+          .getCompletedTasksUser(response._id)
+          .then(response => {
+            let tasks = [];
+            response.forEach(completedTask => {
+              tasks.push(completedTask);
+            });
+            tasks.reverse();
+            this.setState({ completedTasks: tasks });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   }
@@ -110,47 +125,44 @@ class Profile extends Component {
                 </div>
               </div>
             </div>
-
-            <div className="card my-4">
-              <h5 className="card-header">Categories</h5>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <ul className="list-unstyled mb-0">
-                      <li>
-                        <Link to="#">Bathroom</Link>
-                      </li>
-                      <li>
-                        <Link to="#">To go</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Shopping</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="col-lg-6">
-                    <ul className="list-unstyled mb-0">
-                      <li>
-                        <Link to="#">Kitchen</Link>
-                      </li>
-                      <li>
-                        <Link to="#">with Kids</Link>
-                      </li>
-                      <li>
-                        <Link to="#">Cleaning</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
+
+        <h3>Latest completed tasks</h3>
+        <div className="row">
+          {this.state.completedTasks.map((task, index) => {
+            // decide how many tasks are displayed via index
+            if (index <= 2) {
+              return (
+                <div
+                  className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
+                  key={index}
+                >
+                  <div className="card-body font-weight-light">
+                    <h5 className="card-title">
+                      <strong>{task.task.points}</strong> points for task:
+                      <br />
+                      {task.task.description}
+                    </h5>
+                    <img
+                      src={task.task.photo}
+                      className="card-img-top img-thumbnail"
+                      alt="default"
+                    />
+                  </div>
+                  <div className="card-footer text-muted">
+                    <small>
+                      {Moment(task.created_at)
+                        .startOf("hour")
+                        .fromNow()}
+                    </small>
+                  </div>
+                </div>
+              );
+            }
+          })}
+        </div>
       </div>
-
-      // </div>
-
-      // </div>
     );
   }
 }
