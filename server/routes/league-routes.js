@@ -159,6 +159,7 @@ leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
       Promise.all(
         users.map(user => {
           user.completedLeagues.push({ info: leagueId, score: user.score });
+          user.score = 0;
           return user.save();
         })
       ).then(() => {

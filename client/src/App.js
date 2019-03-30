@@ -53,15 +53,15 @@ class App extends Component {
     });
   };
 
-  raiseScore = points => {
+  raiseScore = (points, task) => {
     let newScore = this.state.loggedInUser.score + points;
     this.taskService
-      .updateScore(newScore, this.state.loggedInUser)
-      .then(response =>
+      .taskCompleted(newScore, this.state.loggedInUser, task)
+      .then(response => {
         this.setState({
           loggedInUser: response
-        })
-      )
+        });
+      })
       .catch(err => console.log(err));
   };
 
@@ -148,52 +148,50 @@ class App extends Component {
         <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
 
-          <div className="container-fluid">
-            <Switch>
-              <Route
-                user={this.state.loggedInUser}
-                exact
-                path="/"
-                component={props => (
-                  <HomeSignup {...props} getUser={this.getTheUser} />
-                )}
-              />
-              <Route
-                user={this.state.loggedInUser}
-                exact
-                path="/login"
-                component={props => (
-                  <HomeLogin {...props} getUser={this.getTheUser} />
-                )}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/myleague"
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/newleague"
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/tasks"
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/profile"
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/myleague/highscore"
-              />
-            </Switch>
-            <Footer />
-          </div>
+          <Switch>
+            <Route
+              user={this.state.loggedInUser}
+              exact
+              path="/"
+              component={props => (
+                <HomeSignup {...props} getUser={this.getTheUser} />
+              )}
+            />
+            <Route
+              user={this.state.loggedInUser}
+              exact
+              path="/login"
+              component={props => (
+                <HomeLogin {...props} getUser={this.getTheUser} />
+              )}
+            />
+            <ProtectedRoute
+              user={this.state.loggedInUser}
+              exact
+              path="/myleague"
+            />
+            <ProtectedRoute
+              user={this.state.loggedInUser}
+              exact
+              path="/newleague"
+            />
+            <ProtectedRoute
+              user={this.state.loggedInUser}
+              exact
+              path="/tasks"
+            />
+            <ProtectedRoute
+              user={this.state.loggedInUser}
+              exact
+              path="/profile"
+            />
+            <ProtectedRoute
+              user={this.state.loggedInUser}
+              exact
+              path="/myleague/highscore"
+            />
+          </Switch>
+          <Footer />
         </div>
       );
     }

@@ -9,16 +9,19 @@ import "./Dashboard.css";
 
 import LeagueService from "../league/league-service";
 import Moment from "moment";
+import TaskService from "../tasks/task-service";
 
 class MyLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
       league: this.props.league,
-      firstThree: []
+      firstThree: [],
+      completedTasks: []
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
+    this.taskService = new TaskService();
   }
 
   componentDidMount() {
@@ -32,6 +35,18 @@ class MyLeague extends Component {
         this.setState({ firstThree: firstThree });
       })
       .catch(err => console.log(err));
+
+    this.taskService
+      .getCompletedTasksLeague(this.props.league._id)
+      .then(response => {
+        let tasks = [];
+        response.forEach(completedTask => {
+          tasks.push(completedTask);
+        });
+        tasks.reverse();
+        this.setState({ completedTasks: tasks });
+      })
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -39,17 +54,18 @@ class MyLeague extends Component {
       return <p>Loading</p>;
     } else {
       return (
-        <div>
+        <div className="container">
           <div className="row align-items-center my-5">
-            <div className="col-lg-7">
+            <div className="col-lg-7 col-xs-12">
               <img
                 className="img-fluid rounded mb-4 mb-lg-0"
                 src={this.state.league.photo}
                 alt=""
               />
             </div>
-            <div className="col-lg-5">
+            <div className="col-lg-5 col-xs-12 px-0">
             <h5 className="font-weight-bold text-right pr-3">Score {this.props.userInSession.score}</h5>
+
               <h1 className="font-weight-light">
               <br />
                 Dashboard of {this.props.league.name}
@@ -105,56 +121,38 @@ class MyLeague extends Component {
 
           <p className="m-0">See the latest tasks of your team</p>
           <div className="row">
-            <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
-              <div className="card-body h-100">
-                <h5 className="card-title">Card title</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <Link to="#" className="card-link">
-                  Card link
-                </Link>
-                <Link to="#" className="card-link">
-                  Another link
-                </Link>
-              </div>
-            </div>
-
-            <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
-              <div className="card-body h-100">
-                <h5 className="card-title">Card title</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <Link to="#" className="card-link">
-                  Card link
-                </Link>
-                <Link to="#" className="card-link">
-                  Another link
-                </Link>
-              </div>
-            </div>
-
-            <div className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3">
-              <div className="card-body h-100">
-                <h5 className="card-title">Card title</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-                <Link to="#" className="card-link">
-                  Card link
-                </Link>
-                <Link to="#" className="card-link">
-                  Another link
-                </Link>
-              </div>
-            </div>
+            {this.state.completedTasks.map((task, index) => {
+              // decide how many tasks are displayed via index
+              if (index <= 2) {
+                return (
+                  <div
+                    className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
+                    key={index}
+                  >
+                    <div className="card-body font-weight-light">
+                      <h5 className="card-title">
+                        <strong>{task.user.username}</strong> collected <br />
+                        <strong>{task.task.points}</strong> points for task:
+                        <br />
+                        {task.task.description}
+                      </h5>
+                      <img
+                        src={task.task.photo}
+                        className="card-img-top img-thumbnail"
+                        alt="default"
+                      />
+                    </div>
+                    <div className="card-footer text-muted">
+                      <small>
+                        {Moment(task.created_at)
+                          .startOf("hour")
+                          .fromNow()}
+                      </small>
+                    </div>
+                  </div>
+                );
+              }
+            })}
           </div>
         </div>
       );

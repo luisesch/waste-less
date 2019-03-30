@@ -96,7 +96,6 @@ class MyLeague extends Component {
       this.leagueService
         .endLeague(leagueId)
         .then(response => {
-          console.log(response);
           this.setState({
             league: response
           });
@@ -141,7 +140,6 @@ class MyLeague extends Component {
       );
       // if league has recently been completed and user has joined a new league
     } else if (this.state.league.status === "completed") {
-      this.leagueOver();
       return (
 
         <div className="card">
