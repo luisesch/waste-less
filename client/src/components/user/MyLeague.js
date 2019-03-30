@@ -20,7 +20,7 @@ class MyLeague extends Component {
       loggedInUser: {},
       members: [],
       league: {},
-      endDate: "",
+      endDate: "03/21/2019",
       firstThree: []
     };
     this.authService = new AuthService();
@@ -73,15 +73,23 @@ class MyLeague extends Component {
         .getLeague(leagueId)
         .then(response => {
           this.setState({
-            league: response,
-            endDate: Moment(response.startDate, "L")
-              .add(30, "days")
-              .calendar()
+            league: response
+            // endDate: Moment(response.startDate, "L")
+            //   .add(30, "days")
+            //   .calendar()
           });
         })
         .catch(err => console.log(err));
     }
   }
+
+  deleteMember = () => {
+    let leagueId = this.state.league._id;
+    let memberId = this.state.loggedInUser._id;
+    this.leagueService
+      .deleteMember(leagueId, memberId)
+      .then(response => console.log(response));
+  };
 
   // check, if league is over/30 days have passed
   leagueOver = () => {
@@ -142,6 +150,19 @@ class MyLeague extends Component {
     } else if (this.state.league.status === "completed") {
       return (
 
+        
+          <Link to="/newleague">
+            <button onClick={this.deleteMember}>
+              Create new league or get invited to new leagues.
+            </button>
+          </Link>
+          <br />
+          <Link to={`/archive/${this.state.league._id}`}>
+            Check out the results here
+          </Link>
+        </div>
+
+
         <div className="card">
       <div className="createLeague card-body">
         <div className="row">
@@ -158,14 +179,15 @@ class MyLeague extends Component {
              congratulations!
               </h1>
               <br />
+<Link to="/newleague">
+            <button onClick={this.deleteMember}>
+              Create new league or get invited to new leagues.
+            </button>
+</Link> <br />
               <p>
             Check out the results{" "}
              <Link to={`/archive/${this.state.league._id}`}>here</Link>
            </p>{" "}
-           <br /> or <br />
-           <p>
-             Create a new league <Link to="/newleague">here</Link>
-           </p>
       </div>
       </div>
       </div>

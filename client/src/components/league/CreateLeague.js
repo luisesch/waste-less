@@ -155,6 +155,7 @@ class CreateLeague extends Component {
                       onChange={this.handleChange}
                       value={this.state.name}
                       placeholder="Name of the league"
+                      required
                     />
 
                     <br />
