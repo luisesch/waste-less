@@ -28,10 +28,17 @@ taskRoutes.post("/user/completeTask", (req, res, next) => {
 });
 
 //get members
-taskRoutes.get("/tasks/:leagueId", (req, res, next) => {
+taskRoutes.get("/tasks/league/:leagueId", (req, res, next) => {
   const leagueId = req.params.leagueId;
   CompletedTask.find({ league: leagueId })
     .populate("user")
+    .then(response => res.status(200).json(response))
+    .catch(err => console.log(err));
+});
+
+taskRoutes.get("/tasks/user/:userId", (req, res, next) => {
+  const userId = req.params.userId;
+  CompletedTask.find({ user: userId })
     .then(response => res.status(200).json(response))
     .catch(err => console.log(err));
 });
