@@ -43,7 +43,7 @@ class Archive extends Component {
       return <p>Loading</p>;
     } else {
       return (
-        <div class="container-fluid">
+        <div className="container">
           <h2>Completed leagues</h2>
           <div className="row p-3">
             {this.state.leagues.map((league, index) => {

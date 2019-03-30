@@ -25,6 +25,9 @@ leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
     });
 });
 
+// DELETE /leagues/:leagueID/members/:userID
+// POST /leagues/:leagueID/members
+//
 leagueRoutes.post("/deleteMember", (req, res, next) => {
   const memberId = req.body.memberId;
 

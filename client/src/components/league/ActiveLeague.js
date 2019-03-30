@@ -11,7 +11,7 @@ class ActiveLeague extends Component {
       league: this.props.league,
       loggedInUser: this.props.loggedInUser,
       members: [],
-      endDate: ""
+      endDate: "03/21/2019"
     };
     this.leagueService = new LeagueService();
   }
@@ -23,10 +23,10 @@ class ActiveLeague extends Component {
       .then(response => {
         response.sort((a, b) => b.score - a.score);
         this.setState({
-          members: response,
-          endDate: Moment(this.state.league.startDate, "L")
-            .add(30, "days")
-            .calendar()
+          members: response
+          // endDate: Moment(this.state.league.startDate, "L")
+          //   .add(30, "days")
+          //   .calendar()
         });
       })
       .catch(err => console.log(err));

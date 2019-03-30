@@ -116,41 +116,51 @@ class MyLeague extends Component {
           </div>
           <br />
 
-          <p className="m-0">See the latest tasks of your team</p>
-          <div className="row">
-            {this.state.completedTasks.map((task, index) => {
-              // decide how many tasks are displayed via index
-              if (index <= 2) {
-                return (
-                  <div
-                    className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
-                    key={index}
-                  >
-                    <div className="card-body font-weight-light">
-                      <h5 className="card-title">
-                        <strong>{task.user.username}</strong> collected <br />
-                        <strong>{task.task.points}</strong> points for task:
-                        <br />
-                        {task.task.description}
-                      </h5>
-                      <img
-                        src={task.task.photo}
-                        className="card-img-top img-thumbnail"
-                        alt="default"
-                      />
+          <h2 className="m-0">See the latest tasks of your team</h2>
+          {this.state.completedTasks.length <= 0 ? (
+            <p>
+              No completed tasks yet. Get started!
+              <br />
+              <Link to="/tasks">Browse tasks</Link>
+            </p>
+          ) : (
+            <div className="row">
+              {this.state.completedTasks.map((task, index) => {
+                // decide how many tasks are displayed via index
+                if (index <= 2) {
+                  return (
+                    <div
+                      className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
+                      key={index}
+                    >
+                      <div className="card-body font-weight-light">
+                        <h5 className="card-title">
+                          <strong>{task.user.username}</strong> collected <br />
+                          <strong>{task.task.points}</strong> points for task:
+                          <br />
+                          {task.task.description}
+                        </h5>
+                        <img
+                          src={task.task.photo}
+                          className="card-img-top img-thumbnail"
+                          alt="default"
+                        />
+                      </div>
+                      <div className="card-footer text-muted">
+                        <small>
+                          {Moment(task.created_at)
+                            .startOf("hour")
+                            .fromNow()}
+                        </small>
+                      </div>
                     </div>
-                    <div className="card-footer text-muted">
-                      <small>
-                        {Moment(task.created_at)
-                          .startOf("hour")
-                          .fromNow()}
-                      </small>
-                    </div>
-                  </div>
-                );
-              }
-            })}
-          </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
+          )}
         </div>
       );
     }
