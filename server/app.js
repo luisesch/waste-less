@@ -85,4 +85,10 @@ app.use("/api", require("./routes/league-routes"));
 app.use("/api", require("./routes/user-routes"));
 app.use("/api", require("./routes/task-routes"));
 
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+
 module.exports = app;
