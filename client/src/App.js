@@ -16,9 +16,9 @@ import Archive from "./components/league/Archive";
 import Tasks from "./components/tasks/Tasks";
 import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
-import Highscore from "./components/league/Highscore";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
+import ActiveLeague from "./components/league/Highscore";
 
 class App extends Component {
   constructor(props) {
@@ -78,6 +78,12 @@ class App extends Component {
           />
           <div className="fixfooter text-center">
             <Switch>
+              {/* <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/"
+                component={props => <MyLeague {...props} />}
+              /> */}
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
@@ -113,7 +119,7 @@ class App extends Component {
                 exact
                 path="/myleague/highscore"
                 component={props => (
-                  <Highscore
+                  <ActiveLeague
                     userInSession={this.state.loggedInUser}
                     getUser={this.getTheUser}
                   />
