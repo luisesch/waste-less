@@ -4,6 +4,8 @@ import LeagueService from "./league-service";
 import Moment from "moment";
 import DeleteMemberButton from "./DeleteMemberButton";
 import DeleteLeagueButton from "./DeleteLeagueButton";
+import UserSearch from "../user/UserSearch";
+import UserService from "../user/user-service";
 
 class ActiveLeague extends Component {
   constructor(props) {
@@ -14,9 +16,12 @@ class ActiveLeague extends Component {
       loggedInUser: this.props.userInSession,
       members: [],
       endDate: "",
-      edit: false
+      edit: false,
+      filteredUsers: [],
+      users: null
     };
     this.leagueService = new LeagueService();
+    this.userService = new UserService();
   }
 
   componentDidMount() {
@@ -37,12 +42,67 @@ class ActiveLeague extends Component {
         this.setState(newState);
       })
       .catch(err => console.log(err));
+
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
+        this.setState({ users: response });
+      })
+      .catch(err => console.log(err));
   }
 
   changeEdit = () => {
     this.state.edit
       ? this.setState({ edit: false })
       : this.setState({ edit: true });
+  };
+
+  searchUserHandler = query => {
+    console.log(query);
+    if (query.length < 1) {
+      this.setState({ filteredUsers: [] });
+    } else {
+      // only show users that aren't currently in any league
+      let leaguelessUsers = this.state.users.filter(user => {
+        return !user.league.hasOwnProperty("info");
+      });
+
+      let filteredUsers = leaguelessUsers.filter(user => {
+        const userLowerCase = user.username.toLowerCase();
+        const filter = query.toLowerCase();
+        return userLowerCase.includes(filter);
+      });
+      this.setState({ filteredUsers: filteredUsers });
+    }
+  };
+
+  addUser = async event => {
+    const userId = event.target.value;
+    const leagueId = this.state.league._id;
+    await this.leagueService.addMember(leagueId, userId);
+
+    this.leagueService
+      .getMembers(leagueId)
+      .then(response => this.setState({ members: response }))
+      .catch(err => console.log(err));
+
+    // get all users again to see changes
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
+        this.setState({ users: response, filteredUsers: [] });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -72,6 +132,28 @@ class ActiveLeague extends Component {
           <h2>{this.state.league.name}</h2>
           <p>Started on: {this.state.league.startDate}</p>
           <p>Ends {Moment(this.state.endDate, "L").fromNow()}</p>
+          {/* show search bar for new members, if user is admin and edit is clicked */}
+          {this.state.edit ? (
+            <div>
+              <UserSearch searchUsers={this.searchUserHandler} />
+              {this.state.filteredUsers.map((user, index) => {
+                // turn object into string
+                return (
+                  <div key={index}>
+                    <button
+                      className="btn btn-light w-100"
+                      htmlFor="user"
+                      value={user._id}
+                      onClick={this.addUser}
+                    >
+                      {user.username}
+                    </button>
+                    <br />
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
           <table className="table">
             <thead>
               <tr>
