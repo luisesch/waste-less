@@ -9,11 +9,12 @@
   },
   {
     "id": "2",
-    "description": "use bee wrap/packaging",
+    "description": "bee wrap/packaging",
     "popup": "plastic free alternative to wrap your food for reuse",
     "points": 15,
-    "category": "Kitchen",
-    "photo": "https://www.demeter.de/sites/default/files/styles/demeter_ev_article/public/demeter.de/artikel/images/demeter-journal-39-bienenwachstuch-biodynamisch.png?itok=yzeA0TVX"
+    "category": "Kitchen", 
+    "photo": "https://cdn.shopify.com/s/files/1/1950/5911/products/ABEEGO-main_grande.jpg?v=1536223068"
+
   },
   {
     "id": "3",
@@ -30,45 +31,62 @@
     "photo": "https://www.preis.de/news/wp-content/uploads/2018/02/zerowaste-beitrag-740x493.jpeg"
   },
   {
-    "id": "5",
-    "description": "Buy your food on a market",
-    "popup": "",
-    "points": 5,
-    "category": "Food",
-    "photo": "https://einbisschengruener.files.wordpress.com/2017/01/de-eemstuin.jpg?w=750&h=498"
-  },
-  {
-    "id": "6",
-    "description": "Wrap your food",
-    "popup": "in plastic-free materials",
-    "points": 5,
-    "category": "Food",
-    "photo": "https://nonagon.style/wp-content/uploads/2017/11/3-nonagon-style-zero-waste-kitchen-eco-friendly.jpg"
-  },
-  {
-    "id": "7",
-    "description": "Bring a bread bag",
-    "popup": "",
-    "points": 5,
-    "category": "Shopping",
-    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLcnupoK_wL6RuC0E-mzHZeDf2GakqVJqoMhheilV0rG7b9vja3Q"
-  },
-  {
-    "id": "8",
-    "description": "Cleaning (kitchen)",
-    "popup": "Buy plastic-free, compostable (wooden) brushes to use in the kitchen for cleaning and dishwashing, A Plastic-Free Sink is All-Natural and Non-Toxic",
-    "points": 5,
-    "category": "Kitchen",
-    "photo": "https://www.toastenstein.com/wp-content/uploads/2018/07/zerowaste_toastenstein_sp%C3%BClb%C3%BCrste_schwamm-1024x674.jpg"
-  },
-  {
-    "id": "9",
-    "description": "Kitchen roll (kitchen)",
-    "popup": "Use towels/cloths instead of kitchen roll",
-    "points": 5,
-    "category": "Kitchen",
-    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7ZeBLoyQJobZzLEULpoxV19GxNuiPZtgRURDQI4zTYz4KLWI-g"
-  },
+      "id": "5",
+      "description": "Buy food at a market",
+      "popup": "",
+      "points": 5,
+      "category": "Food",
+      "photo": "https://einbisschengruener.files.wordpress.com/2017/01/de-eemstuin.jpg?w=750&h=498"
+    },
+    {
+        "id": "6",
+        "description": "Wrap your food",
+        "popup": "in plastic-free materials",
+        "points": 5,
+        "category": "Food",
+        "photo": "https://nonagon.style/wp-content/uploads/2017/11/3-nonagon-style-zero-waste-kitchen-eco-friendly.jpg"
+      },
+      {
+          "id": "7",
+          "description": "Bring a bread bag",
+          "popup": "",
+          "points": 5,
+          "category": "Shopping", 
+          "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLcnupoK_wL6RuC0E-mzHZeDf2GakqVJqoMhheilV0rG7b9vja3Q"
+        },
+        {
+            "id": "8",
+            "description": "Cleaning",
+            "popup": "Buy plastic-free, compostable (wooden) brushes to use in the kitchen for cleaning and dishwashing, A Plastic-Free Sink is All-Natural and Non-Toxic",
+            "points": 5,
+            "category": "Kitchen", 
+            "photo": "https://www.toastenstein.com/wp-content/uploads/2018/07/zerowaste_toastenstein_sp%C3%BClb%C3%BCrste_schwamm-1024x674.jpg"
+          },
+{
+              "id": "9",
+              "description": "Kitchen roll",
+              "popup": "Use towels/cloths instead of kitchen roll",
+              "points": 5,
+              "category": "Kitchen", 
+              "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7ZeBLoyQJobZzLEULpoxV19GxNuiPZtgRURDQI4zTYz4KLWI-g"
+            },
+{
+                "id": "10",
+                "description": "Grocery shopping",
+                "popup": "ry grocery shopping without buying packaged food",
+                "points": 5,
+                "category": "Shopping", 
+                "photo": "https://www.blattgruen.blog/wp-content/uploads/2016/10/hg4.jpg"
+              },
+              {
+                  "id": "11",
+                  "description": "Avoid plastic bags",
+                  "popup": "",
+                  "points": 5,
+                  "category": "Shopping",
+                  "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
+                },
+
   {
     "id": "10",
     "description": "Grocery shopping",
@@ -95,8 +113,25 @@
   },
   {
     "id": "13",
-    "description": "paper",
+    "description": "Picknick/Eat outside",
+    "popup": "avoid plastic spoons, knifes, forks, etc., if you eat outside or take to go",
     "points": 10,
-    "category": "Office"
-  }
+    "category": "To Go",
+    "photo": "https://i.etsystatic.com/5879624/r/il/fd822b/1632989875/il_794xN.1632989875_98rc.jpg"
+},
+{
+  "id": "14",
+  "description": "Gift paper",
+  "popup": "",
+  "points": 10,
+  "category": "Other",
+  "photo": "http://trashisfortossers.com/wp-content/uploads/2017/11/zero-waste-gift-guide-by-price-featured-image.jpg"
+},
+{
+  "id": "3",
+  "description": "dishwasher",
+  "points": 20,
+  "category": "Cleaning", 
+  "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
+}
 ]

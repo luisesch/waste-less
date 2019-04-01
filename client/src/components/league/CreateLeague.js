@@ -134,7 +134,7 @@ class CreateLeague extends Component {
             <div className="col-md-7 left">
               <img
                 className="img-fluid rounded mb-4 mb-lg-0"
-                src="http://www.ecozine.com/sites/default/files/imagecache/article_page_large/homemade-deliciousness.net__0.jpg"
+                src="https://www.e-fellows.net/var/ezflow_site/storage/images/medienbibliothek/_bilder/zero-waste-glaeser-muesli-1280x720-unsplash.com/42747125-1-ger-DE/Zero-Waste-Glaeser-Muesli-1280x720-unsplash.com_full_image.jpg"
                 alt=""
               />
             </div>
