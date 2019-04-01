@@ -4,7 +4,6 @@ import { withRouter } from "react-router";
 
 import AuthService from "../auth/auth-service";
 
-import "bootstrap/dist/css/bootstrap.css";
 import "./Dashboard.css";
 
 import LeagueService from "../league/league-service";
@@ -73,6 +72,10 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(
+      this.props.userInSession._id,
+      this.state.league.administrator._id
+    );
     if (this.state.firstThree.length === 0) {
       return <p>Loading</p>;
     } else {

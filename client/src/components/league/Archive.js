@@ -5,7 +5,6 @@ import AuthService from "../auth/auth-service";
 import LeagueService from "../league/league-service";
 import ArchiveDetail from "./ArchiveDetail";
 
-import "bootstrap/dist/css/bootstrap.css";
 import "./Archive.css";
 
 class Archive extends Component {

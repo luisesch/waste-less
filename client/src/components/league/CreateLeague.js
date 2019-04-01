@@ -3,7 +3,6 @@ import LeagueService from "./league-service";
 import UserService from "../user/user-service";
 import UserSearch from "../user/UserSearch";
 import AuthService from "../auth/auth-service";
-import "bootstrap/dist/css/bootstrap.css";
 import "./CreateLeague.css";
 
 class CreateLeague extends Component {
@@ -128,7 +127,7 @@ class CreateLeague extends Component {
 
   render() {
     return (
-      <div className="card container-fluid">
+      <div className="card container">
         <div className="createLeague card-body">
           <div className="row">
             <div className="col-md-7 left">

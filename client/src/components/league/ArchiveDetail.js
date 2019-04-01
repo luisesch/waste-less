@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import AuthService from "../auth/auth-service";
 import LeagueService from "../league/league-service";
-import "bootstrap/dist/css/bootstrap.css";
 
 class Archive extends Component {
   constructor(props) {
@@ -54,7 +53,7 @@ class Archive extends Component {
     } else {
       this.getLeague();
       return (
-        <div className="container-fluid">
+        <div className="container">
           <div className="row p-3">
             <div className="col-md-4 col-xs-12 text-left">
               <h3>{this.state.league.name}</h3>

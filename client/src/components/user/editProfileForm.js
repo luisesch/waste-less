@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../auth/auth-service";
 import TaskService from "../tasks/task-service";
-import "bootstrap/dist/css/bootstrap.css";
 import "./Profile.css";
 
 import UserService from "./user-service";

@@ -3,7 +3,6 @@ import tasks from "../../tasks.json";
 import Search from "./TaskSearch";
 import Category from "./CategorySearch";
 import Popup from "reactjs-popup";
-import "bootstrap/dist/css/bootstrap.css";
 import "./Tasks.css";
 
 // import { Link } from "react-router-dom";
@@ -27,16 +26,16 @@ class Tasks extends Component {
   };
 
   searchCategoryHandler = query => {
-if (query === "All categories") {this.setState({filtered: tasks})} 
-else {
-
-    let filteredCategory = this.state.tasks.filter(task => {
-      const taskLowerCase = task.category.toLowerCase();
-      const filter = query.toLowerCase();
-      return taskLowerCase.includes(filter);
-    });
-	this.setState({ filtered: filteredCategory });
-}
+    if (query === "All categories") {
+      this.setState({ filtered: tasks });
+    } else {
+      let filteredCategory = this.state.tasks.filter(task => {
+        const taskLowerCase = task.category.toLowerCase();
+        const filter = query.toLowerCase();
+        return taskLowerCase.includes(filter);
+      });
+      this.setState({ filtered: filteredCategory });
+    }
   };
 
   scoreHandler = event => {
@@ -48,57 +47,70 @@ else {
 
   render() {
     return (
-      <div className="tasks container">
- <h1 className="font-weight-light">Tasks</h1>
- <hr></hr>
- <br/>
- <div className="row">
-	<div className="col-md-6">
-	<Search searchTasks={this.searchNameHandler} />
-	</div>
-	<div className="col-md-6">
-	  <Category searchCategory={this.searchCategoryHandler} />
-	  </div>
-	  </div>
-        <div className="row">
-          {this.state.filtered.map((task, index) => {
-            return (
-              <div
-                className="card col-xs-12 col-md-3 mb-5 mt-3 mx-3"
-                key={index}
-              >
-                <div className="card-body font-weight-light">
-                  <img
-                    src={task.photo}
-                    className="card-img-top img-thumbnail"
-                    alt="default"
-                  />
-                  <br />
-                  <h5 className="card-title">{task.description}</h5>
-                  <button
-                    className="points mx-2 btn btn-secondary"
-                    type="submit"
-                    value={task.id}
-                    onClick={this.scoreHandler}
-                  >
-                    {task.points}
-                  </button>
-                  <Popup
-                    trigger={
-                      <button className="btn btn-secondary" type="button">
-                        info
-                      </button>
-                    }
-                    position="right center"
-                  >
-                    <div>{task.popup}</div>
-                  </Popup>
-                  <br /> <br />
+      <div className="tasks">
+        <h1 className="font-weight-light">Tasks</h1>
+        <hr />
+        <br />
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <Search searchTasks={this.searchNameHandler} />
+            </div>
+            <div className="col-md-6">
+              <Category searchCategory={this.searchCategoryHandler} />
+            </div>
+          </div>
+          <div className="row">
+            {this.state.filtered.map((task, index) => {
+              return (
+                <div key={index} className="col-xs-12 col-md-4 mt-3">
+                  <div className="card" key={index}>
+                    <div className="card-body font-weight-light">
+                      <img
+                        src={task.photo}
+                        className="card-img-top img-thumbnail"
+                        alt="default"
+                      />
+                      <h5 className="card-title">{task.description}</h5>
+                      <div className="row">
+                        <div className="col-6">
+                          <button
+                            className="points mx-2 btn btn-secondary"
+                            type="submit"
+                            value={task.id}
+                            onClick={this.scoreHandler}
+                          >
+                            {task.points}
+                          </button>
+                        </div>
+                        {/* only show popup, if task includes additional information */}
+                        <div className="col-6">
+                          {task.popup && (
+                            <Popup
+                              trigger={
+                                <button
+                                  className="btn btn-secondary"
+                                  type="button"
+                                >
+                                  info
+                                </button>
+                              }
+                              position="right center"
+                            >
+                              <div>{task.popup}</div>
+                            </Popup>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-footer text-muted">
+                      {task.category}
+                    </div>
+                  </div>
                 </div>
-                <div className="card-footer text-muted">{task.category}</div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     );

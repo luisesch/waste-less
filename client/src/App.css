@@ -1,3 +1,7 @@
+body {
+  background-color: mintcream;
+}
+
 .App {
   text-align: center;
   margin: 0 !important;
@@ -26,6 +30,10 @@
 
 .fixfooter {
   min-height: 50vh;
+}
+
+.container {
+  width: 100vw;
 }
 
 @keyframes App-logo-spin {
