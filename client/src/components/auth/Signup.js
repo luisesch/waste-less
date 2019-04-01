@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", message: "" };
+    this.state = { username: "", password: "", email: "", message: "" };
     this.service = new AuthService();
   }
 
@@ -13,7 +13,8 @@ class Signup extends Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    this.props.signup(username, password);
+    const email = this.state.email;
+    this.props.signup(username, password, email);
   };
 
   handleChange = event => {
@@ -35,8 +36,18 @@ class Signup extends Component {
               className="form-control"
               placeholder="Username"
             />
+          </div>
 
-            <small id="emailHelp" className="form-text text-muted">
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={e => this.handleChange(e)}
+              className="form-control"
+              placeholder="Email"
+            />
+            <small className="form-text text-muted">
               We'll never share your email with anyone.
             </small>
           </div>

@@ -46,7 +46,8 @@ class JoinLeague extends Component {
     return (
       <div>
         <p>
-          You have been invited to join the league
+          {this.state.league.administrator.username} has invited you to join the
+          league
           <strong> {this.state.league.name}</strong>.
         </p>
         <br />

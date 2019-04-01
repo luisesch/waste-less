@@ -6,6 +6,18 @@ const League = require("../models/league");
 const User = require("../models/user");
 
 const moment = require("moment");
+const templateInvited = require("../templates/templateInvited");
+const templateStarted = require("../templates/templateStarted");
+const templateEnded = require("../templates/templateEnded");
+
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
 
 // get one league by ID
 leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
@@ -93,7 +105,15 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
         { $set: { league: { info: aNewLeague._id, confirmed: false } } },
         { new: true }
       )
-        .then(response => console.log(response))
+        .then(response =>
+          transporter.sendMail({
+            from: '"waste-less" <waste.less.ironhack@gmail.com>',
+            to: response.email,
+            subject: "You've been invited to join a league!",
+            text: "localhost:3000/myleague",
+            html: templateInvited.templateInvited("localhost:3000/myleague")
+          })
+        )
         .catch(err => console.log(err))
     );
 
@@ -101,8 +121,6 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
     res.status(200).json(aNewLeague);
   });
 });
-
-// delete league
 
 leagueRoutes.post("/addMember", (req, res, next) => {
   const userId = req.body.userId;
@@ -113,7 +131,16 @@ leagueRoutes.post("/addMember", (req, res, next) => {
     { $set: { league: { info: leagueId, confirmed: false } } },
     { new: true }
   )
-    .then(response => res.status(200).json(response))
+    .then(user => {
+      transporter.sendMail({
+        from: '"waste-less" <waste.less.ironhack@gmail.com>',
+        to: user.email,
+        subject: "You've been invited to join a league!",
+        text: "localhost:3000/myleague",
+        html: templateInvited.templateInvited("localhost:3000/myleague")
+      });
+      res.status(200).json(user);
+    })
     .catch(err => console.log(err));
 });
 
@@ -173,6 +200,21 @@ leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
     .add(30, "day")
     .format("L");
 
+  User.find({ "league.info": leagueId })
+    .then(users => {
+      let mailList = [];
+      users.forEach(user => mailList.push(user.email));
+      transporter.sendMail({
+        from: '"waste-less" <waste.less.ironhack@gmail.com>',
+        to: "waste.less.ironhack@gmail.com",
+        bcc: mailList,
+        subject: "Your league has just started!",
+        text: "localhost:3000/tasks",
+        html: templateStarted.templateStarted("localhost:3000/tasks")
+      });
+    })
+    .catch(err => console.log(err));
+
   League.findOneAndUpdate(
     { _id: leagueId },
     { $set: { status: "active", startDate: startDate, endDate: endDate } },
@@ -191,7 +233,17 @@ leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
     { $set: { status: "completed" } },
     { new: true }
   ).then(response => {
-    User.find({ "league.info": leagueId }).then(users =>
+    User.find({ "league.info": leagueId }).then(users => {
+      let mailList = [];
+      users.forEach(user => mailList.push(user.email));
+      transporter.sendMail({
+        from: '"waste-less" <waste.less.ironhack@gmail.com>',
+        to: "waste.less.ironhack@gmail.com",
+        bcc: mailList,
+        subject: "Your league has ended!",
+        text: "localhost:3000/archive/" + leagueId,
+        html: templateEnded.templateEnded("localhost:3000/archive/" + leagueId)
+      });
       Promise.all(
         users.map(user => {
           user.completedLeagues.push({ info: leagueId, score: user.score });
@@ -200,8 +252,8 @@ leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
         })
       ).then(() => {
         res.status(200).json(response);
-      })
-    );
+      });
+    });
   });
 });
 

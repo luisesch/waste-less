@@ -21,8 +21,8 @@ class Home extends Component {
       .catch(error => console.log(error));
   };
 
-  signup = (username, password) => {
-    this.service.signup(username, password).then(response => {
+  signup = (username, password, email) => {
+    this.service.signup(username, password, email).then(response => {
       if (response.message) {
         this.setState({ message: response.message });
       } else {

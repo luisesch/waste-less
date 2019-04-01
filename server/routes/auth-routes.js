@@ -7,9 +7,29 @@ const bcrypt = require("bcryptjs");
 // require the user model !!!!
 const User = require("../models/user");
 
+const templateVerification = require("../templates/templateVerification");
+
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
+
 authRoutes.post("/signup", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  const email = req.body.email;
+
+  const characters =
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let confirmationCode = "";
+  for (let i = 0; i < 25; i++) {
+    confirmationCode +=
+      characters[Math.floor(Math.random() * characters.length)];
+  }
 
   if (!username || !password) {
     res.status(200).json({ message: "Provide username and password" });
@@ -40,7 +60,9 @@ authRoutes.post("/signup", (req, res, next) => {
 
     const aNewUser = new User({
       username: username,
-      password: hashPass
+      password: hashPass,
+      email: email,
+      confirmationCode: confirmationCode
     });
 
     aNewUser.save(err => {
@@ -51,20 +73,46 @@ authRoutes.post("/signup", (req, res, next) => {
         return;
       }
 
-      //Automatically log in user after sign up
-      // .login() here is actually predefined passport method
-      req.login(aNewUser, err => {
-        if (err) {
-          res.status(500).json({ message: "Login after signup went bad." });
-          return;
-        }
+      transporter
+        .sendMail({
+          from: '"waste-less" <waste.less.ironhack@gmail.com>',
+          to: email,
+          subject: "Please verify your email address!",
+          text: "localhost:3000/confirm/" + confirmationCode,
+          html: templateVerification.templateVerification(
+            "localhost:3000/confirm/" + confirmationCode
+          )
+        })
+        .then(() => {
+          req.login(aNewUser, err => {
+            if (err) {
+              res.status(500).json({ message: "Login after signup went bad." });
+              return;
+            }
 
-        // Send the user's information to the frontend
-        // We can use also: res.status(200).json(req.user);
-        res.status(200).json(aNewUser);
-      });
+            // Send the user's information to the frontend
+            // We can use also: res.status(200).json(req.user);
+            res.status(200).json(aNewUser);
+          });
+        })
+        .catch(error => {
+          next(error);
+        });
     });
   });
+});
+
+authRoutes.put("/auth/:userId/confirm/:code", (req, res) => {
+  confirmationCode = req.params.code;
+  User.findOneAndUpdate(
+    { confirmationCode: confirmationCode },
+    { $set: { status: "Active" } },
+    { new: true }
+  )
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(err => console.log(err));
 });
 
 authRoutes.post("/login", (req, res, next) => {
