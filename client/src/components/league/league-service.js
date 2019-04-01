@@ -97,6 +97,21 @@ class LeagueService {
       .then(response => response.data)
       .catch(err => console.log(err));
   };
+
+  addLeaguePicture(file, leagueId) {
+    const formData = new FormData();
+    formData.append("picture", file);
+    return this.service
+      .post("/leagues/" + leagueId + "/pictures", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => console.log(err));
+  }
 }
 
 export default LeagueService;

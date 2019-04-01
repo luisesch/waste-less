@@ -11,6 +11,7 @@ import LeagueService from "../league/league-service";
 import Moment from "moment";
 import TaskService from "../tasks/task-service";
 import DeleteMemberButton from "../league/DeleteMemberButton";
+import UserService from "./user-service";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -18,11 +19,13 @@ class Dashboard extends Component {
     this.state = {
       league: this.props.league,
       firstThree: [],
-      completedTasks: []
+      completedTasks: [],
+      editPicture: false
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
     this.taskService = new TaskService();
+    this.userService = new UserService();
   }
 
   componentDidMount() {
@@ -50,6 +53,25 @@ class Dashboard extends Component {
       .catch(err => console.log(err));
   }
 
+  editPicture = () => {
+    this.state.editPicture
+      ? this.setState({ editPicture: false })
+      : this.setState({ editPicture: true });
+  };
+
+  handleChange(e) {
+    this.setState({
+      file: e.target.files[0]
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.leagueService
+      .addLeaguePicture(this.state.file, this.props.league._id)
+      .then(res => this.setState({ league: res }));
+  }
+
   render() {
     if (this.state.firstThree.length === 0) {
       return <p>Loading</p>;
@@ -58,9 +80,13 @@ class Dashboard extends Component {
         <div className="container">
           <div className="row">
             <div className="col-3">
-              <DeleteMemberButton user={this.props.userInSession}>
-                Leave league
-              </DeleteMemberButton>
+              {" "}
+              {this.props.userInSession._id !==
+                this.state.league.administrator._id && (
+                <DeleteMemberButton user={this.props.userInSession}>
+                  Leave league
+                </DeleteMemberButton>
+              )}
             </div>
             <div className="col-6" />
             <div className="col-3">
@@ -76,6 +102,21 @@ class Dashboard extends Component {
                 src={this.state.league.photo}
                 alt=""
               />
+              <div className="text-left">
+                {this.props.userInSession._id ===
+                  this.state.league.administrator._id && (
+                  <button className="btn btn-light" onClick={this.editPicture}>
+                    Change picture
+                  </button>
+                )}
+                {this.state.editPicture ? (
+                  <form onSubmit={e => this.handleSubmit(e)}>
+                    <input type="file" onChange={e => this.handleChange(e)} />{" "}
+                    <br />
+                    <button type="submit">Save new profile picture</button>
+                  </form>
+                ) : null}
+              </div>
             </div>
             <div className="col-lg-5 col-xs-12 px-0">
               <h1 className="font-weight-light">

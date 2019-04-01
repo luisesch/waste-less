@@ -6,9 +6,8 @@ const userSchema = new Schema(
     username: String,
     password: String,
     email: String,
-    motto: String,
+    motto: { type: String, default: "Ready to save the world?" },
     photo: { type: String, default: "/images/default_profile.jpg" },
-    googleID: String,
     league: {
       info: { type: Schema.Types.ObjectId, ref: "League" },
       confirmed: { type: Boolean, default: false }

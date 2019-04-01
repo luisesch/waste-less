@@ -63,7 +63,6 @@ class ActiveLeague extends Component {
   };
 
   searchUserHandler = query => {
-    console.log(query);
     if (query.length < 1) {
       this.setState({ filteredUsers: [] });
     } else {
