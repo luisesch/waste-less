@@ -12,6 +12,7 @@ import AuthService from "./components/auth/auth-service";
 import MyLeague from "./components/user/MyLeague";
 import Welcome from "./components/auth/Welcome";
 import Archive from "./components/league/Archive";
+import Verification from "./components/auth/Verification";
 
 import Tasks from "./components/tasks/Tasks";
 import CreateLeague from "./components/league/CreateLeague";
@@ -89,6 +90,12 @@ class App extends Component {
                 exact
                 path="/myleague"
                 component={props => <MyLeague {...props} />}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path={`/confirm/:confirmationCode`}
+                component={props => <Verification {...props} />}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}

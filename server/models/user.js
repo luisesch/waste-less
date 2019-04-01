@@ -33,6 +33,7 @@ const userSchema = new Schema(
 
 userSchema.options.toJSON = {
   transform: function(doc, ret, options) {
+    delete ret.email;
     delete ret.password;
     return ret;
   }

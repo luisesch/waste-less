@@ -44,6 +44,7 @@ class JoinLeague extends Component {
 
   render() {
     return (
+
       <div className="card container">
       <div className="createLeague card-body">
         <div className="row">
@@ -56,10 +57,12 @@ class JoinLeague extends Component {
           </div>
           <div className="col-md-5 right">
             <h1 className="card-title font-weight-light">
-            You have been invited to join the league
+            {this.state.league.administrator.username} has invited you to join the
+          league
             </h1>
             <h3><strong> {this.state.league.name}</strong></h3>
             <br />
+      <button onClick={this.enterLeague}>Join league</button>
             <br />
         <button 
         onClick={this.declineLeague}
