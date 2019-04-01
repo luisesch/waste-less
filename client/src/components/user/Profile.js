@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../auth/auth-service";
 import TaskService from "../tasks/task-service";
-import "bootstrap/dist/css/bootstrap.css";
 import "./Profile.css";
 import Moment from "moment";
 import UserService from "./user-service";
@@ -140,7 +139,6 @@ class Profile extends Component {
                   {" "}
                   <h4>Motto:</h4> "{this.state.loggedInUser.motto}"
                 </div>
-
               </div>
               <div className="card-footer text-muted">
                 Currently part of the league{" "}
