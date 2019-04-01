@@ -17,13 +17,6 @@
 
   },
   {
-    "id": "3",
-    "description": "dishwasher",
-    "points": 20,
-    "category": "Cleaning",
-    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
-  },
-  {
     "id": "4",
     "description": "own bag",
     "points": 5,
@@ -70,22 +63,6 @@
               "category": "Kitchen", 
               "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7ZeBLoyQJobZzLEULpoxV19GxNuiPZtgRURDQI4zTYz4KLWI-g"
             },
-{
-                "id": "10",
-                "description": "Grocery shopping",
-                "popup": "ry grocery shopping without buying packaged food",
-                "points": 5,
-                "category": "Shopping", 
-                "photo": "https://www.blattgruen.blog/wp-content/uploads/2016/10/hg4.jpg"
-              },
-              {
-                  "id": "11",
-                  "description": "Avoid plastic bags",
-                  "popup": "",
-                  "points": 5,
-                  "category": "Shopping",
-                  "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
-                },
 
   {
     "id": "10",
@@ -93,7 +70,7 @@
     "popup": "ry grocery shopping without buying packaged food",
     "points": 5,
     "category": "Shopping",
-    "photo": "https://www.blattgruen.blog/wp-content/uploads/2016/10/hg4.jpg"
+    "photo": "http://wastelandrebel.com/de/wp-content/uploads/sites/2/2015/08/IMG_59541.jpg"
   },
   {
     "id": "11",
@@ -128,10 +105,114 @@
   "photo": "http://trashisfortossers.com/wp-content/uploads/2017/11/zero-waste-gift-guide-by-price-featured-image.jpg"
 },
 {
-  "id": "3",
-  "description": "dishwasher",
+  "id": "15",
+  "description": "Travelling",
+  "popup": "",
+  "points": 10,
+  "category": "Other",
+  "photo": "http://www.alttrifftneu.de/wp-content/uploads/2018/02/ZeroWaste_TravelEquipment.jpg"
+},
+{
+  "id": "16",
+  "description": "Water",
+  "popup": "",
+  "points": 10,
+  "category": "To Go",
+  "photo": "https://www.careelite.de/wp-content/uploads/2019/01/zero-waste-reise-urlaub-plastikfrei-trinkflasche.jpg"
+},
+{
+  "id": "17",
+  "description": "make-up",
+  "popup": "make-up removal pad",
+  "points": 10,
+  "category": "Bathroom",
+  "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW0gie1iWgvUCSfE3DteFdswRthQLZlszPrefL8YVILz_WbqGg"
+},
+{
+  "id": "18",
+  "description": "tea",
+  "popup": "use a ",
+  "points": 10,
+  "category": "Kitchen",
+  "photo": "https://www.fairlis.de/wp-content/uploads/2018/12/zero_waste_tee.jpg"
+},
+{
+  "id": "19",
+  "description": "coffee",
+  "popup": "Use normal coffee powder instead of coffee capsules made of plastic",
+  "points": 10,
+  "category": "Kitchen",
+  "photo": "https://www.fairlis.de/wp-content/uploads/2018/11/ZeroWasteKaffeeTitel2.jpg"
+},
+{
+  "id": "20",
+  "description": "toothbrush",
   "points": 20,
-  "category": "Cleaning", 
-  "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
+  "category": "Bathroom", 
+  "photo": "https://www.healthyrockstar.com/wp-content/uploads/zero-waste-badezimmer-820x547.jpg"
+},
+{
+  "id": "21",
+  "description": "cleaning agents",
+  "popup": "",
+  "points": 10,
+  "category": "Other",
+  "photo": "https://www.rockmyday.de/wp-content/uploads/2018/02/Putzmittel_diy_nachhaltig_zerowaste_Glasflasche_Waschnuesse.jpg"
+},
+{
+  "id": "22",
+  "description": "straw/cocktails",
+  "popup": "Use normal reusable straws made of bamboo, stainless steel, etc.",
+  "points": 10,
+  "category": "Kitchen",
+  "photo": "https://naturalou.de/wp-content/uploads/2018/01/Zero-Waste-Edelstahlstrohhalme.jpg"
+},
+{
+  "id": "23",
+  "description": "Restaurant",
+  "popup": "bring boxes for your restaurant leftovers",
+  "points": 10,
+  "category": "To go",
+  "photo": "https://utopia.de/app/uploads/2016/05/brotdosen-plastikfrei-z-ECO-Brotbox-160520-980x460.jpg"
+},
+{
+  "id": "24",
+  "description": "broken technology",
+  "popup": "repair your broken equipment or let it repair (i.e. kettle, toaster)",
+  "points": 10,
+  "category": "Other",
+  "photo": "https://gippslandunwrapped.files.wordpress.com/2016/10/fixing-vacuum.jpg?w=750"
+},
+{
+  "id": "25",
+  "description": "clothes/upcycling",
+  "popup": "Shop second-hand and zero-waste fashion or pimp your worn clothes",
+  "points": 10,
+  "category": "Shopping",
+  "photo": "https://irema-slowfashion.com/wp-content/uploads/2018/02/photo-1484502249930-e1da807099a5.jpg"
+},
+{
+  "id": "26",
+  "description": "smoothie/fruit salad",
+  "popup": "take fresh fruit with you and avoid smoothies or fruit salad in plastic bottles/boxes ",
+  "points": 10,
+  "category": "To go",
+  "photo": "https://www.rapantinchen.de/wp-content/uploads/2018/06/0618_DIY_Obstbeutel_Zero_Waste-1.jpg"
+},
+{
+  "id": "27",
+  "description": "shaving",
+  "popup": "avoid disposable razors and use razor blades or safety razors",
+  "points": 10,
+  "category": "Bathroom",
+  "photo": "https://the-ognc.com/wp-content/uploads/2018/06/Rasierhobel-Zero-Waste-im-Badezimmer-Tipps-Umgang.jpg"
+},
+{
+  "id": "28",
+  "description": "tooth brushing",
+  "popup": "",
+  "points": 10,
+  "category": "Bathroom",
+  "photo": "https://i0.wp.com/thegreenwalnuts.com/wp-content/uploads/2018/04/the-green-walnuts-alternative-toothpaste.jpg?fit=780%2C439&ssl=1"
 }
 ]
