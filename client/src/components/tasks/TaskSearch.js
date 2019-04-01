@@ -19,11 +19,11 @@ class Search extends Component {
     // console.log(this.state);
 
     return (
-      <div className="field">
+      <div className="field form-row">
         <input
           onChange={this.handleChange}
           type="text"
-          className="input search-bar"
+          className="input search-bar form-control"
           name="query"
           placeholder="Find tasks"
           value={this.state.name}
@@ -34,3 +34,5 @@ class Search extends Component {
 }
 
 export default Search;
+
+

@@ -16,13 +16,6 @@
     "photo": "https://cdn.shopify.com/s/files/1/1950/5911/products/ABEEGO-main_grande.jpg?v=1536223068"
   },
   {
-    "id": "3",
-    "description": "dishwasher",
-    "points": 20,
-    "category": "Cleaning", 
-    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
-  },
-  {
     "id": "4",
     "description": "own bag",
     "points": 5,
@@ -108,5 +101,12 @@
   "points": 10,
   "category": "Other",
   "photo": "http://trashisfortossers.com/wp-content/uploads/2017/11/zero-waste-gift-guide-by-price-featured-image.jpg"
+},
+{
+  "id": "3",
+  "description": "dishwasher",
+  "points": 20,
+  "category": "Cleaning", 
+  "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
 }
 ]

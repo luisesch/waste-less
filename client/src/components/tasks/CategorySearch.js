@@ -19,18 +19,33 @@ class Category extends Component {
     // console.log(this.state);
 
     return (
-      <div className="field">
-        <input
-          onChange={this.handleChange}
-          type="text"
-          className="input search-bar"
-          name="query"
-          placeholder="Find task by Category"
-          value={this.state.category}
-        />
-      </div>
+
+		
+<form>
+  <div className="form-row">
+    <select 
+    className="form-control" 
+    id="exampleFormControlSelect1"
+    onChange={this.handleChange}
+    type="text"
+    name="query"
+    placeholder="Find task by Category"
+    value={this.state.category}
+    >
+      <option>All categories</option>
+      <option>To Go</option>
+      <option>Kitchen</option>
+      <option>Bathroom</option>
+      <option>Shopping</option>
+      <option>Other</option>
+     
+    </select>
+  </div>
+  </form>
+
     );
   }
 }
 
 export default Category;
+
