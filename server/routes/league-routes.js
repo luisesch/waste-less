@@ -117,6 +117,25 @@ leagueRoutes.post("/addMember", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+// change league picture
+leagueRoutes.post(
+  "/leagues/:leagueId/pictures",
+  parser.single("picture"),
+  (req, res, next) => {
+    const leagueId = req.params.leagueId;
+    League.findOneAndUpdate(
+      { _id: leagueId },
+      { photo: req.file.url },
+      { new: true }
+    )
+      .populate("administrator")
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
+  }
+);
+
 //get members
 leagueRoutes.get("/leagues/:leagueId/members", (req, res, next) => {
   const leagueId = req.params.leagueId;
