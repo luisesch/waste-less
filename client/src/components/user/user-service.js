@@ -19,7 +19,7 @@ class UserService {
   };
 
   addPicture(file, userId) {
-    //   console.log(file);
+    // console.log(file);
     const formData = new FormData();
     formData.append("picture", file);
     return this.service
@@ -31,6 +31,13 @@ class UserService {
       .then(res => {
         return res.data;
       })
+      .catch(err => console.log(err));
+  }
+
+  editProfile(userId, attribute, value) {
+    return this.service
+      .put("/users/" + userId + "/edit/" + attribute + "/" + value)
+      .then(res => res.data)
       .catch(err => console.log(err));
   }
 }

@@ -5,7 +5,6 @@ import UserSearch from "../user/UserSearch";
 import AuthService from "../auth/auth-service";
 import "bootstrap/dist/css/bootstrap.css";
 import "./CreateLeague.css";
-import api from "../../api";
 
 class CreateLeague extends Component {
   constructor(props) {
@@ -56,7 +55,7 @@ class CreateLeague extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    api.addPicture(this.state.file, this.state.league._id);
+    this.userService.addPicture(this.state.file, this.state.league._id);
   }
 
   handleChange = event => {

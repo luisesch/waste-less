@@ -182,9 +182,7 @@ class WaitingLeague extends Component {
                                   {/* make sure admin can't delete himself */}
                                   {member._id !==
                                     this.state.loggedInUser._id && (
-                                    <DeleteMemberButton
-                                      user={this.state.loggedInUser}
-                                    >
+                                    <DeleteMemberButton user={member}>
                                       Delete
                                     </DeleteMemberButton>
                                   )}
