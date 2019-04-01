@@ -10,7 +10,6 @@ class TaskService {
   }
 
   taskCompleted = (newScore, user, task) => {
-    // console.log(newScore);
     return this.service
       .post("/user/completeTask", { newScore, user, task })
       .then(response => response.data)
@@ -19,9 +18,8 @@ class TaskService {
 
   getCompletedTasksLeague = leagueId => {
     return this.service
-      .get("/tasks/" + leagueId)
+      .get("/tasks/league/" + leagueId)
       .then(response => {
-        console.log(response);
         return response.data;
       })
       .catch(err => console.log(err));
@@ -31,7 +29,6 @@ class TaskService {
     return this.service
       .get("/tasks/user/" + userId)
       .then(response => {
-        console.log(response);
         return response.data;
       })
       .catch(err => console.log(err));

@@ -3,7 +3,7 @@
     "id": "1",
     "description": "coffee to go",
     "popup": "buy a coffee and bring your own cup",
-    "points": 5,
+    "points": "5",
     "category": "To go",
     "photo": "https://treadingmyownpath.com/wp-content/uploads/2017/11/Cupit-Kahla-Porcelain-Reusable-Coffee-Cup-550x389.jpg"
   },
@@ -14,12 +14,20 @@
     "points": 15,
     "category": "Kitchen", 
     "photo": "https://cdn.shopify.com/s/files/1/1950/5911/products/ABEEGO-main_grande.jpg?v=1536223068"
+
+  },
+  {
+    "id": "3",
+    "description": "dishwasher",
+    "points": 20,
+    "category": "Cleaning",
+    "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwk7vR_oKFeweKC-Xd-cYQtEbzTjmiuY9mkrVBnfHIp1MW71agg"
   },
   {
     "id": "4",
     "description": "own bag",
     "points": 5,
-    "category": "Shopping", 
+    "category": "Shopping",
     "photo": "https://www.preis.de/news/wp-content/uploads/2018/02/zerowaste-beitrag-740x493.jpeg"
   },
   {
@@ -78,13 +86,30 @@
                   "category": "Shopping",
                   "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
                 },
+
   {
-      "id": "12",
-      "description": "shampoo and shower gel",
-      "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
-      "points": 10,
-      "category": "Bathroom",
-      "photo": "http://freemindedfolks-blog.com/wp-content/uploads/2018/05/zerowaster-6253.jpg"
+    "id": "10",
+    "description": "Grocery shopping",
+    "popup": "ry grocery shopping without buying packaged food",
+    "points": 5,
+    "category": "Shopping",
+    "photo": "https://www.blattgruen.blog/wp-content/uploads/2016/10/hg4.jpg"
+  },
+  {
+    "id": "11",
+    "description": "Avoid plastic bags",
+    "popup": "",
+    "points": 5,
+    "category": "Shopping",
+    "photo": "https://helloyok.com/wp-content/uploads/2018/09/yok-no-plastic-bags-fruit.jpg"
+  },
+  {
+    "id": "12",
+    "description": "shampoo and shower gel",
+    "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
+    "points": 10,
+    "category": "Bathroom",
+    "photo": "http://freemindedfolks-blog.com/wp-content/uploads/2018/05/zerowaster-6253.jpg"
   },
   {
     "id": "13",

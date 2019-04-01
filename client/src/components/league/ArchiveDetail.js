@@ -26,30 +26,33 @@ class Archive extends Component {
       })
       .catch(err => console.log(err));
 
-    this.leagueService
-      .getLeague(this.props.id)
-      .then(response => {
-        this.setState({
-          league: response
-        });
-      })
-      .catch(err => console.log(err));
-
-    this.leagueService
-      .getExMembers(this.props.id)
-      .then(response => {
-        this.setState({
-          members: response
-        });
-      })
-      .catch(err => console.log(err));
+    this.getLeague(true);
   }
+
+  // if league has changed, get league and members again
+  getLeague = mounting => {
+    if (mounting || this.props.id !== this.state.league._id) {
+      const newState = {};
+      this.leagueService
+        .getLeague(this.props.id)
+        .then(response => {
+          newState.league = response;
+          return this.leagueService.getExMembers(this.props.id);
+        })
+        .then(response2 => {
+          newState.members = response2;
+          this.setState(newState);
+        })
+        .catch(err => console.log(err));
+    }
+  };
 
   render() {
     if (Object.entries(this.state.league).length === 0) {
       return <p>Loading.</p>;
       // if league has recently been completed and user has joined a new league
     } else {
+      this.getLeague();
       return (
         <div className="container-fluid">
           <div className="row p-3">
@@ -67,21 +70,40 @@ class Archive extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.members.map((member, index) => {
-                    return (
-                      <tr
-                        key={index}
-                        className={
-                          member._id === this.state.loggedInUser._id &&
-                          "table-info"
-                        }
-                      >
-                        <th scope="row">{index + 1}</th>
-                        <td>{member.username}</td>
-                        <td>{member.score}</td>
-                      </tr>
-                    );
-                  })}
+                  {/* sort members by score of the completed league */}
+                  {this.state.members
+                    .sort((a, b) => {
+                      return (
+                        b.completedLeagues.find(
+                          league => league.info === this.state.league._id
+                        ).score -
+                        a.completedLeagues.find(
+                          league => league.info === this.state.league._id
+                        ).score
+                      );
+                    })
+                    .map((member, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className={
+                            member._id === this.state.loggedInUser._id
+                              ? "table-info"
+                              : ""
+                          }
+                        >
+                          <th scope="row">{index + 1}</th>
+                          <td>{member.username}</td>
+                          <td>
+                            {
+                              member.completedLeagues.find(
+                                league => league.info === this.state.league._id
+                              ).score
+                            }
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>

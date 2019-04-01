@@ -41,14 +41,9 @@ else {
 
   scoreHandler = event => {
     const taskId = event.target.value;
-    let task = {};
-    for (var i = 0; i < tasks.length; i++) {
-      if (tasks[i].id === taskId) {
-        task = JSON.stringify(tasks[i]);
-      }
-    }
+    let task = tasks.find(task => task.id === taskId);
     let points = Number(task.points);
-    this.props.setScore(points, task);
+    this.props.setScore(points, JSON.stringify(task));
   };
 
   render() {

@@ -32,6 +32,13 @@ const userSchema = new Schema(
   }
 );
 
+userSchema.options.toJSON = {
+  transform: function(doc, ret, options) {
+    delete ret.password;
+    return ret;
+  }
+};
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

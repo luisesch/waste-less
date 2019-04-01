@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./Profile.css";
 import api from "../../api";
 import Moment from "moment";
+import UserService from "./user-service";
 
 class Profile extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Profile extends Component {
     };
     this.authService = new AuthService();
     this.taskService = new TaskService();
+    this.userService = new UserService();
   }
 
   handleChange(e) {
@@ -26,7 +28,9 @@ class Profile extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    api.addPicture(this.state.file, this.state.loggedInUser._id);
+    this.userService
+      .addPicture(this.state.file, this.state.loggedInUser._id)
+      .then(res => this.setState({ loggedInUser: res }));
   }
 
   componentDidMount() {
@@ -61,7 +65,6 @@ class Profile extends Component {
               Welcome to your profile, {this.state.loggedInUser.username}
               <br />
               <small>Have you been waste-less today?</small>
-              
             </h3>
 
             <div className="card mb-4">
@@ -98,12 +101,11 @@ class Profile extends Component {
             </div>
           </div>
 
-
-
-
           <div className="col-md-4">
-          <br />
-          <h5 className="font-weight-bold text-right pr-3">Score {this.state.loggedInUser.score}</h5>
+            <br />
+            <h5 className="font-weight-bold text-right pr-3">
+              Score {this.state.loggedInUser.score}
+            </h5>
 
             <div className="card my-4">
               <h5 className="card-header">Invitation</h5>
@@ -139,37 +141,47 @@ class Profile extends Component {
 
         <h3>Latest completed tasks</h3>
         <div className="row">
-          {this.state.completedTasks.map((task, index) => {
-            // decide how many tasks are displayed via index
-            if (index <= 2) {
-              return (
-                <div
-                  className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
-                  key={index}
-                >
-                  <div className="card-body font-weight-light">
-                    <h5 className="card-title">
-                      <strong>{task.task.points}</strong> points for task:
-                      <br />
-                      {task.task.description}
-                    </h5>
-                    <img
-                      src={task.task.photo}
-                      className="card-img-top img-thumbnail"
-                      alt="default"
-                    />
+          {this.state.completedTasks.length <= 0 ? (
+            <p>
+              No completed tasks yet. Get started!
+              <br />
+              <Link to="/tasks">Browse tasks</Link>
+            </p>
+          ) : (
+            this.state.completedTasks.map((task, index) => {
+              // decide how many tasks are displayed via index
+              if (index <= 2) {
+                return (
+                  <div
+                    className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
+                    key={index}
+                  >
+                    <div className="card-body font-weight-light">
+                      <h5 className="card-title">
+                        <strong>{task.task.points}</strong> points for task:
+                        <br />
+                        {task.task.description}
+                      </h5>
+                      <img
+                        src={task.task.photo}
+                        className="card-img-top img-thumbnail"
+                        alt="default"
+                      />
+                    </div>
+                    <div className="card-footer text-muted">
+                      <small>
+                        {Moment(task.created_at)
+                          .startOf("hour")
+                          .fromNow()}
+                      </small>
+                    </div>
                   </div>
-                  <div className="card-footer text-muted">
-                    <small>
-                      {Moment(task.created_at)
-                        .startOf("hour")
-                        .fromNow()}
-                    </small>
-                  </div>
-                </div>
-              );
-            }
-          })}
+                );
+              } else {
+                return null;
+              }
+            })
+          )}
         </div>
       </div>
     );

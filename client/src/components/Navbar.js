@@ -42,7 +42,6 @@ class Navbar extends Component {
             <Link to="/profile" className="navbar-brand">
               Profile
             </Link>
-
             <button
               onClick={() => this.logoutUser()}
               type="button"

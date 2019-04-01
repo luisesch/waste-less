@@ -10,8 +10,9 @@ import "./Dashboard.css";
 import LeagueService from "../league/league-service";
 import Moment from "moment";
 import TaskService from "../tasks/task-service";
+import DeleteMemberButton from "../league/DeleteMemberButton";
 
-class MyLeague extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,6 +56,19 @@ class MyLeague extends Component {
     } else {
       return (
         <div className="container">
+          <div className="row">
+            <div className="col-3">
+              <DeleteMemberButton user={this.props.userInSession}>
+                Leave league
+              </DeleteMemberButton>
+            </div>
+            <div className="col-6" />
+            <div className="col-3">
+              <h5 className="font-weight-bold text-right pr-3">
+                Score {this.props.userInSession.score}
+              </h5>
+            </div>
+          </div>
           <div className="row align-items-center my-5">
             <div className="col-lg-7 col-xs-12">
               <img
@@ -64,14 +78,12 @@ class MyLeague extends Component {
               />
             </div>
             <div className="col-lg-5 col-xs-12 px-0">
-            <h5 className="font-weight-bold text-right pr-3">Score {this.props.userInSession.score}</h5>
-
               <h1 className="font-weight-light">
-              <br />
+                <br />
                 Dashboard of {this.props.league.name}
               </h1>
               <br />
-              <h5>-Best of the League-</h5>
+              <h5>-Top 3-</h5>
 
               <div className="rightBox">
                 <table className="table">
@@ -119,45 +131,55 @@ class MyLeague extends Component {
           </div>
           <br />
 
-          <p className="m-0">See the latest tasks of your team</p>
-          <div className="row">
-            {this.state.completedTasks.map((task, index) => {
-              // decide how many tasks are displayed via index
-              if (index <= 2) {
-                return (
-                  <div
-                    className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
-                    key={index}
-                  >
-                    <div className="card-body font-weight-light">
-                      <h5 className="card-title">
-                        <strong>{task.user.username}</strong> collected <br />
-                        <strong>{task.task.points}</strong> points for task:
-                        <br />
-                        {task.task.description}
-                      </h5>
-                      <img
-                        src={task.task.photo}
-                        className="card-img-top img-thumbnail"
-                        alt="default"
-                      />
+          <h2 className="m-0">See the latest tasks of your team</h2>
+          {this.state.completedTasks.length <= 0 ? (
+            <p>
+              No completed tasks yet. Get started!
+              <br />
+              <Link to="/tasks">Browse tasks</Link>
+            </p>
+          ) : (
+            <div className="row">
+              {this.state.completedTasks.map((task, index) => {
+                // decide how many tasks are displayed via index
+                if (index <= 2) {
+                  return (
+                    <div
+                      className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
+                      key={index}
+                    >
+                      <div className="card-body font-weight-light">
+                        <h5 className="card-title">
+                          <strong>{task.user.username}</strong> collected <br />
+                          <strong>{task.task.points}</strong> points for task:
+                          <br />
+                          {task.task.description}
+                        </h5>
+                        <img
+                          src={task.task.photo}
+                          className="card-img-top img-thumbnail"
+                          alt="default"
+                        />
+                      </div>
+                      <div className="card-footer text-muted">
+                        <small>
+                          {Moment(task.created_at)
+                            .startOf("hour")
+                            .fromNow()}
+                        </small>
+                      </div>
                     </div>
-                    <div className="card-footer text-muted">
-                      <small>
-                        {Moment(task.created_at)
-                          .startOf("hour")
-                          .fromNow()}
-                      </small>
-                    </div>
-                  </div>
-                );
-              }
-            })}
-          </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </div>
+          )}
         </div>
       );
     }
   }
 }
 
-export default withRouter(MyLeague);
+export default withRouter(Dashboard);

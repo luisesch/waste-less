@@ -57,7 +57,9 @@ class LeagueService {
   getMembers = leagueId => {
     return this.service
       .get("/leagues/" + leagueId + "/members")
-      .then(response => response.data)
+      .then(response => {
+        return response.data;
+      })
       .catch(err => console.log(err));
   };
 
@@ -78,6 +80,13 @@ class LeagueService {
   endLeague = leagueId => {
     return this.service
       .put("/leagues/" + leagueId + "/end")
+      .then(response => response.data)
+      .catch(err => console.log(err));
+  };
+
+  deleteLeague = leagueId => {
+    return this.service
+      .delete("/leagues/" + leagueId + "/delete")
       .then(response => response.data)
       .catch(err => console.log(err));
   };
