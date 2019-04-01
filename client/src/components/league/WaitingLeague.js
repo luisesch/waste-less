@@ -171,11 +171,12 @@ class WaitingLeague extends Component {
                                 </th>
                                 <td>{member.username}</td>
                                 <td>
-                                  (
-                                  {member.league.confirmed
+                                  {member._id ===
+                                  this.state.league.administrator._id
+                                    ? "admin"
+                                    : member.league.confirmed
                                     ? "confirmed"
                                     : "waiting"}
-                                  )
                                 </td>
                                 <td>
                                   {/* make sure admin can't delete himself */}
