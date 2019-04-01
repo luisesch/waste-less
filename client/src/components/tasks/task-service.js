@@ -3,7 +3,7 @@ import axios from "axios";
 class TaskService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:5000/api",
+      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
       withCredentials: true
     });
     this.service = service;

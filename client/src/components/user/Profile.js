@@ -86,13 +86,15 @@ class Profile extends Component {
                   {" "}
                   <h4>Motto:</h4> "Es gibt viel, was du selbst tun kannst."
                 </div>
-                <Link to="#" className="btn btn-primary">
+                
+
+                {/* <Link to="#" className="btn btn-primary">
                   Edit Profile
-                </Link>
+                </Link> */}
               </div>
               <div className="card-footer text-muted">
                 Currently part of the league{" "}
-                <Link to="/" className="card-link">
+                <Link to="/myleague" className="card-link">
                   Dashboard
                 </Link>
               </div>

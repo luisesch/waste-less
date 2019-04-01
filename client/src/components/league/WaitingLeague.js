@@ -147,6 +147,34 @@ class WaitingLeague extends Component {
                     </h5>
                     <br />
 
+                  <div key={index}>
+                  <th scope="row">
+                    
+                    <img
+                     className="profilePic rounded"
+                     src={member.photo}
+                      alt="default"
+                    />
+                    </th>
+                    <td className="text-centered">
+                    {member.username}
+                    </td>
+                    <td>
+                    ({member.league.confirmed ? "confirmed" : "waiting"})
+                    </td>
+                    <td>
+                    {/* make sure admin can't delete himself */}
+                    {member._id !== this.state.loggedInUser._id && (
+                      <button
+                        name="deleteMember"
+                        className="btn btn-light w-100"
+                        type="submit"
+                        value={member._id}
+                        onClick={this.deleteMember}
+                      >
+                        Delete
+                      </button>
+                      
                     {/* show delete button and status of members, only if loggedin user s administrator */}
                     {this.state.league.administrator._id ===
                     this.state.loggedInUser._id ? (
@@ -248,14 +276,14 @@ class WaitingLeague extends Component {
                 </div>
               </div>
 
-              <div className="col-md-7 left">
-                <img
-                  className="img-fluid rounded mb-4 mb-lg-0"
-                  src="https://www.gypsysoul.co.uk/wp-content/uploads/2018/07/zero-waste-life.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
+          <div className="col-md-7 left">
+            <img
+              className="img-fluid rounded mb-4 mb-lg-0"
+              src="https://consciousbychloe.imgix.net/2018/06/consciousbychloe-5-Rs-zero-waste-ashley-hardy-vase-1.jpg"
+              alt=""
+            />
+          </div>
+
           </div>
           <div className="card-footer text-muted"> There is no planet B </div>
         </div>
