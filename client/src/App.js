@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
 import MyLeague from "./components/user/MyLeague";
 import Welcome from "./components/auth/Welcome";
-import Archive from "./components/league/Archive";
+import Archive from "./components/league/archive/Archive";
 import Verification from "./components/auth/Verification";
 
 import Tasks from "./components/tasks/Tasks";

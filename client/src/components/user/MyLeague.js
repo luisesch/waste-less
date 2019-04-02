@@ -5,8 +5,7 @@ import { withRouter } from "react-router";
 import AuthService from "../auth/auth-service";
 import WaitingLeague from "../league/WaitingLeague";
 
-import "./Dashboard.css";
-import Dashboard from "./Dashboard";
+import Dashboard from "../league/Dashboard";
 import LeagueService from "../league/league-service";
 
 import Moment from "moment";

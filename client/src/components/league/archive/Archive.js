@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import AuthService from "../auth/auth-service";
-import LeagueService from "../league/league-service";
+import AuthService from "../../auth/auth-service";
+import LeagueService from "../league-service";
 import ArchiveDetail from "./ArchiveDetail";
 
 import "./Archive.css";

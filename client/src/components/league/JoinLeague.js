@@ -4,8 +4,6 @@ import { withRouter } from "react-router";
 import AuthService from "../auth/auth-service";
 import LeagueService from "../league/league-service";
 
-import "./Archive.css";
-
 class JoinLeague extends Component {
   constructor(props) {
     super(props);

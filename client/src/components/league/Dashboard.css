@@ -1,0 +1,68 @@
+.text {
+  color: black;
+}
+
+.Dashboard .img-fluid {
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+}
+
+.noborder {
+  border-bottom: none;
+}
+
+.transparent {
+  opacity: 0.8;
+  color: #1b2f33;
+}
+
+.score {
+  border-radius: 50%;
+  padding: 1%;
+  background-color: #1b2f33;
+  color: white;
+}
+
+.white-top {
+  border-top: 1px solid white;
+  padding-top: 2.4vh;
+}
+
+.Dashboard-btn {
+  background-color: #1b2f33;
+  border: none;
+  color: white;
+}
+
+.Dashboard-btn:hover {
+  background-color: #e7eef1;
+  color: #1b2f33;
+  border: none;
+}
+
+.overlaybase {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  background-color: #f4efee;
+  z-index: 2;
+}
+
+@media (max-width: 720px) {
+  .container-fluid,
+  .Dashboard {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .Dashboard img {
+    max-height: 40vh;
+  }
+
+  body {
+    padding: 0;
+  }
+}
