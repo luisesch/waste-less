@@ -10,9 +10,9 @@ class Footer extends Component {
               <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2 pr-5">
                 <h6 className="text-uppercase mb-2 font-weight-bold">About</h6>
                 <p>
-                  This website has been created by Janine and Luise as the
-                  second project of their part-time web-development bootcamp at
-                  ironhack in Berlin.
+                  This website has been created by Janine and Luise as the final
+                  project of their part-time web-development bootcamp at
+                  Ironhack in Berlin.
                 </p>
               </div>
 
@@ -21,7 +21,7 @@ class Footer extends Component {
                   Contact
                 </h6>
                 <p>Ironhack, Berlin</p>
-                <p>waste-less.ironhack@gmail.com</p>
+                <p>waste.less.ironhack@gmail.com</p>
               </div>
             </div>
 

@@ -193,7 +193,7 @@ class MyLeague extends Component {
           league={this.state.league}
         />
       );
-    } else {
+    } else if (this.state.league.status === "active") {
       this.leagueOver();
       return (
         <Dashboard

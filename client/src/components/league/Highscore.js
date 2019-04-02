@@ -164,7 +164,14 @@ class ActiveLeague extends Component {
             <tbody>
               {this.state.members.map((member, index) => {
                 return (
-                  <tr key={index}>
+                  <tr
+                    key={index}
+                    className={
+                      member._id === this.state.loggedInUser._id
+                        ? "table-info"
+                        : ""
+                    }
+                  >
                     <th scope="row">
                       {this.state.edit &&
                       member._id !== this.state.loggedInUser._id ? (
