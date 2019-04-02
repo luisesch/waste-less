@@ -178,7 +178,7 @@ class App extends Component {
                 <HomeLogin {...props} getUser={this.getTheUser} />
               )}
             />
-            <ProtectedRoute
+            {/*<ProtectedRoute
               user={this.state.loggedInUser}
               exact
               path="/myleague"
@@ -202,7 +202,7 @@ class App extends Component {
               user={this.state.loggedInUser}
               exact
               path="/myleague/highscore"
-            />
+            /> */}
           </Switch>
           <Footer />
         </div>

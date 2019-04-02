@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 const protectedRoute = ({ component: Component, user, ...rest }) => {
   // console.log({ component: Component, user, ...rest });
+  console.log(Component);
   return (
     <Route
       {...rest}

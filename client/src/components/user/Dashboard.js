@@ -72,10 +72,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log(
-      this.props.userInSession._id,
-      this.state.league.administrator._id
-    );
     if (this.state.firstThree.length === 0) {
       return <p>Loading</p>;
     } else {
@@ -141,7 +137,14 @@ class Dashboard extends Component {
                   <tbody>
                     {this.state.firstThree.map((member, index) => {
                       return (
-                        <tr key={index}>
+                        <tr
+                          key={index}
+                          className={
+                            member._id === this.props.userInSession._id
+                              ? "table-info"
+                              : ""
+                          }
+                        >
                           <th scope="row">{index + 1}</th>
                           <td>{member.username}</td>
                           <td>{member.score}</td>
