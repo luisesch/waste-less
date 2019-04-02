@@ -26,7 +26,7 @@ class Signup extends Component {
     return (
       <div>
         <h3 className="fontForm">Signup</h3>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.handleFormSubmit} className="pt-3">
           <div className="form-group">
             <input
               type="text"
@@ -63,7 +63,7 @@ class Signup extends Component {
             />
           </div>
 
-          <div className="form-group form-check">
+          {/* <div className="form-group form-check">
             <input
               type="checkbox"
               className="form-check-input"
@@ -72,9 +72,9 @@ class Signup extends Component {
             <label className="form-check-label" htmlFor="exampleCheck1">
               I accept the terms of use and privacy statement{" "}
             </label>
-          </div>
+          </div> */}
 
-          <button type="submit" className="btn btn-primary" value="Signup">
+          <button type="submit" className="btn mt-3 Home-btn" value="Signup">
             Submit
           </button>
         </form>
@@ -85,7 +85,13 @@ class Signup extends Component {
 
         <p>
           Already have an account?
-          <Link to={"/login"}> Login</Link>
+          <Link
+            to={"/login"}
+            style={{ textDecoration: "underline", color: "#1b2f33" }}
+          >
+            {" "}
+            Login
+          </Link>
         </p>
       </div>
     );

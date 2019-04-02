@@ -28,24 +28,36 @@ class Navbar extends Component {
 
     if (this.state.loggedInUser) {
       return (
-        <nav className="navbar navbar-light bg-light navbar-fixed-top">
+        <nav className="navbar blue justify-content-between navbar-fixed-top">
           <Link to="/myleague" className="navbar-brand">
-            Home
+            <img src="/images/Schwarz_wasteless-02.png" alt="" />
           </Link>
           <form className="form-inline">
-            <Link to="/tasks" className="navbar-brand">
+            <Link
+              to="/tasks"
+              className="navbar-brand"
+              style={{ textDecoration: "none", color: "#1b2f33" }}
+            >
               Tasks
             </Link>
-            <Link to="/myleague" className="navbar-brand">
+            <Link
+              to="/myleague"
+              className="navbar-brand"
+              style={{ textDecoration: "none", color: "#1b2f33" }}
+            >
               My league
             </Link>
-            <Link to="/profile" className="navbar-brand">
+            <Link
+              to="/profile"
+              className="navbar-brand"
+              style={{ textDecoration: "none", color: "#1b2f33" }}
+            >
               Profile
             </Link>
             <button
               onClick={() => this.logoutUser()}
               type="button"
-              className="btn btn-outline-dark"
+              className="btn Navbar-btn p-2"
             >
               Logout
             </button>
@@ -55,22 +67,22 @@ class Navbar extends Component {
       // if user is not logged in
     } else {
       return (
-        <nav className="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
+        <nav className="navbar blue justify-content-between navbar-fixed-top">
           <Link to="/" className="navbar-brand">
-            Home
+            <img src="/images/Schwarz_wasteless-02.png" alt="" />
           </Link>
           <form className="form-inline">
             <Link
               to="/login"
               className="navbar-brand"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "#1b2f33" }}
             >
               Login
             </Link>
             <Link
               to="/"
               className="navbar-brand"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none", color: "#1b2f33" }}
             >
               Signup
             </Link>

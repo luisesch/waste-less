@@ -160,25 +160,25 @@ class App extends Component {
       return (
         <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
-
-          <Switch>
-            <Route
-              user={this.state.loggedInUser}
-              exact
-              path="/"
-              component={props => (
-                <HomeSignup {...props} getUser={this.getTheUser} />
-              )}
-            />
-            <Route
-              user={this.state.loggedInUser}
-              exact
-              path="/login"
-              component={props => (
-                <HomeLogin {...props} getUser={this.getTheUser} />
-              )}
-            />
-            {/*<ProtectedRoute
+          <div className="fixfooter text-center">
+            <Switch>
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/"
+                component={props => (
+                  <HomeSignup {...props} getUser={this.getTheUser} />
+                )}
+              />
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/login"
+                component={props => (
+                  <HomeLogin {...props} getUser={this.getTheUser} />
+                )}
+              />
+              {/*<ProtectedRoute
               user={this.state.loggedInUser}
               exact
               path="/myleague"
@@ -203,7 +203,8 @@ class App extends Component {
               exact
               path="/myleague/highscore"
             /> */}
-          </Switch>
+            </Switch>
+          </div>
           <Footer />
         </div>
       );
