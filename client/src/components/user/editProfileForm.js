@@ -57,56 +57,65 @@ class EditProfileForm extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleFormSubmitPassword} className="row">
-          <div className="form-group col-5">
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={this.state.password}
-              placeholder="Enter new password"
-              onChange={e => this.handleChange(e)}
-            />
-          </div>
-          <div className="form-group col-4">
-            <input
-              type="password"
-              className="form-control"
-              name="passwordRepeat"
-              value={this.state.passwordRepeat}
-              placeholder="Repeat new password"
-              onChange={e => this.handleChange(e)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary col-3 h-25 "
-            value="password"
+      <div className="overlay w-75">
+        <div className="container-fluid">
+          <form
+            onSubmit={this.handleFormSubmitPassword}
+            className="row noborder"
           >
-            Save
-          </button>
-        </form>
-        <p>{this.state.message}</p>
-        <form onSubmit={this.handleFormSubmitMotto} className="row">
-          <div className="form-group col-9">
-            <textarea
-              className="form-control"
-              name="motto"
-              rows="3"
-              value={this.state.motto}
-              placeholder="Enter new motto"
-              onChange={e => this.handleChange(e)}
-            />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary col-3 h-25"
-            value="motto"
-          >
-            Save
-          </button>
-        </form>
+            <div className="form-group col-5">
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                value={this.state.password}
+                placeholder="Enter new password"
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <div className="form-group col-4">
+              <input
+                type="password"
+                className="form-control"
+                name="passwordRepeat"
+                value={this.state.passwordRepeat}
+                placeholder="Repeat new password"
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary col-3 h-25 "
+              value="password"
+            >
+              Save
+            </button>
+
+            <p>{this.state.message}</p>
+          </form>
+        </div>
+
+        <div className="container-fluid">
+          <form onSubmit={this.handleFormSubmitMotto} className="row noborder">
+            <div className="form-group col-9">
+              <textarea
+                className="form-control"
+                name="motto"
+                rows="3"
+                value={this.state.motto}
+                placeholder="Enter new motto"
+                onChange={e => this.handleChange(e)}
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary col-3 h-25"
+              value="motto"
+            >
+              Save
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

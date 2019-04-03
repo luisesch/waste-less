@@ -193,7 +193,7 @@ class Dashboard extends Component {
                     >
                       <input type="file" onChange={e => this.handleChange(e)} />{" "}
                       <br />
-                      <button type="submit">Save new profile picture</button>
+                      <button type="submit">Save new league picture</button>
                     </form>
                   ) : null}
                 </div>
