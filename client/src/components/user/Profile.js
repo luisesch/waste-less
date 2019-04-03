@@ -6,7 +6,6 @@ import "./Profile.css";
 import Moment from "moment";
 import UserService from "./user-service";
 import EditProfileForm from "./editProfileForm";
-import Carouseltasks from "../league/Carousel";
 
 class Profile extends Component {
   constructor(props) {
@@ -51,7 +50,6 @@ class Profile extends Component {
     this.userService
       .editProfile(this.state.loggedInUser._id, attribute, value)
       .then(res => {
-        console.log(res);
         this.setState({ loggedInUser: res, edit: true });
       });
   };
@@ -104,13 +102,13 @@ class Profile extends Component {
           Welcome to your profile, {this.state.loggedInUser.username}
         </h1>
         <hr className="w-75" />
-        <h4 className="mb-5">Have you been waste-less today?</h4>
+        <h4 className="mb-5 mx-2">Have you been waste-less today?</h4>
 
         <div className="container-fluid">
           <div className="row noborder">
             <div className="col-md-6 col-xs-12">
               <img
-                className="img-fluid h-75 profilePhoto"
+                className="img-fluid profilePhoto"
                 src={this.state.loggedInUser.photo}
                 alt="default"
               />
@@ -133,32 +131,66 @@ class Profile extends Component {
               </div>
             </div>
 
-            <div className="col-md-6 col-xs-12 blue">
-              <h4 className="mt-5">"{this.state.loggedInUser.motto}"</h4>
-              <h4>
+            <div className="col-md-6 col-xs-12 mt-0">
+              <p className="mt-3">"{this.state.loggedInUser.motto}"</p>
+              <hr />
+              <p>
                 Currently part of the league{" "}
                 <Link to="/myleague" className="card-link">
                   Dashboard
                 </Link>
-              </h4>
-              <h4>
+              </p>
+              <hr />
+              <p>
                 Your current Score:{" "}
                 <strong className="score">
                   {this.state.loggedInUser.score}
                 </strong>
-              </h4>
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="container-fluid">
-          <div className="row noborder">
-            <div className="col-md-3 col-xs-0" />
-            <div className="col-md-6 col-xs-12 tasksprofile">
-              <h4 className="text-center mb-3">Latest completed tasks</h4>
-              <Carouseltasks tasks={this.state.completedTasks} />
-            </div>
-            <div className="col-md-3 col-xs-0" />
+        <div className="container-fluid white-top mt-5">
+          <h4>Latest completed tasks</h4>
+          <div className="row noborder mt-3">
+            {this.state.completedTasks.length <= 0 ? (
+              <p>
+                No completed tasks yet. Get started!
+                <br />
+                <Link to="/tasks">Browse tasks</Link>
+              </p>
+            ) : (
+              this.state.completedTasks.map((task, index) => {
+                if (index <= 2) {
+                  return (
+                    <div key={index} className="col-md-4 col-xs-12 mt-4">
+                      <div className="card" key={index}>
+                        <div className="card-body font-weight-light">
+                          <img
+                            src={task.task.photo}
+                            className="card-img-top img-thumbnail"
+                            alt="default"
+                          />
+                          <p className="card-title">
+                            <strong>{task.user.username}</strong> collected{" "}
+                            <br />
+                            <strong>{task.task.points}</strong> points for task:
+                            <br />
+                            {task.task.description}
+                            <small>
+                              {Moment(task.created_at)
+                                .startOf("hour")
+                                .fromNow()}
+                            </small>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+              })
+            )}
           </div>
         </div>
       </div>

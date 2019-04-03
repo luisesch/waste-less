@@ -21,12 +21,15 @@ userRoutes.post(
   parser.single("picture"),
   (req, res, next) => {
     const userId = req.params.userId;
-    User.findOneAndUpdate({ _id: userId }, { photo: req.file.url }).then(() => {
-      res.json({
-        success: true,
-        photo: req.file.url
-      });
-    });
+    User.findOneAndUpdate(
+      { _id: userId },
+      { photo: req.file.url },
+      { new: true }
+    )
+      .then(response => {
+        res.status(200).json(response);
+      })
+      .catch(err => console.log(err));
   }
 );
 
