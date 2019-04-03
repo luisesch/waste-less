@@ -26,8 +26,8 @@ class Login extends Component {
     return (
       <div>
         <h3 className="fontForm">Login with your account</h3>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="form-group">
+        <form onSubmit={this.handleFormSubmit} className="pt-3">
+          <div className="form-group pt-3">
             <input
               type="text"
               name="username"
@@ -39,7 +39,7 @@ class Login extends Component {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group pt-3">
             <input
               type="password"
               className="form-control"
@@ -50,15 +50,22 @@ class Login extends Component {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" value="Login">
+          <button type="submit" className="btn  mt-3 Home-btn" value="Login">
             Submit
           </button>
           <br />
           <br />
         </form>
         <p>
-          Don't have an account yet? Sign up<Link to={"/"}> here</Link>
+          Don't have an account yet? Sign up{" "}
+          <Link
+            to={"/"}
+            style={{ textDecoration: "underline", color: "#1b2f33" }}
+          >
+            here
+          </Link>
         </p>
+        <hr className="mt-5" />
       </div>
     );
   }

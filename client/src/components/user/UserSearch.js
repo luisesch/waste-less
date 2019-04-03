@@ -22,7 +22,7 @@ class UserSearch extends Component {
     return (
       <div>
         {/* <label className="label">Find users: </label> */}
-        <div className="control">
+        <div className="control px-5">
           <input
             onChange={this.handleChange}
             type="text"

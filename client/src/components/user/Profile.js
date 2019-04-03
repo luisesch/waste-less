@@ -6,6 +6,7 @@ import "./Profile.css";
 import Moment from "moment";
 import UserService from "./user-service";
 import EditProfileForm from "./editProfileForm";
+import Carouseltasks from "../league/Carousel";
 
 class Profile extends Component {
   constructor(props) {
@@ -80,152 +81,85 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profileContainer container">
-        <div className="row">
-          <div className="col-6 text-left">
-            <button
-              className={
-                this.state.edit ? "btn btn-primary mx-2" : "btn btn-light mx-2"
-              }
-              onClick={this.changeEdit}
-            >
-              {this.state.edit ? "Done" : "Edit"}
-            </button>
-          </div>
-          <div className="col-6 text-right">
-            <p className="font-weight-bold text-right pr-3">
-              Score {this.state.loggedInUser.score}
-            </p>
-          </div>
+      <div className="profile px-5 pb-5 pt-1">
+        <div className="text-right">
+          <button
+            className={
+              this.state.edit
+                ? "btn btn-primary overlaybase"
+                : "btn btn-light overlaybase"
+            }
+            onClick={this.changeEdit}
+          >
+            {this.state.edit ? "Done" : "Edit"}
+          </button>
+          {this.state.edit && (
+            <EditProfileForm
+              userInSession={this.state.loggedInUser}
+              handleFormSubmit={this.handleFormSubmit}
+            />
+          )}
         </div>
-        {this.state.edit && (
-          <EditProfileForm
-            userInSession={this.state.loggedInUser}
-            handleFormSubmit={this.handleFormSubmit}
-          />
-        )}
-        <div className="row">
-          <div className="col-md-8">
-            <h3 className="my-4">
-              Welcome to your profile, {this.state.loggedInUser.username}
-              <br />
-              <small>Have you been waste-less today?</small>
-            </h3>
+        <h1 className="font-weight-light Quicksand">
+          Welcome to your profile, {this.state.loggedInUser.username}
+        </h1>
+        <hr className="w-75" />
+        <h4 className="mb-5">Have you been waste-less today?</h4>
 
-            <div className="text-left">
-              {this.state.edit && (
-                <button className="btn btn-light" onClick={this.editPicture}>
-                  Change picture
-                </button>
-              )}
-              {this.state.edit && this.state.editPicture ? (
-                <form onSubmit={e => this.handleSubmit(e)}>
-                  <input type="file" onChange={e => this.handleChange(e)} />{" "}
-                  <br />
-                  <button type="submit">Save new profile picture</button>
-                </form>
-              ) : null}
-            </div>
-            <div className="card mb-4">
+        <div className="container-fluid">
+          <div className="row noborder">
+            <div className="col-md-6 col-xs-12">
               <img
-                className="card-img-top"
+                className="img-fluid h-75 profilePhoto"
                 src={this.state.loggedInUser.photo}
                 alt="default"
               />
-
-              <div className="card-body">
-                {/* <h2 className="card-title">Post Title</h2> */}
-                <div className="card-text">
-                  {" "}
-                  <h4>Motto:</h4> "{this.state.loggedInUser.motto}"
-                </div>
+              <div className="overlaybase text-left mx-2">
+                {this.state.edit && (
+                  <button className="btn btn-light" onClick={this.editPicture}>
+                    Change picture
+                  </button>
+                )}
+                {this.state.edit && this.state.editPicture ? (
+                  <form
+                    className="overlay"
+                    onSubmit={e => this.handleSubmit(e)}
+                  >
+                    <input type="file" onChange={e => this.handleChange(e)} />{" "}
+                    <br />
+                    <button type="submit">Save new profile picture</button>
+                  </form>
+                ) : null}
               </div>
-              <div className="card-footer text-muted">
+            </div>
+
+            <div className="col-md-6 col-xs-12 blue">
+              <h4 className="mt-5">"{this.state.loggedInUser.motto}"</h4>
+              <h4>
                 Currently part of the league{" "}
                 <Link to="/myleague" className="card-link">
                   Dashboard
                 </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-4">
-            <br />
-
-            <div className="card my-4">
-              <h5 className="card-header">Invitation</h5>
-              <div className="card-body">
-                You are invited to join the league "..."
-                <span className="input-group-btn">
-                  <button className="mx-2 btn btn-secondary" type="button">
-                    Confirm
-                  </button>
-                </span>
-              </div>
-            </div>
-
-            <div className="card my-4">
-              <h5 className="card-header">Search for new tasks</h5>
-              <div className="card-body">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search for..."
-                  />
-                  <span className="input-group-btn">
-                    <button className="btn btn-secondary" type="button">
-                      Go!
-                    </button>
-                  </span>
-                </div>
-              </div>
+              </h4>
+              <h4>
+                Your current Score:{" "}
+                <strong className="score">
+                  {this.state.loggedInUser.score}
+                </strong>
+              </h4>
             </div>
           </div>
         </div>
-        <h3>Latest completed tasks</h3>
-        <div className="row">
-          {this.state.completedTasks.length <= 0 ? (
-            <p>
-              No completed tasks yet. Get started!
-              <br />
-              <Link to="/tasks">Browse tasks</Link>
-            </p>
-          ) : (
-            this.state.completedTasks.map((task, index) => {
-              // decide how many tasks are displayed via index
-              if (index <= 2) {
-                return (
-                  <div
-                    className="card text-center col-xs-12 col-lg-3 mb-5 mt-3"
-                    key={index}
-                  >
-                    <div className="card-body font-weight-light">
-                      <h5 className="card-title">
-                        <strong>{task.task.points}</strong> points for task:
-                        <br />
-                        {task.task.description}
-                      </h5>
-                      <img
-                        src={task.task.photo}
-                        className="card-img-top img-thumbnail"
-                        alt="default"
-                      />
-                    </div>
-                    <div className="card-footer text-muted">
-                      <small>
-                        {Moment(task.created_at)
-                          .startOf("hour")
-                          .fromNow()}
-                      </small>
-                    </div>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })
-          )}
+
+        <div className="container-fluid">
+          <div className="row noborder">
+            <div className="col-md-3 col-xs-0" />
+            <div className="col-md-6 col-xs-12 tasksprofile">
+              <h4 className="text-center mb-3">Latest completed tasks</h4>
+              <Carouseltasks tasks={this.state.completedTasks} />
+            </div>
+            <div className="col-md-3 col-xs-0" />
+          </div>
         </div>
       </div>
     );

@@ -47,12 +47,13 @@ class Tasks extends Component {
 
   render() {
     return (
-      <div className="tasks">
-        <h1 className="font-weight-light">Tasks</h1>
-        <hr />
-        <br />
-        <div className="container">
-          <div className="row">
+      <div className="tasks p-5">
+        <h1 className="font-weight-light Quicksand">Tasks</h1>
+        <hr className="w-75" />
+        <h4 className="mb-5">What else can you do to rise your score today?</h4>
+
+        <div className="container-fluid">
+          <div className="row noborder">
             <div className="col-md-6">
               <Search searchTasks={this.searchNameHandler} />
             </div>
@@ -60,7 +61,7 @@ class Tasks extends Component {
               <Category searchCategory={this.searchCategoryHandler} />
             </div>
           </div>
-          <div className="row">
+          <div className="row noborder">
             {this.state.filtered.map((task, index) => {
               return (
                 <div key={index} className="col-xs-12 col-md-4 mt-3">

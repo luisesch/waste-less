@@ -1,5 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+@import url("https://fonts.googleapis.com/css?family=Quicksand");
+
 body {
-  background-color: mintcream;
+  background-color: #f4efee;
+  font-family: "Raleway", sans-serif;
+}
+
+.Raleway {
+  font-family: "Raleway", sans-serif;
+}
+
+.Quicksand {
+  font-family: Quicksand;
 }
 
 .App {
@@ -29,7 +41,7 @@ body {
 }
 
 .fixfooter {
-  min-height: 50vh;
+  min-height: 85vh;
 }
 
 .container {

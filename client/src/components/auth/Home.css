@@ -1,24 +1,44 @@
 .leftBar {
-  background-image: url(https://ecowarriorprincess.net/wp-content/uploads/2018/12/5-Easy-and-Practical-Tips-To-Create-A-Fuss-Free-Zero-Waste-Kitchen.jpg);
-  /* background-image: url(https://cdn.shopify.com/s/files/1/2782/5894/products/plastic-free-zero-waste-gift-bundle-eco-friendly-gifts-online-the-clean-collective.jpg?v=1542850526); */
-  color: olivedrab;
-  min-height: 45vh;
+  background-image: url("/images/home.jpg");
+  color: #fcffeb;
+  min-height: 60vh;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: Quicksand;
+  text-align: left;
+  padding-left: 5%;
 }
 
 .header {
-  font-size: 5vw;
+  font-size: calc(12px + 7vw);
+}
+
+.subheader {
+  font-size: calc(12px + 3vw);
 }
 
 .fontForm {
-  color: olivedrab;
+  color: #1b2f33;
 }
 
-.rightBar {
-  background-color: mintcream;
+.row {
+  border-bottom: 2px solid white;
 }
 
 .Home {
-  background-color: grey;
+  background-color: #f4efee;
+  margin: 0;
+  padding: 0;
+}
+
+.Home-btn {
+  background-color: #1b2f33;
+  border: none;
+  color: white;
+}
+
+.Home-btn:hover {
+  background-color: #e7eef1;
+  color: #1b2f33;
+  border: none;
 }

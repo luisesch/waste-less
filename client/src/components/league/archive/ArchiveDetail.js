@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AuthService from "../auth/auth-service";
-import LeagueService from "../league/league-service";
+import AuthService from "../../auth/auth-service";
+import LeagueService from "../league-service";
 
 class Archive extends Component {
   constructor(props) {

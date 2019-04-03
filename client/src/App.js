@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/auth/protected-route";
 import AuthService from "./components/auth/auth-service";
 import MyLeague from "./components/user/MyLeague";
 import Welcome from "./components/auth/Welcome";
-import Archive from "./components/league/Archive";
+import Archive from "./components/league/archive/Archive";
 import Verification from "./components/auth/Verification";
 
 import Tasks from "./components/tasks/Tasks";
@@ -19,7 +19,6 @@ import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
-import ActiveLeague from "./components/league/Highscore";
 
 class App extends Component {
   constructor(props) {
@@ -121,17 +120,7 @@ class App extends Component {
                   />
                 )}
               />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
-                exact
-                path="/myleague/highscore"
-                component={props => (
-                  <ActiveLeague
-                    userInSession={this.state.loggedInUser}
-                    getUser={this.getTheUser}
-                  />
-                )}
-              />
+
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
@@ -160,25 +149,25 @@ class App extends Component {
       return (
         <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
-
-          <Switch>
-            <Route
-              user={this.state.loggedInUser}
-              exact
-              path="/"
-              component={props => (
-                <HomeSignup {...props} getUser={this.getTheUser} />
-              )}
-            />
-            <Route
-              user={this.state.loggedInUser}
-              exact
-              path="/login"
-              component={props => (
-                <HomeLogin {...props} getUser={this.getTheUser} />
-              )}
-            />
-            {/*<ProtectedRoute
+          <div className="fixfooter text-center">
+            <Switch>
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/"
+                component={props => (
+                  <HomeSignup {...props} getUser={this.getTheUser} />
+                )}
+              />
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/login"
+                component={props => (
+                  <HomeLogin {...props} getUser={this.getTheUser} />
+                )}
+              />
+              {/*<ProtectedRoute
               user={this.state.loggedInUser}
               exact
               path="/myleague"
@@ -198,12 +187,9 @@ class App extends Component {
               exact
               path="/profile"
             />
-            <ProtectedRoute
-              user={this.state.loggedInUser}
-              exact
-              path="/myleague/highscore"
-            /> */}
-          </Switch>
+            */}
+            </Switch>
+          </div>
           <Footer />
         </div>
       );
