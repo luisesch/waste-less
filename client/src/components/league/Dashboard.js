@@ -12,7 +12,8 @@ import DeleteMemberButton from "./DeleteMemberButton";
 import UserService from "../user/user-service";
 import Carouseltasks from "./Carousel";
 import Highscore from "./Highscore";
-import ShortHighscore from "./ShortHighscore";
+import DeleteLeagueButton from "./DeleteLeagueButton";
+import UserSearch from "../user/UserSearch";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class Dashboard extends Component {
       firstThree: [],
       completedTasks: [],
       editPicture: false,
-      highscore: "short"
+      highscore: "short",
+      members: [],
+      filteredUsers: [],
+      users: null,
+      edit: false
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
@@ -35,10 +40,8 @@ class Dashboard extends Component {
       .getMembers(this.props.league._id)
       .then(response => {
         let sortedMembers = [...response];
-        let firstThree = [];
         sortedMembers.sort((a, b) => b.score - a.score);
-        firstThree = sortedMembers.slice(0, 2);
-        this.setState({ firstThree: firstThree });
+        this.setState({ members: sortedMembers });
       })
       .catch(err => console.log(err));
 
@@ -53,7 +56,62 @@ class Dashboard extends Component {
         this.setState({ completedTasks: tasks });
       })
       .catch(err => console.log(err));
+
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i <= 0; i--) {
+          if (response[i].username === this.props.userInSession.username) {
+            response.splice(i, 1);
+          }
+        }
+
+        this.setState({ users: response });
+      })
+      .catch(err => console.log(err));
   }
+
+  searchUserHandler = query => {
+    if (query.length < 1) {
+      this.setState({ filteredUsers: [] });
+    } else {
+      // only show users that aren't currently in any league
+      let leaguelessUsers = this.state.users.filter(user => {
+        return !user.league.hasOwnProperty("info");
+      });
+
+      let filteredUsers = leaguelessUsers.filter(user => {
+        const userLowerCase = user.username.toLowerCase();
+        const filter = query.toLowerCase();
+        return userLowerCase.includes(filter);
+      });
+      this.setState({ filteredUsers: filteredUsers });
+    }
+  };
+
+  addUser = async event => {
+    const userId = event.target.value;
+    const leagueId = this.state.league._id;
+    await this.leagueService.addMember(leagueId, userId);
+
+    this.leagueService
+      .getMembers(leagueId)
+      .then(response => this.setState({ members: response }))
+      .catch(err => console.log(err));
+
+    // get all users again to see changes
+    this.userService
+      .showAll()
+      .then(response => {
+        for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].username === this.state.loggedInUser.username) {
+            response.splice(i, 1);
+          }
+        }
+        this.setState({ users: response, filteredUsers: [] });
+      })
+      .catch(err => console.log(err));
+  };
 
   editPicture = () => {
     this.state.editPicture
@@ -80,8 +138,14 @@ class Dashboard extends Component {
       : this.setState({ highscore: "short" });
   };
 
+  changeEdit = () => {
+    this.state.edit
+      ? this.setState({ edit: false })
+      : this.setState({ edit: true });
+  };
+
   render() {
-    if (this.state.firstThree.length === 0) {
+    if (this.state.members.length === 0) {
       return <p>Loading</p>;
     } else {
       return (
@@ -142,19 +206,51 @@ class Dashboard extends Component {
           </div>
 
           <div className="highscore text-center white-top">
-            {this.state.highscore === "short" && (
-              <ShortHighscore
-                firstThree={this.state.firstThree}
-                userInSession={this.props.userInSession}
-              />
-            )}
+            <Highscore
+              members={this.state.members}
+              userInSession={this.props.userInSession}
+              status={this.state.highscore}
+              edit={this.state.edit}
+            />
 
-            <button
-              className="btn Dashboard-btn"
-              onClick={this.changeHighscore}
-            >
-              See all
-            </button>
+            {/* show search bar for new members, if user is admin and edit is clicked */}
+            {this.state.edit ? (
+              <div>
+                <UserSearch searchUsers={this.searchUserHandler} />
+                {this.state.filteredUsers.map((user, index) => {
+                  // turn object into string
+                  return (
+                    <div key={index}>
+                      <button
+                        className="btn btn-light w-100"
+                        htmlFor="user"
+                        value={user._id}
+                        onClick={this.addUser}
+                      >
+                        {user.username}
+                      </button>
+                      <br />
+                    </div>
+                  );
+                })}
+              </div>
+            ) : null}
+
+            {this.state.highscore === "short" ? (
+              <button
+                className="btn Dashboard-btn mt-2"
+                onClick={this.changeHighscore}
+              >
+                See all
+              </button>
+            ) : (
+              <button
+                className="btn Dashboard-btn mt-2"
+                onClick={this.changeHighscore}
+              >
+                See less
+              </button>
+            )}
           </div>
 
           <div className="row noborder">
@@ -169,6 +265,25 @@ class Dashboard extends Component {
             </div>
             <div className="col-6" />
           </div>
+
+          {this.props.userInSession._id ===
+          this.state.league.administrator._id ? (
+            <div className="text-right">
+              <button
+                className={
+                  this.state.edit
+                    ? "btn btn-primary mx-2"
+                    : "btn btn-light mx-2"
+                }
+                onClick={this.changeEdit}
+              >
+                {this.state.edit ? "Done" : "Edit"}
+              </button>
+              <DeleteLeagueButton league={this.state.league}>
+                Delete
+              </DeleteLeagueButton>
+            </div>
+          ) : null}
         </div>
       );
     }
