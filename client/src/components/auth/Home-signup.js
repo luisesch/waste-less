@@ -49,12 +49,15 @@ class Home extends Component {
             <Signup signup={this.signup} />
           </div>
         </div>
-        <div className="about p-5">
+        <div className="about p-5 text-right">
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and
+            About - Waste-less is not about perfection; it's about making better decision. We believe that
+            small efforts produce a big impact so start with just one single change and grow with every step. 
+            <br /> <br />
+            You want to challenge yourself, your friends, your family or your colleagues? Invite them to Waste-less
+            and compete against each other. Who avoids the most waste during a week, month or quarter wins! 
+            <br /> <br />
+            So let's start - waste less than the others!
           </p>
         </div>
       </div>

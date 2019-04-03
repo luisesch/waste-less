@@ -9,13 +9,14 @@ class LeagueService {
     this.service = service;
   }
 
-  create = (name, administrator, members, file) => {
+  create = (name, administrator, members, file, duration) => {
     const formData = new FormData();
 
     formData.append("picture", file);
     formData.append("name", name);
     formData.append("administrator", administrator);
     formData.append("members", JSON.stringify(members));
+    formData.append("duration", duration);
     return this.service
       .post("/leagues", formData, {
         headers: {
