@@ -19,7 +19,8 @@ class MyLeague extends Component {
       members: [],
       league: {},
       endDate: "",
-      firstThree: []
+      firstThree: [],
+      mounted: false
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
@@ -33,29 +34,29 @@ class MyLeague extends Component {
       });
       // if user has no league
       if (!this.state.loggedInUser.league.hasOwnProperty("info")) {
-        this.setState({ league: false });
+        this.setState({ league: false, mounted: true });
         // if user has league
       } else {
+        let newState = {};
         const leagueId = this.state.loggedInUser.league.info;
         //get user's league
         this.leagueService
           .getLeague(leagueId)
-          .then(response => {
-            this.setState({
-              league: response
-            });
+          .then(league => {
+            newState.league = league;
+            newState.mounted = true;
+            return this.leagueService.getMembers(leagueId);
           })
-          .catch(err => console.log(err));
-
-        this.leagueService
-          .getMembers(leagueId)
-          .then(response => {
-            let sortedMembers = [...response];
+          .then(members => {
+            let sortedMembers = [...members];
             let firstThree = [];
             sortedMembers.sort((a, b) => b.score - a.score);
             firstThree = sortedMembers.slice(0, 2);
-            this.setState({ members: response, firstThree: firstThree });
+            newState.members = members;
+            newState.firstThree = firstThree;
+            this.setState(newState);
           })
+
           .catch(err => console.log(err));
       }
     });
@@ -103,7 +104,7 @@ class MyLeague extends Component {
         .endLeague(leagueId)
         .then(response => {
           this.setState({
-            league: response
+            league: {}
           });
         })
         .catch(err => console.log(err));
@@ -111,11 +112,20 @@ class MyLeague extends Component {
   };
 
   render() {
-    if (this.state.league === null) {
+    if (!this.state.mounted) {
       return <p>Loading</p>;
     }
     // if user isn't part of any league
-    else if (
+    else if (this.state.league.status === "active") {
+      this.leagueOver();
+      return (
+        <Dashboard
+          endDate={this.state.endDate}
+          userInSession={this.state.loggedInUser}
+          league={this.state.league}
+        />
+      );
+    } else if (
       !this.state.league ||
       Object.entries(this.state.league).length === 0
     ) {
@@ -143,41 +153,6 @@ class MyLeague extends Component {
         </div>
       );
       // if league has recently been completed and user has joined a new league
-    } else if (this.state.league.status === "completed") {
-      return (
-        <div className="card">
-          <div className="createLeague card-body">
-            <div className="row">
-              <div className="col-md-7 left">
-                <img
-                  className="img-fluid rounded mb-4 mb-lg-0"
-                  src="https://ecowarriorprincess.net/wp-content/uploads/2018/04/We-Cant-Recycle-Our-Way-to-Zero-Waste.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="col-md-5 right">
-                <h1 className="card-title font-weight-light">
-                  League {this.state.league.name} has been completed -
-                  congratulations!
-                </h1>
-                <br />
-                <Link to="/newleague">
-                  <button onClick={this.deleteMember}>
-                    Create new league or get invited to new leagues.
-                  </button>
-                </Link>{" "}
-                <br />
-                <p>
-                  Check out the results{" "}
-                  <Link to={`/archive/${this.state.league._id}`}>here</Link>
-                </p>{" "}
-              </div>
-            </div>
-          </div>
-          <div className="card-footer text-muted"> Wanna try again? </div>
-        </div>
-      );
-      // if user has been invited to join league, but not confirmed yet
     } else if (!this.state.loggedInUser.league.confirmed) {
       return (
         <JoinLeague
@@ -188,15 +163,6 @@ class MyLeague extends Component {
     } else if (this.state.league.status === "waiting") {
       return (
         <WaitingLeague
-          userInSession={this.state.loggedInUser}
-          league={this.state.league}
-        />
-      );
-    } else if (this.state.league.status === "active") {
-      this.leagueOver();
-      return (
-        <Dashboard
-          endDate={this.state.endDate}
           userInSession={this.state.loggedInUser}
           league={this.state.league}
         />
