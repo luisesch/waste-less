@@ -1,15 +1,15 @@
 [
   {
     "id": "1",
-    "description": "coffee to go",
-    "popup": "buy a coffee and bring your own cup",
-    "points": "5",
+    "description": "Coffee to go",
+    "popup": "buy a coffee and bring your own cup/ or bring your coffee from home",
+    "points": 5,
     "category": "To go",
     "photo": "https://treadingmyownpath.com/wp-content/uploads/2017/11/Cupit-Kahla-Porcelain-Reusable-Coffee-Cup-550x389.jpg"
   },
   {
     "id": "2",
-    "description": "bee wrap/packaging",
+    "description": "Bee wrap",
     "popup": "plastic free alternative to wrap your food for reuse",
     "points": 15,
     "category": "Kitchen", 
@@ -18,23 +18,24 @@
   },
   {
     "id": "4",
-    "description": "own bag",
+    "description": "Own bag",
+    "popup": "always carry a bag with you to be prepared for (spontaneous) shopping",
     "points": 5,
     "category": "Shopping",
     "photo": "https://www.preis.de/news/wp-content/uploads/2018/02/zerowaste-beitrag-740x493.jpeg"
   },
   {
       "id": "5",
-      "description": "Buy food at a market",
-      "popup": "",
-      "points": 5,
-      "category": "Food",
+      "description": "Shop at a market",
+      "popup": "buy fresh and regional food at the market",
+      "points": 10,
+      "category": "Shopping",
       "photo": "https://einbisschengruener.files.wordpress.com/2017/01/de-eemstuin.jpg?w=750&h=498"
     },
     {
         "id": "6",
         "description": "Wrap your food",
-        "popup": "in plastic-free materials",
+        "popup": "...in plastic-free materials",
         "points": 5,
         "category": "Food",
         "photo": "https://nonagon.style/wp-content/uploads/2017/11/3-nonagon-style-zero-waste-kitchen-eco-friendly.jpg"
@@ -42,15 +43,14 @@
       {
           "id": "7",
           "description": "Bring a bread bag",
-          "popup": "",
           "points": 5,
           "category": "Shopping", 
           "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLcnupoK_wL6RuC0E-mzHZeDf2GakqVJqoMhheilV0rG7b9vja3Q"
         },
         {
             "id": "8",
-            "description": "Cleaning",
-            "popup": "Buy plastic-free, compostable (wooden) brushes to use in the kitchen for cleaning and dishwashing, A Plastic-Free Sink is All-Natural and Non-Toxic",
+            "description": "Cleaning/doing the dishes",
+            "popup": "buy plastic-free, compostable (wooden) brushes to do the dishes",
             "points": 5,
             "category": "Kitchen", 
             "photo": "https://www.toastenstein.com/wp-content/uploads/2018/07/zerowaste_toastenstein_sp%C3%BClb%C3%BCrste_schwamm-1024x674.jpg"
@@ -58,7 +58,7 @@
 {
               "id": "9",
               "description": "Kitchen roll",
-              "popup": "Use towels/cloths instead of kitchen roll",
+              "popup": "use towels/cloths instead of kitchen roll",
               "points": 5,
               "category": "Kitchen", 
               "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7ZeBLoyQJobZzLEULpoxV19GxNuiPZtgRURDQI4zTYz4KLWI-g"
@@ -67,7 +67,7 @@
   {
     "id": "10",
     "description": "Grocery shopping",
-    "popup": "ry grocery shopping without buying packaged food",
+    "popup": "try grocery shopping without buying packaged food",
     "points": 5,
     "category": "Shopping",
     "photo": "http://wastelandrebel.com/de/wp-content/uploads/sites/2/2015/08/IMG_59541.jpg"
@@ -82,87 +82,88 @@
   },
   {
     "id": "12",
-    "description": "shampoo and shower gel",
+    "description": "Shampoo/shower gel",
     "popup": "avoid shampoo in a plastic bottle, use a hair soap or mix your own shampoo with naturals ingredients",
-    "points": 10,
+    "points": 15,
     "category": "Bathroom",
     "photo": "http://freemindedfolks-blog.com/wp-content/uploads/2018/05/zerowaster-6253.jpg"
   },
   {
     "id": "13",
     "description": "Picknick/Eat outside",
-    "popup": "avoid plastic spoons, knifes, forks, etc., if you eat outside or take to go",
-    "points": 10,
+    "popup": "avoid plastic spoons, knifes, forks, etc., if you eat outside or take food to go",
+    "points": 5,
     "category": "To Go",
     "photo": "https://i.etsystatic.com/5879624/r/il/fd822b/1632989875/il_794xN.1632989875_98rc.jpg"
 },
 {
   "id": "14",
   "description": "Gift paper",
-  "popup": "",
-  "points": 10,
+  "popup": "take reusable materials like towels, scarfs, etc. to wrap a gift",
+  "points": 15,
   "category": "Other",
   "photo": "http://trashisfortossers.com/wp-content/uploads/2017/11/zero-waste-gift-guide-by-price-featured-image.jpg"
 },
 {
   "id": "15",
   "description": "Travelling",
-  "popup": "",
-  "points": 10,
+  "popup": "prepare a journey with taking reusable equipment",
+  "points": 15,
   "category": "Other",
   "photo": "http://www.alttrifftneu.de/wp-content/uploads/2018/02/ZeroWaste_TravelEquipment.jpg"
 },
 {
   "id": "16",
   "description": "Water",
-  "popup": "",
-  "points": 10,
+  "popup": "avoid non-returnable bottles and fill tap water in pocket or travel flasks",
+  "points": 5,
   "category": "To Go",
   "photo": "https://www.careelite.de/wp-content/uploads/2019/01/zero-waste-reise-urlaub-plastikfrei-trinkflasche.jpg"
 },
 {
   "id": "17",
-  "description": "make-up",
-  "popup": "make-up removal pad",
-  "points": 10,
+  "description": "Make-up",
+  "popup": "buy or sew washable make-up removal pads",
+  "points": 15,
   "category": "Bathroom",
   "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW0gie1iWgvUCSfE3DteFdswRthQLZlszPrefL8YVILz_WbqGg"
 },
 {
   "id": "18",
-  "description": "tea",
-  "popup": "use a ",
-  "points": 10,
+  "description": "Tea",
+  "popup": "use a tea strainer, etc. instead of single packed tea bags ",
+  "points": 5,
   "category": "Kitchen",
   "photo": "https://www.fairlis.de/wp-content/uploads/2018/12/zero_waste_tee.jpg"
 },
 {
   "id": "19",
-  "description": "coffee",
-  "popup": "Use normal coffee powder instead of coffee capsules made of plastic",
-  "points": 10,
+  "description": "Coffee",
+  "popup": "use normal coffee powder instead of coffee capsules made of plastic",
+  "points": 5,
   "category": "Kitchen",
   "photo": "https://www.fairlis.de/wp-content/uploads/2018/11/ZeroWasteKaffeeTitel2.jpg"
 },
 {
   "id": "20",
   "description": "toothbrush",
-  "points": 20,
+  "popup": "buy a wooden toothbrush made of natural materials",
+  "points": 15,
   "category": "Bathroom", 
   "photo": "https://www.healthyrockstar.com/wp-content/uploads/zero-waste-badezimmer-820x547.jpg"
 },
 {
   "id": "21",
-  "description": "cleaning agents",
-  "popup": "",
-  "points": 10,
+  "description": "Cleaning agents",
+  "popup": "made your own cleaning agents of natural ingredients",
+  "points": 15,
   "category": "Other",
   "photo": "https://www.rockmyday.de/wp-content/uploads/2018/02/Putzmittel_diy_nachhaltig_zerowaste_Glasflasche_Waschnuesse.jpg"
 },
 {
   "id": "22",
-  "description": "straw/cocktails",
-  "popup": "Use normal reusable straws made of bamboo, stainless steel, etc.",
+  "description": "Straw/cocktails",
+  "popup": "use reusable straws made of bamboo, stainless steel, etc.",
   "points": 10,
   "category": "Kitchen",
   "photo": "https://naturalou.de/wp-content/uploads/2018/01/Zero-Waste-Edelstahlstrohhalme.jpg"
@@ -177,41 +178,41 @@
 },
 {
   "id": "24",
-  "description": "broken technology",
-  "popup": "repair your broken equipment or let it repair (i.e. kettle, toaster)",
-  "points": 10,
+  "description": "Household tools",
+  "popup": "repair your broken equipment or have it repaired (i.e. kettle, toaster)",
+  "points": 20,
   "category": "Other",
   "photo": "https://gippslandunwrapped.files.wordpress.com/2016/10/fixing-vacuum.jpg?w=750"
 },
 {
   "id": "25",
-  "description": "clothes/upcycling",
-  "popup": "Shop second-hand and zero-waste fashion or pimp your worn clothes",
-  "points": 10,
+  "description": "Clothes/upcycling",
+  "popup": "shop second-hand and zero-waste fashion or pimp your worn clothes",
+  "points": 15,
   "category": "Shopping",
   "photo": "https://irema-slowfashion.com/wp-content/uploads/2018/02/photo-1484502249930-e1da807099a5.jpg"
 },
 {
   "id": "26",
-  "description": "smoothie/fruit salad",
-  "popup": "take fresh fruit with you and avoid smoothies or fruit salad in plastic bottles/boxes ",
+  "description": "Smoothie/fruit salad",
+  "popup": "take fresh fruits with you to avoid buying smoothies or fruit salad in plastic bottles/boxes ",
   "points": 10,
   "category": "To go",
   "photo": "https://www.rapantinchen.de/wp-content/uploads/2018/06/0618_DIY_Obstbeutel_Zero_Waste-1.jpg"
 },
 {
   "id": "27",
-  "description": "shaving",
+  "description": "Shaving",
   "popup": "avoid disposable razors and use razor blades or safety razors",
-  "points": 10,
+  "points": 15,
   "category": "Bathroom",
   "photo": "https://the-ognc.com/wp-content/uploads/2018/06/Rasierhobel-Zero-Waste-im-Badezimmer-Tipps-Umgang.jpg"
 },
 {
   "id": "28",
   "description": "tooth brushing",
-  "popup": "",
-  "points": 10,
+  "popup": "buy dent tabs to replace toothpaste in a plastic bottle",
+  "points": 15,
   "category": "Bathroom",
   "photo": "https://i0.wp.com/thegreenwalnuts.com/wp-content/uploads/2018/04/the-green-walnuts-alternative-toothpaste.jpg?fit=780%2C439&ssl=1"
 }
