@@ -251,7 +251,10 @@ leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
           return user.save();
         })
       ).then(() => {
-        res.status(200).json(response);
+        User.update(
+          { "league.info": leagueId },
+          { $unset: { league: {} } }
+        ).then(response => res.status(200).json(response));
       });
     });
   });
