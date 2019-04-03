@@ -4,6 +4,7 @@ import Search from "./TaskSearch";
 import Category from "./CategorySearch";
 import Popup from "reactjs-popup";
 import "./Tasks.css";
+import { Link } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 
@@ -75,14 +76,34 @@ class Tasks extends Component {
                       <h5 className="card-title">{task.description}</h5>
                       <div className="row">
                         <div className="col-6">
-                          <button
-                            className="points mx-2 btn btn-secondary"
-                            type="submit"
-                            value={task.id}
-                            onClick={this.scoreHandler}
-                          >
-                            {task.points}
-                          </button>
+                          {this.props.userInSession.league.confirmed ? (
+                            <button
+                              className="points mx-2 btn btn-secondary"
+                              type="submit"
+                              value={task.id}
+                              onClick={this.scoreHandler}
+                            >
+                              {task.points}
+                            </button>
+                          ) : (
+                            <Popup
+                              trigger={
+                                <button
+                                  className="points mx-2 btn btn-secondary"
+                                  value={task.id}
+                                >
+                                  {task.points}
+                                </button>
+                              }
+                              position="right center"
+                            >
+                              <div>
+                                Ready to collect some points? You're not
+                                currently a league, create one{" "}
+                                <Link to="/myleague">here</Link>
+                              </div>
+                            </Popup>
+                          )}
                         </div>
                         {/* only show popup, if task includes additional information */}
                         <div className="col-6">

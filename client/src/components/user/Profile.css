@@ -6,10 +6,20 @@
 
 .profilePhoto {
   border-radius: 50%;
-  width: 25vw;
-  min-width: 250px;
 }
 
 .tasksprofile {
   height: 50vw;
+}
+
+@media (max-width: 720px) {
+  .profile,
+  .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body {
+    padding: 0;
+  }
 }

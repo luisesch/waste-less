@@ -24,7 +24,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: null
+      loggedInUser: null,
+      mounted: false
     };
     this.authService = new AuthService();
     this.taskService = new TaskService();
@@ -67,7 +68,6 @@ class App extends Component {
 
   render() {
     this.fetchUser();
-
     //if user is logged in
     if (this.state.loggedInUser) {
       return (
@@ -106,7 +106,12 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/tasks"
-                component={() => <Tasks setScore={this.raiseScore} />}
+                component={() => (
+                  <Tasks
+                    setScore={this.raiseScore}
+                    userInSession={this.state.loggedInUser}
+                  />
+                )}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
