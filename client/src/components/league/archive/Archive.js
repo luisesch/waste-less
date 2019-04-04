@@ -49,7 +49,10 @@ class Archive extends Component {
             {this.state.leagues.map((league, index) => {
               return (
                 <div key={index} className="col-3">
-                  <Link to={`/archive/${league.info._id}`}>
+                  <Link
+                    to={`/archive/${league.info._id}`}
+                    style={{ textDecoration: "underline", color: "#1b2f33" }}
+                  >
                     <button className="btn btn-outline-info btn-lg w-100">
                       {league.info.name}
                     </button>

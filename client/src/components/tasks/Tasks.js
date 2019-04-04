@@ -48,7 +48,12 @@ class Tasks extends Component {
 
   render() {
     return (
-      <div className="tasks p-5">
+      <div className="tasks px-5 pb-5 pt-1">
+        <div className="text-right">
+          <button className="btn btn-light">
+            Your score: {this.props.userInSession.score}
+          </button>
+        </div>
         <h1 className="font-weight-light Quicksand">Tasks</h1>
         <hr className="w-75" />
         <h4 className="mb-5">What else can you do to rise your score today?</h4>
@@ -100,7 +105,15 @@ class Tasks extends Component {
                               <div>
                                 Ready to collect some points? You're not
                                 currently a league, create one{" "}
-                                <Link to="/myleague">here</Link>
+                                <Link
+                                  to="/myleague"
+                                  style={{
+                                    textDecoration: "underline",
+                                    color: "#1b2f33"
+                                  }}
+                                >
+                                  here
+                                </Link>
                               </div>
                             </Popup>
                           )}

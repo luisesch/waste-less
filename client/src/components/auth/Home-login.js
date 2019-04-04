@@ -8,6 +8,9 @@ import "./Home.css";
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      message: ""
+    };
     this.service = new AuthService();
   }
 
@@ -15,8 +18,17 @@ class Home extends Component {
     this.service
       .login(username, password)
       .then(response => {
-        this.props.getUser(response);
-        this.props.history.push("/myleague");
+        if (response.message) {
+          this.setState({ message: response.message });
+        } else {
+          this.setState({
+            username: "",
+            password: "",
+            message: ""
+          });
+          this.props.getUser(response);
+          this.props.history.push("/myleague");
+        }
       })
       .catch(error => console.log(error));
   };
@@ -49,16 +61,19 @@ class Home extends Component {
             <h4 className="subheader">There is no plan(et) B</h4>
           </div>
           <div className="rightBar col-xs-12 col-md-4 p-5">
-            <Login login={this.login} />
+            <Login login={this.login} message={this.state.message} />
           </div>
         </div>
         <div className="about p-5 text-right">
           <p>
-            About - Waste-less is not about perfection; it's about making better decision. We believe that
-            small efforts produce a big impact so start with just one single change and grow with every step. 
+            About - Waste-less is not about perfection; it's about making better
+            decision. We believe that small efforts produce a big impact so
+            start with just one single change and grow with every step.
             <br /> <br />
-            You want to challenge yourself, your friends, your family or your colleagues? Invite them to Waste-less
-            and compete against each other. Who avoids the most waste during a week, month or quarter wins! 
+            You want to challenge yourself, your friends, your family or your
+            colleagues? Invite them to Waste-less and compete against each
+            other. Who avoids the most waste during a week, month or quarter
+            wins!
             <br /> <br />
             So let's start - waste less than the others!
           </p>

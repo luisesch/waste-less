@@ -4,12 +4,18 @@
   object-fit: cover;
 }
 
-.profilePhoto {
-  border-radius: 50%;
-}
-
 .tasksprofile {
   height: 50vw;
+}
+
+.profile-pic {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.notasks {
+  margin: auto 35%;
 }
 
 @media (max-width: 720px) {

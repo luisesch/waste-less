@@ -29,7 +29,12 @@ class Carouseltasks extends Component {
         <p>
           No completed tasks yet. Get started!
           <br />
-          <Link to="/tasks">Browse tasks</Link>
+          <Link
+            to="/tasks"
+            style={{ textDecoration: "underline", color: "#1b2f33" }}
+          >
+            Browse tasks
+          </Link>
         </p>
       );
     } else {

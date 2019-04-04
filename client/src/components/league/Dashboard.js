@@ -165,7 +165,7 @@ class Dashboard extends Component {
                 <span>
                   <h4 className="text-center mb-3">
                     Your current Score:{" "}
-                    <strong className="score">
+                    <strong className="score px-2">
                       {this.props.userInSession.score}
                     </strong>
                   </h4>

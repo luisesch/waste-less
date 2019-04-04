@@ -34,7 +34,7 @@ class MyLeague extends Component {
       });
       // if user has no league
       if (!this.state.loggedInUser.league.hasOwnProperty("info")) {
-        this.setState({ league: false, mounted: true });
+        this.setState({ league: {}, mounted: true });
         // if user has league
       } else {
         let newState = {};
@@ -65,6 +65,7 @@ class MyLeague extends Component {
   componentDidUpdate() {
     if (
       this.state.endDate.length <= 0 &&
+      this.state.league &&
       this.state.league.status === "active"
     ) {
       const leagueId = this.state.loggedInUser.league.info;
@@ -90,34 +91,12 @@ class MyLeague extends Component {
       .then(response => console.log(response));
   };
 
-  // check, if league is over/30 days have passed
-  leagueOver = () => {
-    const leagueId = this.state.league._id;
-    if (
-      (Moment().format("L") === this.state.endDate ||
-        Moment(this.state.endDate, "L")
-          .fromNow()
-          .indexOf("ago") >= 0) &&
-      this.state.league.status === "active"
-    ) {
-      this.leagueService
-        .endLeague(leagueId)
-        .then(response => {
-          this.setState({
-            league: {}
-          });
-        })
-        .catch(err => console.log(err));
-    }
-  };
-
   render() {
     if (!this.state.mounted) {
       return <p>Loading</p>;
     }
     // if user isn't part of any league
-    else if (this.state.league.status === "active") {
-      this.leagueOver();
+    else if (this.state.league && this.state.league.status === "active") {
       return (
         <Dashboard
           endDate={this.state.endDate}
@@ -145,7 +124,18 @@ class MyLeague extends Component {
                   You aren't currently member of any league.
                 </h1>
                 <br />
-                <Link to="/newleague">Create new league</Link>
+                <Link
+                  to="/newleague"
+                  style={{ textDecoration: "underline", color: "#1b2f33" }}
+                >
+                  Create new league
+                </Link>
+
+                {this.state.loggedInUser.completedLeagues.length > 0 && (
+                  <p>
+                    Or check out your <Link to="/archive">archive</Link>
+                  </p>
+                )}
               </div>
             </div>
           </div>

@@ -50,8 +50,12 @@ class Login extends Component {
             />
           </div>
 
+          <div className="message blue noborder">
+            {this.props.message.length > 0 && <p>{this.props.message}</p>}
+          </div>
+
           <button type="submit" className="btn  mt-3 Home-btn" value="Login">
-            Submit
+            Login
           </button>
           <br />
           <br />

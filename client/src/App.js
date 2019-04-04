@@ -19,6 +19,7 @@ import CreateLeague from "./components/league/CreateLeague";
 import TaskService from "./components/tasks/task-service";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
+import Contact from "./components/contact/Contact";
 
 class App extends Component {
   constructor(props) {
@@ -144,6 +145,12 @@ class App extends Component {
                 path="/archive/:id"
                 component={Archive}
               />
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/contact"
+                component={props => <Contact {...props} />}
+              />
             </Switch>
           </div>
           <Footer />
@@ -172,6 +179,13 @@ class App extends Component {
                   <HomeLogin {...props} getUser={this.getTheUser} />
                 )}
               />
+              <Route
+                user={this.state.loggedInUser}
+                exact
+                path="/contact"
+                component={props => <Contact {...props} />}
+              />
+
               {/*<ProtectedRoute
               user={this.state.loggedInUser}
               exact
