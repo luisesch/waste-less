@@ -145,6 +145,24 @@ class Tasks extends Component {
                 </div>
               );
             })}
+            <div className="col-xs-12 col-md-4 mt-3">
+              <div className="card">
+                <div className="card-body font-weight-light">
+                  <img
+                    src="/images/question_mark.png"
+                    className=" blue add-task"
+                    alt="default"
+                  />
+                  <h5 className="card-title">Missing a task?</h5>
+                  <Link to="/contact">
+                    <button className="points mx-2 btn btn-secondary">
+                      Let us know
+                    </button>
+                  </Link>
+                </div>
+              </div>
+              <div className="card-footer text-muted">Thanks :)</div>
+            </div>
           </div>
         </div>
       </div>
