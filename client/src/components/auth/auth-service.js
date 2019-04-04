@@ -17,7 +17,6 @@ class AuthService {
   };
 
   verify = (userId, code) => {
-    console.log(userId, code);
     return this.service
       .put("/auth/" + userId + "/confirm/" + code)
       .then(response => response.data)

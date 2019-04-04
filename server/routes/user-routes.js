@@ -21,11 +21,12 @@ userRoutes.post(
   parser.single("picture"),
   (req, res, next) => {
     const userId = req.params.userId;
-    User.findOneAndUpdate(
-      { _id: userId },
-      { photo: req.file.url },
-      { new: true }
-    )
+
+    let nonRotatedUrlArr = req.file.url.split("/");
+    nonRotatedUrlArr.splice(6, 0, "a_exif");
+    profilepic = nonRotatedUrlArr.join("/");
+
+    User.findOneAndUpdate({ _id: userId }, { photo: profilepic }, { new: true })
       .then(response => {
         res.status(200).json(response);
       })

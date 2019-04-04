@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 class Footer extends Component {
   render() {
@@ -16,7 +17,12 @@ class Footer extends Component {
               </div>
               <div className="col-6 text-right">
                 {" "}
-                <p>Contact</p>
+                <Link
+                  to="/contact"
+                  style={{ textDecoration: "underline", color: "#1b2f33" }}
+                >
+                  Contact
+                </Link>
               </div>
             </div>
           </div>

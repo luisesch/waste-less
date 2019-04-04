@@ -9,17 +9,11 @@ import Signup from "./Signup";
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      message: ""
+    };
     this.service = new AuthService();
   }
-
-  login = (username, password) => {
-    this.service
-      .login(username, password)
-      .then(response => {
-        this.props.getUser(response);
-      })
-      .catch(error => console.log(error));
-  };
 
   signup = (username, password, email) => {
     this.service.signup(username, password, email).then(response => {
@@ -46,16 +40,19 @@ class Home extends Component {
             <h4 className="subheader">There is no plan(et) B</h4>
           </div>
           <div className="rightBar col-xs-12 col-md-4 pt-5 px-5">
-            <Signup signup={this.signup} />
+            <Signup signup={this.signup} message={this.state.message} />
           </div>
         </div>
         <div className="about p-5 text-right">
           <p>
-            About - Waste-less is not about perfection; it's about making better decision. We believe that
-            small efforts produce a big impact so start with just one single change and grow with every step. 
+            About - Waste-less is not about perfection; it's about making better
+            decision. We believe that small efforts produce a big impact so
+            start with just one single change and grow with every step.
             <br /> <br />
-            You want to challenge yourself, your friends, your family or your colleagues? Invite them to Waste-less
-            and compete against each other. Who avoids the most waste during a week, month or quarter wins! 
+            You want to challenge yourself, your friends, your family or your
+            colleagues? Invite them to Waste-less and compete against each
+            other. Who avoids the most waste during a week, month or quarter
+            wins!
             <br /> <br />
             So let's start - waste less than the others!
           </p>

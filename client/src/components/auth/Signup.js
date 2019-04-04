@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", email: "", message: "" };
+    this.state = { username: "", password: "", email: "" };
     this.service = new AuthService();
   }
 
@@ -63,25 +63,14 @@ class Signup extends Component {
             />
           </div>
 
-          {/* <div className="form-group form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              I accept the terms of use and privacy statement{" "}
-            </label>
-          </div> */}
+          <div className="message blue noborder">
+            {this.props.message.length > 0 && <p>{this.props.message}</p>}
+          </div>
 
           <button type="submit" className="btn mt-3 Home-btn" value="Signup">
-            Submit
+            Sign up
           </button>
         </form>
-
-        <div className="message">
-          <p>{this.state.message}</p>
-        </div>
 
         <p>
           Already have an account?

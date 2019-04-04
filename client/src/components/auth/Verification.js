@@ -17,7 +17,6 @@ class Verification extends Component {
       this.authService
         .verify(response._id, code)
         .then(response => {
-          console.log(response);
           this.setState({
             loggedInUser: response
           });
@@ -47,7 +46,12 @@ class Verification extends Component {
                 {this.state.loggedInUser.username}
               </h1>
               <br />
-              <Link to={"/myleague"}>Check out your dashboard</Link>
+              <Link
+                to={"/myleague"}
+                style={{ textDecoration: "underline", color: "#1b2f33" }}
+              >
+                Check out your dashboard
+              </Link>
             </div>
           </div>
         </div>
