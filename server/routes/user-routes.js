@@ -5,6 +5,15 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 
+const nodemailer = require("nodemailer");
+let transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
+
 // get all users
 userRoutes.get("/users", (req, res, next) => {
   User.find()
@@ -14,6 +23,32 @@ userRoutes.get("/users", (req, res, next) => {
     .catch(err => {
       res.json(err);
     });
+});
+
+userRoutes.post("/users/invite", (req, res, next) => {
+  // req.logout() is defined by passport
+  const email = req.body.email;
+  const invitedBy = req.body.invitedBy;
+
+  const mail = {
+    from: '"waste-less" <waste.less.ironhack@gmail.com>',
+    to: email,
+    subject: invitedBy + "has invited you to join waste-less",
+    text: "You've been invited."
+  };
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.json({
+        msg: "fail"
+      });
+    } else {
+      res.json({
+        msg: "success"
+      });
+    }
+  });
 });
 
 userRoutes.post(

@@ -40,6 +40,13 @@ class UserService {
       .then(res => res.data)
       .catch(err => console.log(err));
   }
+
+  inviteUser(email, invitedBy) {
+    return this.service
+      .post("/users/invite", { email, invitedBy })
+      .then(res => res.data)
+      .catch(err => console.log(err));
+  }
 }
 
 export default UserService;

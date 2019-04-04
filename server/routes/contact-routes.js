@@ -1,8 +1,6 @@
 const express = require("express");
 const contactRoutes = express.Router();
 
-const User = require("../models/user");
-
 const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
   service: "Gmail",
