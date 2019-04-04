@@ -19,21 +19,6 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-// get one league by ID
-leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
-  const leagueId = req.params.leagueId;
-
-  League.findById(leagueId)
-    .populate("administrator")
-    .exec((err, response) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.status(200).json(response);
-      }
-    });
-});
-
 // DELETE /leagues/:leagueID/members/:userID
 // POST /leagues/:leagueID/members
 // body --> { userID:  }
@@ -76,7 +61,10 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   if (!req.file) {
     photo = "/images/default_profile.jpg";
   } else {
-    photo = req.file.url;
+    let nonRotatedUrlArr = req.file.url.split("/");
+    nonRotatedUrlArr.splice(6, 0, "a_exif");
+    profilepic = nonRotatedUrlArr.join("/");
+    photo = profilePic;
   }
 
   const aNewLeague = new League({
@@ -150,9 +138,14 @@ leagueRoutes.post(
   parser.single("picture"),
   (req, res, next) => {
     const leagueId = req.params.leagueId;
+
+    let nonRotatedUrlArr = req.file.url.split("/");
+    nonRotatedUrlArr.splice(6, 0, "a_exif");
+    profilepic = nonRotatedUrlArr.join("/");
+
     League.findOneAndUpdate(
       { _id: leagueId },
-      { photo: req.file.url },
+      { photo: profilepic },
       { new: true }
     )
       .populate("administrator")
@@ -225,39 +218,61 @@ leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
 });
 
 // if 30 days are over, change status of league to "completed" and move league to completedLeagues Array
-leagueRoutes.put("/leagues/:leagueId/end", (req, res, next) => {
-  const leagueId = req.params.leagueId;
 
-  League.findOneAndUpdate(
-    { _id: leagueId },
-    { $set: { status: "completed" } },
-    { new: true }
-  ).then(response => {
-    User.find({ "league.info": leagueId }).then(users => {
-      let mailList = [];
-      users.forEach(user => mailList.push(user.email));
-      transporter.sendMail({
-        from: '"waste-less" <waste.less.ironhack@gmail.com>',
-        to: "waste.less.ironhack@gmail.com",
-        bcc: mailList,
-        subject: "Your league has ended!",
-        text: "localhost:3000/archive/" + leagueId,
-        html: templateEnded.templateEnded("localhost:3000/archive/" + leagueId)
-      });
-      Promise.all(
-        users.map(user => {
-          user.completedLeagues.push({ info: leagueId, score: user.score });
-          user.score = 0;
-          return user.save();
-        })
-      ).then(() => {
-        User.update(
-          { "league.info": leagueId },
-          { $unset: { league: {} } }
-        ).then(response => res.status(200).json(response));
+leagueRoutes.get("/leagues/checkover", (req, res, next) => {
+  League.updateMany(
+    { endDate: moment().format("L") },
+    { $set: { status: "completed" } }
+  );
+  League.find({ endDate: moment().format("L") }).then(leagues => {
+    leagues.forEach(league => {
+      User.find({ "league.info": league._id }).then(users => {
+        let mailList = [];
+        users.forEach(user => mailList.push(user.email));
+        transporter.sendMail({
+          from: '"waste-less" <waste.less.ironhack@gmail.com>',
+          to: "waste.less.ironhack@gmail.com",
+          bcc: mailList,
+          subject: "Your league has ended!",
+          text: "localhost:3000/archive/" + league._id,
+          html: templateEnded.templateEnded(
+            "localhost:3000/archive/" + league._id
+          )
+        });
+
+        Promise.all(
+          users.map(user => {
+            user.completedLeagues.push({
+              info: league._id,
+              score: user.score
+            });
+            user.score = 0;
+            return user.save();
+          })
+        ).then(() => {
+          User.update(
+            { "league.info": league._id },
+            { $unset: { league: {} } }
+          ).then(response => res.status(200).json(response));
+        });
       });
     });
   });
+});
+
+// get one league by ID
+leagueRoutes.get("/leagues/:leagueId", (req, res, next) => {
+  const leagueId = req.params.leagueId;
+
+  League.findById(leagueId)
+    .populate("administrator")
+    .exec((err, response) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).json(response);
+      }
+    });
 });
 
 leagueRoutes.get("/archive/:userId", (req, res, next) => {

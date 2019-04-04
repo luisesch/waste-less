@@ -16,7 +16,9 @@ const passport = require("passport");
 require("./configs/passport");
 
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost/waste-less', { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/waste-less", {
+    useNewUrlParser: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -83,11 +85,11 @@ app.use("/api", require("./routes/auth-routes"));
 app.use("/api", require("./routes/league-routes"));
 app.use("/api", require("./routes/user-routes"));
 app.use("/api", require("./routes/task-routes"));
+app.use("/api", require("./routes/contact-routes"));
 
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/public/index.html");
 });
-
 
 module.exports = app;
