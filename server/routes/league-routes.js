@@ -68,6 +68,7 @@ leagueRoutes.delete("/leagues/:leagueId/delete", (req, res, next) => {
 leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const name = req.body.name;
   const administratorId = req.body.administrator;
+  const duration = req.body.duration;
   const members = JSON.parse(req.body.members) || []; // because multipart/form-data sends undefined when passed an empty array
   let photo = "";
 
@@ -82,7 +83,8 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const aNewLeague = new League({
     name: name,
     administrator: administratorId,
-    photo: photo
+    photo: photo,
+    duration: duration
   });
 
   aNewLeague.save(err => {
