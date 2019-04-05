@@ -35,6 +35,7 @@ class Signup extends Component {
               onChange={e => this.handleChange(e)}
               className="form-control"
               placeholder="Username"
+              required
             />
           </div>
 
@@ -46,6 +47,7 @@ class Signup extends Component {
               onChange={e => this.handleChange(e)}
               className="form-control"
               placeholder="Email"
+              required
             />
             <small className="form-text text-muted">
               We'll never share your email with anyone.
@@ -60,6 +62,7 @@ class Signup extends Component {
               value={this.state.password}
               onChange={e => this.handleChange(e)}
               placeholder="Password"
+              required
             />
           </div>
 

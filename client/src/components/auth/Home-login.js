@@ -55,7 +55,7 @@ class Home extends Component {
   render() {
     return (
       <div className="Home container-fluid">
-        <div className="row">
+        <div className="row p-0 m-0">
           <div className="leftBar col-xs-12 col-md-8 pt-5">
             <h1 className="header">WASTE-LESS</h1>
             <h4 className="subheader">There is no plan(et) B</h4>

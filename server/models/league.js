@@ -7,15 +7,14 @@ const leagueSchema = new Schema(
     name: String,
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
     photo: { type: String, default: "/images/default_profile.jpg" },
-    duration: Number, 
+    duration: Number,
     status: {
       type: String,
       enum: ["waiting", "active", "completed"],
       default: "waiting"
     },
     startDate: String,
-    endDate: String,
-    duration: Number
+    endDate: String
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
