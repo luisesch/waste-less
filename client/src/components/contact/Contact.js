@@ -58,7 +58,7 @@ class Welcome extends Component {
                   <label htmlFor="message">Message</label>
                   <textarea className="form-control" rows="5" id="message" />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn Home-btn">
                   Submit
                 </button>
               </form>

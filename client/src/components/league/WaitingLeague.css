@@ -1,3 +1,5 @@
-img.profilePic {
-    width: 50%;
+.Waiting-profilePic {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
 }

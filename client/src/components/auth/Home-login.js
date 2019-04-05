@@ -64,18 +64,18 @@ class Home extends Component {
             <Login login={this.login} message={this.state.message} />
           </div>
         </div>
-        <div className="about p-5 text-right">
+        <div className="about pt-3 px-5 text-right">
+          <h4>About</h4>
           <p>
-            About - Waste-less is not about perfection; it's about making better
-            decision. We believe that small efforts produce a big impact so
-            start with just one single change and grow with every step.
+            You love a good challenge? Then waste-less might be just the right
+            thing for you. Invite your friends, family or colleagues and compete
+            against each other in avoiding waste. Whoever collects most points
+            during a week, month or quarter will win the league!
             <br /> <br />
-            You want to challenge yourself, your friends, your family or your
-            colleagues? Invite them to Waste-less and compete against each
-            other. Who avoids the most waste during a week, month or quarter
-            wins!
-            <br /> <br />
-            So let's start - waste less than the others!
+            Waste-less is not about perfection, it's about making better
+            decisions – one step at a time. We believe that small efforts may
+            lead to a big impact, so start with just one single change and see
+            where it takes you.
           </p>
         </div>
       </div>

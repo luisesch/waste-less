@@ -28,30 +28,32 @@ class Verification extends Component {
 
   render() {
     if (!this.state.loggedInUser) {
-      return <p>Loading</p>;
+      return <p>Loading...</p>;
     } else {
       return (
-        <div className="container">
-          <div className="row">
-            <div className="col-md-7">
-              <img
-                className="img-fluid rounded mb-4 mb-lg-0"
-                src="http://trashisfortossers.com/wp-content/uploads/2017/10/beginners-guide-to-zero-waste-featured-image.jpg"
-                alt=""
-              />
-            </div>
-            <div className="col-md-5 right">
-              <h1 className="card-title font-weight-light">
-                Thank you for verifying your email address,{" "}
-                {this.state.loggedInUser.username}
-              </h1>
-              <br />
-              <Link
-                to={"/myleague"}
-                style={{ textDecoration: "underline", color: "#1b2f33" }}
-              >
-                Check out your dashboard
-              </Link>
+        <div className="mt-3">
+          <div className="container">
+            <div className="row noborder">
+              <div className="col-md-7 col-xs-12 ">
+                <img
+                  className="img-fluid rounded mb-4"
+                  src="http://trashisfortossers.com/wp-content/uploads/2017/10/beginners-guide-to-zero-waste-featured-image.jpg"
+                  alt=""
+                />
+              </div>
+              <div className="col-md-5 col-xs-12">
+                <h1 className="font-weight-light Quicksand mb-5">
+                  Thank you for verifying your email address,{" "}
+                  {this.state.loggedInUser.username}
+                </h1>
+
+                <Link
+                  to={"/profile"}
+                  style={{ textDecoration: "underline", color: "#1b2f33" }}
+                >
+                  Check out your profile
+                </Link>
+              </div>
             </div>
           </div>
         </div>

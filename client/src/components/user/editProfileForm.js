@@ -85,7 +85,7 @@ class EditProfileForm extends Component {
             </div>
             <button
               type="submit"
-              className="btn btn-primary col-3 h-25 "
+              className="btn Home-btn col-3 h-25 "
               value="password"
             >
               Save
@@ -109,7 +109,7 @@ class EditProfileForm extends Component {
             </div>
             <button
               type="submit"
-              className="btn btn-primary col-3 h-25"
+              className="btn Home-btn col-3 h-25"
               value="motto"
             >
               Save

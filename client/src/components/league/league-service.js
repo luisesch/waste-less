@@ -71,9 +71,9 @@ class LeagueService {
       .catch(err => console.log(err));
   };
 
-  startLeague = leagueId => {
+  startLeague = (leagueId, duration) => {
     return this.service
-      .put("/leagues/" + leagueId + "/start")
+      .put("/leagues/" + leagueId + "/start/" + duration)
       .then(response => response.data)
       .catch(err => console.log(err));
   };

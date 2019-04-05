@@ -5,12 +5,12 @@
   object-fit: cover;
 }
 
-.row {
-  margin-right: 0 !important;
-}
-
 .add-task {
   background-color: #1b2f33;
   height: 30vh;
   max-height: 150px;
+}
+
+.info-icon {
+  max-height: 30px;
 }

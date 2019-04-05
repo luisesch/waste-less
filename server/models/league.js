@@ -13,7 +13,8 @@ const leagueSchema = new Schema(
       default: "waiting"
     },
     startDate: String,
-    endDate: String
+    endDate: String,
+    duration: Number
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

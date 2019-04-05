@@ -146,7 +146,7 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.members.length === 0) {
-      return <p>Loading</p>;
+      return <p>Loading...</p>;
     } else {
       return (
         <div className="Dashboard p-5">
@@ -158,7 +158,7 @@ class Dashboard extends Component {
             Your league ends {Moment(this.props.endDate, "L").fromNow()},{" "}
             {this.props.userInSession.username}
           </h4>
-          <div className="container-fluid">
+          <div className="container">
             <div className="row noborder">
               {/* league's profile picture */}
               <div className="col-md-6 col-xs-12 p-0 mb-3">
@@ -193,7 +193,9 @@ class Dashboard extends Component {
                     >
                       <input type="file" onChange={e => this.handleChange(e)} />{" "}
                       <br />
-                      <button type="submit">Save new league picture</button>
+                      <button type="submit" className="btn-light">
+                        Save new league picture
+                      </button>
                     </form>
                   ) : null}
                 </div>
@@ -238,14 +240,14 @@ class Dashboard extends Component {
 
             {this.state.highscore === "short" ? (
               <button
-                className="btn Dashboard-btn mt-2"
+                className="btn btn-light mt-2"
                 onClick={this.changeHighscore}
               >
                 See all
               </button>
             ) : (
               <button
-                className="btn Dashboard-btn mt-2"
+                className="btn btn-light mt-2"
                 onClick={this.changeHighscore}
               >
                 See less
@@ -271,9 +273,7 @@ class Dashboard extends Component {
             <div className="text-right">
               <button
                 className={
-                  this.state.edit
-                    ? "btn btn-primary mx-2"
-                    : "btn btn-light mx-2"
+                  this.state.edit ? "btn Home-btn mx-2" : "btn btn-light mx-2"
                 }
                 onClick={this.changeEdit}
               >

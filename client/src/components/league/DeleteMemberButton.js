@@ -26,7 +26,7 @@ class DeleteMemberButton extends Component {
     return (
       <Popup
         trigger={
-          <button className="btn btn-danger">{this.props.children}</button>
+          <button className="btn Home-btn">{this.props.children}</button>
         }
         position="right center"
       >

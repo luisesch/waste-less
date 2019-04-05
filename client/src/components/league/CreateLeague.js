@@ -85,7 +85,8 @@ class CreateLeague extends Component {
     this.setState({
       members: this.membersArr,
       users: array,
-      filteredUsers: []
+      filteredUsers: [],
+      button: ""
     });
   };
 
@@ -99,7 +100,7 @@ class CreateLeague extends Component {
 
     this.leagueService
       .create(name, administrator, members, picture, duration)
-      .then(response => {
+      .then(() => {
         this.setState({
           name: "",
           members: []
@@ -130,13 +131,24 @@ class CreateLeague extends Component {
 
   setDuration = event => {
     event.preventDefault();
-    this.setState({ duration: Number(event.target.value) });
+    this.setState({
+      duration: Number(event.target.value),
+      button: event.target.value
+    });
+  };
+
+  deleteMember = event => {
+    event.preventDefault();
+    let newMembers = this.state.members.filter(value => {
+      return value !== event.target.value;
+    });
+    this.setState({ members: newMembers });
   };
 
   render() {
     return (
-      <div className="card container">
-        <div className="createLeague card-body">
+      <div className="mt-3 mx-5">
+        <div className="container-fluid">
           <div className="row noborder">
             <div className="col-md-7 left">
               <img
@@ -146,14 +158,13 @@ class CreateLeague extends Component {
               />
             </div>
             <div className="col-md-5 right">
-              <h1 className="card-title font-weight-light">
+              <h1 className="card-title font-weight-light Quicksand mb-5">
                 Create new league{" "}
               </h1>
-              <br />
               <div className="field">
                 <form onSubmit={this.handleFormSubmit}>
                   {/* <input type="file" name="picture" onChange={(e) => this.handleChange(e)} /> <br /> */}
-                  <div className="control">
+                  <div className="control mb-3">
                     <input
                       className="input form-control"
                       type="text"
@@ -163,13 +174,21 @@ class CreateLeague extends Component {
                       placeholder="Name of the league"
                       required
                     />
-
-                    <br />
                   </div>
                   {this.state.members.map((member, index) => {
                     return (
                       <div key={index}>
-                        <p>{member}</p>
+                        <p>
+                          {member}
+                          {"   "}
+                          <button
+                            onClick={this.deleteMember}
+                            value={member}
+                            className="btn btn-light btn-sm"
+                          >
+                            Delete
+                          </button>
+                        </p>
                       </div>
                     );
                   })}
@@ -190,38 +209,71 @@ class CreateLeague extends Component {
                       );
                     })}
                   </div>
-                  <br />
 
-                  <button value="7" onClick={this.setDuration}>
-                    7 days
-                  </button>
-                  <button value="30" onClick={this.setDuration}>
-                    30 days
-                  </button>
+                  <label className="mt-3">
+                    For how long would you like to play:
+                  </label>
+                  <div className="container-fluid">
+                    <button
+                      className={
+                        this.state.button === "7"
+                          ? "btn btn-light mx-1"
+                          : "btn Home-btn mx-1"
+                      }
+                      value="7"
+                      onClick={this.setDuration}
+                    >
+                      7 days
+                    </button>
+                    <button
+                      className={
+                        this.state.button === "30"
+                          ? "btn btn-light mx-1"
+                          : "btn Home-btn mx-1"
+                      }
+                      value="30"
+                      onClick={this.setDuration}
+                    >
+                      30 days
+                    </button>
+                    <button
+                      className={
+                        this.state.button === "90"
+                          ? "btn btn-light mx-1"
+                          : "btn Home-btn mx-1"
+                      }
+                      value="90"
+                      onClick={this.setDuration}
+                    >
+                      90 days
+                    </button>
+                  </div>
 
                   <br />
-                  <label>Upload League Picture</label>
+                  <div className="form-group">
+                    <label>Upload League Picture:</label>
+                    <input
+                      type="file"
+                      name="picture"
+                      className="form-control-file blue"
+                      onChange={e => this.handleChange(e)}
+                    />
+                  </div>
+
                   <input
-                    type="file"
-                    name="picture"
-                    onChange={e => this.handleChange(e)}
-                  />
-
-                  <br />
-                  <br />
-                  <input
-                    className="btn btn-primary"
+                    className="btn Home-btn"
                     type="submit"
                     value="Submit"
                   />
                 </form>
               </div>
-              <InviteUser user={this.state.loggedInUser} />
             </div>
           </div>
         </div>
-
-        <div className="card-footer text-muted">Let the games begin! </div>
+        <hr className="mt-4" />
+        <div className="text-muted">
+          <InviteUser user={this.state.loggedInUser} />
+        </div>
       </div>
     );
   }

@@ -39,7 +39,7 @@ class InviteUser extends Component {
     // console.log(this.state);
 
     return (
-      <div className="mt-3 white-top">
+      <div className="mt-3">
         <form onSubmit={this.inviteUser} id="invite-form">
           <label className="label">Your friends aren't registered yet?</label>
           <div className="container-fluid">
@@ -56,12 +56,8 @@ class InviteUser extends Component {
                 />
               </div>
 
-              <div className="col-2">
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                  value="Submit"
-                >
+              <div className="col-2 text-left">
+                <button className="btn Home-btn" type="submit" value="Submit">
                   Invite
                 </button>
               </div>

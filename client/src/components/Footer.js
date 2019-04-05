@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 class Footer extends Component {
   render() {
     return (
-      <div className="Foot">
-        <footer className="page-footer font-small light-green pt-3">
+      <div className="Foot p-3 mt-3">
+        <footer className="page-footer font-small light-green ">
           <div className="container-fluid">
-            <div className="row">
+            <div className="row noborder">
               <div className="col-6 text-left">
                 <p>
-                  © 2018 Copyright:
+                  © 2019 Copyright:
                   <strong> Luise & Janine – Ironhackers</strong>
                 </p>
               </div>
@@ -19,7 +19,7 @@ class Footer extends Component {
                 {" "}
                 <Link
                   to="/contact"
-                  style={{ textDecoration: "underline", color: "#1b2f33" }}
+                  style={{ textDecoration: "none", color: "#1b2f33" }}
                 >
                   Contact
                 </Link>

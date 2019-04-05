@@ -4,6 +4,7 @@
 body {
   background-color: #f4efee;
   font-family: "Raleway", sans-serif;
+  width: 100vw;
 }
 
 .Raleway {
@@ -41,7 +42,7 @@ body {
 }
 
 .fixfooter {
-  min-height: 85vh;
+  min-height: 76vh;
 }
 
 .container {

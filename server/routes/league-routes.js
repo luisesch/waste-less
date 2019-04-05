@@ -30,7 +30,7 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
 
   User.findOneAndUpdate(
     { _id: memberId },
-    { $unset: { league: {} } },
+    { $unset: { league: {} }, $set: { score: 0 } },
     { new: true }
   )
     .then(response => res.status(200).json(response))
@@ -40,23 +40,26 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
 leagueRoutes.delete("/leagues/:leagueId/delete", (req, res, next) => {
   const leagueId = req.params.leagueId;
 
-  League.findByIdAndDelete(leagueId).then(response => {
-    User.update({ "league.info": leagueId }, { $unset: { league: {} } })
-      .then(() => {
-        res.status(200).json(response);
-      })
-      .catch(err => console.log(err));
-  });
+  League.findByIdAndDelete(leagueId).then(response => console.log(response));
+
+  User.updateMany(
+    { "league.info": leagueId },
+    { $set: { score: 0 }, $unset: { league: {} } },
+    { new: true }
+  )
+    .then(response2 => {
+      res.status(200).json(response2);
+    })
+    .catch(err => console.log(err));
 });
 
 // create new league
 leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const name = req.body.name;
+  const duration = req.body.duration;
   const administratorId = req.body.administrator;
   const members = JSON.parse(req.body.members) || []; // because multipart/form-data sends undefined when passed an empty array
   let photo = "";
-
-  console.log(typeof req.body.members);
 
   if (!req.file) {
     photo = "/images/default_profile.jpg";
@@ -70,7 +73,8 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   const aNewLeague = new League({
     name: name,
     administrator: administratorId,
-    photo: photo
+    photo: photo,
+    duration: duration
   });
 
   aNewLeague.save(err => {
@@ -85,7 +89,7 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
       { _id: administratorId },
       { $set: { league: { info: aNewLeague._id, confirmed: true } } },
       { new: true }
-    ).then(response => console.log(response));
+    ).then(() => console.log("found"));
 
     members.forEach(member =>
       User.findOneAndUpdate(
@@ -116,7 +120,7 @@ leagueRoutes.post("/addMember", (req, res, next) => {
 
   User.findOneAndUpdate(
     { _id: userId },
-    { $set: { league: { info: leagueId, confirmed: false } } },
+    { $set: { score: 0, league: { info: leagueId, confirmed: false } } },
     { new: true }
   )
     .then(user => {
@@ -186,11 +190,12 @@ leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
     .catch(err => console.log(err));
 });
 
-leagueRoutes.put("/leagues/:leagueId/start", (req, res, next) => {
+leagueRoutes.put("/leagues/:leagueId/start/:duration", (req, res, next) => {
   const leagueId = req.params.leagueId;
+  const duration = req.params.duration;
   const startDate = moment().format("L");
   const endDate = moment()
-    .add(30, "day")
+    .add(duration, "day")
     .format("L");
 
   User.find({ "league.info": leagueId })

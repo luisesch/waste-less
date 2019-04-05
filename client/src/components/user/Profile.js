@@ -90,7 +90,7 @@ class Profile extends Component {
 
   render() {
     if (!this.state.loggedInUser) {
-      return <p>Loading</p>;
+      return <p>Loading...</p>;
     } else {
       return (
         <div className="profile px-5 pb-5 pt-1">
@@ -98,7 +98,7 @@ class Profile extends Component {
             <button
               className={
                 this.state.edit
-                  ? "btn btn-primary overlaybase"
+                  ? "btn Home-btn overlaybase"
                   : "btn btn-light overlaybase"
               }
               onClick={this.changeEdit}
@@ -118,7 +118,7 @@ class Profile extends Component {
           <hr className="w-75" />
           <h4 className="mb-5 mx-2">Have you been waste-less today?</h4>
 
-          <div className="container-fluid">
+          <div className="container">
             <div className="row noborder">
               <div className="col-md-6 col-xs-12">
                 <img
@@ -143,7 +143,9 @@ class Profile extends Component {
                     >
                       <input type="file" onChange={e => this.handleChange(e)} />{" "}
                       <br />
-                      <button type="submit">Save new profile picture</button>
+                      <button type="submit" className="home-btn">
+                        Save new profile picture
+                      </button>
                     </form>
                   ) : null}
                 </div>
@@ -155,7 +157,11 @@ class Profile extends Component {
                 {this.state.league ? (
                   <p>
                     Currently part of the league{" "}
-                    <Link to="/myleague" className="card-link">
+                    <Link
+                      to="/myleague"
+                      className="card-link"
+                      style={{ textDecoration: "underline", color: "#1b2f33" }}
+                    >
                       {this.state.league.name}
                     </Link>
                   </p>
@@ -184,7 +190,7 @@ class Profile extends Component {
             </div>
           </div>
 
-          <div className="container-fluid white-top mt-5">
+          <div className="container white-top mt-5">
             <h4>Latest completed tasks</h4>
             <div className="row noborder mt-3">
               {this.state.completedTasks.length <= 0 ? (
@@ -220,7 +226,7 @@ class Profile extends Component {
                               <br />
                               <small>
                                 {Moment(task.created_at)
-                                  .startOf("hour")
+                                  .startOf("minute")
                                   .fromNow()}
                               </small>
                             </p>

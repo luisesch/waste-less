@@ -64,7 +64,7 @@ class Carouseltasks extends Component {
                       </p>
                       <small>
                         {Moment(task.created_at)
-                          .startOf("hour")
+                          .startOf("minute")
                           .fromNow()}
                       </small>
                     </div>

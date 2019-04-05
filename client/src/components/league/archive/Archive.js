@@ -39,27 +39,30 @@ class Archive extends Component {
 
   render() {
     if (this.state.leagues.length <= 0) {
-      return <p>Loading</p>;
+      return <p>Loading...</p>;
     } else {
       return (
-        <div className="container">
-          <h2>Completed leagues</h2>
-
-          <div className="row p-3">
-            {this.state.leagues.map((league, index) => {
-              return (
-                <div key={index} className="col-3">
-                  <Link
-                    to={`/archive/${league.info._id}`}
-                    style={{ textDecoration: "underline", color: "#1b2f33" }}
-                  >
-                    <button className="btn btn-outline-info btn-lg w-100">
-                      {league.info.name}
-                    </button>
-                  </Link>
-                </div>
-              );
-            })}
+        <div className="Archive p-5">
+          <h1 className="font-weight-light Quicksand">Archive</h1>
+          <hr className="w-75" />
+          <h4 className="mb-5">Have a look at what you've achieved so far</h4>
+          <div className="container-fluid">
+            <div className="row p-3">
+              {this.state.leagues.map((league, index) => {
+                return (
+                  <div key={index} className="col-md-3 col-xs-6 mb-2">
+                    <Link
+                      to={`/archive/${league.info._id}`}
+                      style={{ textDecoration: "underline", color: "#1b2f33" }}
+                    >
+                      <button className="btn Home-btn btn-lg w-100">
+                        {league.info.name}
+                      </button>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           {this.props.match.params.id && (
             <ArchiveDetail id={this.props.match.params.id} />

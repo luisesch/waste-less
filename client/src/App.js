@@ -55,18 +55,6 @@ class App extends Component {
     });
   };
 
-  raiseScore = (points, task) => {
-    let newScore = this.state.loggedInUser.score + points;
-    this.taskService
-      .taskCompleted(newScore, this.state.loggedInUser, task)
-      .then(response => {
-        this.setState({
-          loggedInUser: response
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
   render() {
     this.fetchUser();
     //if user is logged in
