@@ -7,7 +7,7 @@ const userSchema = new Schema(
     password: String,
     email: String,
     motto: { type: String, default: "Ready to save the world?" },
-    photo: { type: String, default: "/images/default_profile.jpg" },
+    photo: { type: String, default: "/images/default_profile.png" },
     league: {
       info: { type: Schema.Types.ObjectId, ref: "League" },
       confirmed: { type: Boolean, default: false }

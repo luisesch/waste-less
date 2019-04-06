@@ -70,7 +70,11 @@ class Signup extends Component {
             {this.props.message.length > 0 && <p>{this.props.message}</p>}
           </div>
 
-          <button type="submit" className="btn mt-3 Home-btn" value="Signup">
+          <button
+            type="submit"
+            className="btn mt-3 mb-3 Home-btn"
+            value="Signup"
+          >
             Sign up
           </button>
         </form>

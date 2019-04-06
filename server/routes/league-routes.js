@@ -62,7 +62,7 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   let photo = "";
 
   if (!req.file) {
-    photo = "/images/default_profile.jpg";
+    photo = "/images/default_league.png";
   } else {
     let nonRotatedUrlArr = req.file.url.split("/");
     nonRotatedUrlArr.splice(6, 0, "a_exif");

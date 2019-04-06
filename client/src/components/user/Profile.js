@@ -154,7 +154,8 @@ class Profile extends Component {
               <div className="col-md-6 col-xs-12 mt-0">
                 <p className="mt-3">"{this.state.loggedInUser.motto}"</p>
                 <hr />
-                {this.state.league ? (
+                {this.state.league &&
+                this.state.loggedInUser.league.confirmed ? (
                   <p>
                     Currently part of the league{" "}
                     <Link

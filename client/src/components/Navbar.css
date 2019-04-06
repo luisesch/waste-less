@@ -3,6 +3,8 @@
   background-color: #e7eef1;
   color: #1b2f33;
   border-bottom: 2px solid white;
+
+  font-size: calc(12px + 1vh);
 }
 
 nav img {

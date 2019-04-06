@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import DeleteMemberButton from "./DeleteMemberButton";
 
 class ActiveLeague extends Component {
@@ -17,6 +18,7 @@ class ActiveLeague extends Component {
               <th scope="col">#</th>
               <th scope="col">Name</th>
               <th scope="col">Score</th>
+              <th scope="col">Profile</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +51,21 @@ class ActiveLeague extends Component {
                       ) : (
                         <td>Waiting</td>
                       )}
+                      <td>
+                        {member._id === this.props.userInSession._id ? (
+                          "You :)"
+                        ) : (
+                          <Link
+                            to={`/profile/${member._id}`}
+                            style={{
+                              textDecoration: "underline",
+                              color: "#1b2f33"
+                            }}
+                          >
+                            Visit
+                          </Link>
+                        )}
+                      </td>
                     </tr>
                   );
                 } else {
@@ -79,6 +96,21 @@ class ActiveLeague extends Component {
                     </th>
                     <td>{member.username}</td>
                     <td>{member.score}</td>
+                    <td>
+                      {member._id === this.props.userInSession._id ? (
+                        "You :)"
+                      ) : (
+                        <Link
+                          to={`/profile/${member._id}`}
+                          style={{
+                            textDecoration: "underline",
+                            color: "#1b2f33"
+                          }}
+                        >
+                          Visit
+                        </Link>
+                      )}
+                    </td>
                   </tr>
                 );
               })}

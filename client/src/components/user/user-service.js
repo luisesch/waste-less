@@ -18,6 +18,15 @@ class UserService {
       .catch(err => console.log(err));
   };
 
+  getOneUser = userId => {
+    return this.service
+      .get("/users/" + userId)
+      .then(response => {
+        return response.data;
+      })
+      .catch(err => console.log(err));
+  };
+
   addPicture(file, userId) {
     // console.log(file);
     const formData = new FormData();

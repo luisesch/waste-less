@@ -33,7 +33,7 @@ userRoutes.post("/users/invite", (req, res, next) => {
   const mail = {
     from: '"waste-less" <waste.less.ironhack@gmail.com>',
     to: email,
-    subject: invitedBy + "has invited you to join waste-less",
+    subject: invitedBy + " has invited you to join waste-less",
     text: "You've been invited."
   };
 
@@ -98,6 +98,18 @@ userRoutes.put("/users/:userId/edit/:attribute/:value", (req, res, next) => {
       })
       .catch(err => console.log(err));
   }
+});
+
+userRoutes.get("/users/:userId", (req, res, next) => {
+  const userId = req.params.userId;
+  User.findById(userId)
+    .populate("league.info")
+    .then(user => {
+      res.status(200).json(user);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 module.exports = userRoutes;
