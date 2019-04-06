@@ -78,9 +78,9 @@ authRoutes.post("/signup", (req, res, next) => {
           from: '"waste-less" <waste.less.ironhack@gmail.com>',
           to: email,
           subject: "Please verify your email address!",
-          text: "localhost:3000/confirm/" + confirmationCode,
+          text: "https://waste-less.herokuapp.com/confirm/" + confirmationCode,
           html: templateVerification.templateVerification(
-            "localhost:3000/confirm/" + confirmationCode
+            "https://waste-less.herokuapp.com/confirm/" + confirmationCode
           )
         })
         .then(() => {

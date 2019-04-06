@@ -4,6 +4,7 @@ const parser = require("../configs/cloudinary");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
+const templateNewInvited = require("../templates/templateNewInvited");
 
 const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
@@ -34,7 +35,10 @@ userRoutes.post("/users/invite", (req, res, next) => {
     from: '"waste-less" <waste.less.ironhack@gmail.com>',
     to: email,
     subject: invitedBy + " has invited you to join waste-less",
-    text: "You've been invited."
+    text: "https://waste-less.herokuapp.com/myleague",
+            html: templateNewInvited.templateNewInvited("https://waste-less.herokuapp.com/myleague")
+   
+    
   };
 
   transporter.sendMail(mail, (err, data) => {

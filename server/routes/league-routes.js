@@ -102,8 +102,8 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
             from: '"waste-less" <waste.less.ironhack@gmail.com>',
             to: response.email,
             subject: "You've been invited to join a league!",
-            text: "localhost:3000/myleague",
-            html: templateInvited.templateInvited("localhost:3000/myleague")
+            text: "https://waste-less.herokuapp.com/myleague",
+            html: templateInvited.templateInvited("https://waste-less.herokuapp.com/myleague")
           })
         )
         .catch(err => console.log(err))
@@ -128,8 +128,8 @@ leagueRoutes.post("/addMember", (req, res, next) => {
         from: '"waste-less" <waste.less.ironhack@gmail.com>',
         to: user.email,
         subject: "You've been invited to join a league!",
-        text: "localhost:3000/myleague",
-        html: templateInvited.templateInvited("localhost:3000/myleague")
+        text: "https://waste-less.herokuapp.com/myleague",
+        html: templateInvited.templateInvited("https://waste-less.herokuapp.com/myleague")
       });
       res.status(200).json(user);
     })
@@ -207,8 +207,8 @@ leagueRoutes.put("/leagues/:leagueId/start/:duration", (req, res, next) => {
         to: "waste.less.ironhack@gmail.com",
         bcc: mailList,
         subject: "Your league has just started!",
-        text: "localhost:3000/tasks",
-        html: templateStarted.templateStarted("localhost:3000/tasks")
+        text: "https://waste-less.herokuapp.com/tasks",
+        html: templateStarted.templateStarted("https://waste-less.herokuapp.com/tasks")
       });
     })
     .catch(err => console.log(err));
@@ -239,9 +239,9 @@ leagueRoutes.get("/leagues/checkover", (req, res, next) => {
           to: "waste.less.ironhack@gmail.com",
           bcc: mailList,
           subject: "Your league has ended!",
-          text: "localhost:3000/archive/" + league._id,
+          text: "https://waste-less.herokuapp.com/archive/" + league._id,
           html: templateEnded.templateEnded(
-            "localhost:3000/archive/" + league._id
+            "https://waste-less.herokuapp.com/archive/" + league._id
           )
         });
 
