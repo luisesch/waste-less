@@ -1,5 +1,5 @@
 module.exports = {
-  templateNewInvited: (message) => {
+  templateNewInvited: message => {
     return `
    
     
@@ -317,7 +317,7 @@ module.exports = {
              align="center" bgcolor="#F45E43" role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle"
           >
             <a
-               href="{message}" style="background:#F45E43;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"
+               href="${message}" style="background:#F45E43;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"
             >
               Sign up here.
             </a>

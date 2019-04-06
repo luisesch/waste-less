@@ -36,9 +36,9 @@ userRoutes.post("/users/invite", (req, res, next) => {
     to: email,
     subject: invitedBy + " has invited you to join waste-less",
     text: "https://waste-less.herokuapp.com/myleague",
-            html: templateNewInvited.templateNewInvited("https://waste-less.herokuapp.com/myleague")
-   
-    
+    html: templateNewInvited.templateNewInvited(
+      "https://waste-less.herokuapp.com/"
+    )
   };
 
   transporter.sendMail(mail, (err, data) => {
