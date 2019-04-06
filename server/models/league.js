@@ -6,7 +6,7 @@ const leagueSchema = new Schema(
     id: String,
     name: String,
     administrator: { type: Schema.Types.ObjectId, ref: "User" },
-    photo: { type: String, default: "/images/default_profile.jpg" },
+    photo: { type: String, default: "/images/default_league.png" },
     duration: Number,
     status: {
       type: String,

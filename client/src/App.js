@@ -20,13 +20,13 @@ import TaskService from "./components/tasks/task-service";
 import Footer from "./components/Footer";
 import Profile from "./components/user/Profile";
 import Contact from "./components/contact/Contact";
+import OtherUserProfile from "./components/user/OtherUserProfile";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: null,
-      mounted: false
+      loggedInUser: null
     };
     this.authService = new AuthService();
     this.taskService = new TaskService();
@@ -57,6 +57,7 @@ class App extends Component {
 
   render() {
     this.fetchUser();
+
     //if user is logged in
     if (this.state.loggedInUser) {
       return (
@@ -132,6 +133,12 @@ class App extends Component {
                 exact
                 path="/archive/:id"
                 component={Archive}
+              />
+              <ProtectedRoute
+                user={this.state.loggedInUser}
+                exact
+                path="/profile/:id"
+                component={OtherUserProfile}
               />
               <Route
                 user={this.state.loggedInUser}

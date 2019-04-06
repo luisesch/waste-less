@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import AuthService from "./auth/auth-service";
 import "./Navbar.css";
 import LeagueService from "./league/league-service";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 
-class Navbar extends Component {
+class MyNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedInUser: null };
@@ -28,69 +29,86 @@ class Navbar extends Component {
 
     if (this.state.loggedInUser) {
       return (
-        <nav className="navbar blue justify-content-between navbar-fixed-top">
-          <Link to="/myleague" className="navbar-brand">
-            <img src="/images/Schwarz_wasteless-02.png" alt="" />
-          </Link>
-          <form className="form-inline">
-            <Link
-              to="/tasks"
-              className="navbar-brand"
-              style={{ textDecoration: "none", color: "#1b2f33" }}
-            >
-              Tasks
-            </Link>
-            <Link
-              to="/myleague"
-              className="navbar-brand"
-              style={{ textDecoration: "none", color: "#1b2f33" }}
-            >
-              My league
-            </Link>
-            <Link
-              to="/profile"
-              className="navbar-brand"
-              style={{ textDecoration: "none", color: "#1b2f33" }}
-            >
-              Profile
-            </Link>
-            <button
-              onClick={() => this.logoutUser()}
-              type="button"
-              className="btn Navbar-btn p-2"
-            >
-              Logout
-            </button>
-          </form>
-        </nav>
+        <div className="blue">
+          <Navbar bg="light" expand="lg" sticky="top">
+            <Navbar.Brand href="/myleague">
+              <img src="/images/Schwarz_wasteless-02.png" alt="" />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="justify-content-end" style={{ width: "100%" }}>
+                <Nav.Link
+                  href="/tasks"
+                  style={{
+                    margin: "8px 8px 0px 8px"
+                  }}
+                >
+                  Tasks
+                </Nav.Link>
+                <Nav.Link
+                  href="/myleague"
+                  style={{
+                    margin: "8px 8px 0px 8px"
+                  }}
+                >
+                  My league
+                </Nav.Link>
+                <Nav.Link
+                  href="/profile"
+                  style={{
+                    margin: "8px 8px 0px 8px"
+                  }}
+                >
+                  Profile
+                </Nav.Link>
+                <Nav.Link>
+                  <button
+                    onClick={() => this.logoutUser()}
+                    type="button"
+                    className="btn Navbar-btn p-2 mx-8"
+                  >
+                    Logout
+                  </button>
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
       );
       // if user is not logged in
     } else {
       return (
-        <nav className="navbar blue justify-content-between navbar-fixed-top">
-          <Link to="/" className="navbar-brand">
-            <img src="/images/Schwarz_wasteless-02.png" alt="" />
-          </Link>
-          <form className="form-inline">
-            <Link
-              to="/login"
-              className="navbar-brand"
-              style={{ textDecoration: "none", color: "#1b2f33" }}
-            >
-              Login
-            </Link>
-            <Link
-              to="/"
-              className="navbar-brand"
-              style={{ textDecoration: "none", color: "#1b2f33" }}
-            >
-              Signup
-            </Link>
-          </form>
-        </nav>
+        <div className="blue">
+          <Navbar bg="light" expand="lg" sticky="top">
+            <Navbar.Brand href="/">
+              <img src="/images/Schwarz_wasteless-02.png" alt="" />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="justify-content-end" style={{ width: "100%" }}>
+                <Nav.Link
+                  href="/login"
+                  style={{
+                    margin: "8px 8px 0px 8px"
+                  }}
+                >
+                  Login
+                </Nav.Link>
+                <Nav.Link
+                  href="/"
+                  style={{
+                    margin: "8px 8px 0px 8px"
+                  }}
+                >
+                  Signup
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+        </div>
       );
     }
   }
 }
 
-export default Navbar;
+export default MyNavbar;

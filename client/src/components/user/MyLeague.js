@@ -61,23 +61,23 @@ class MyLeague extends Component {
     });
   }
 
-  componentDidUpdate() {
-    if (
-      this.state.endDate.length <= 0 &&
-      this.state.league &&
-      this.state.league.status === "active"
-    ) {
-      const leagueId = this.state.loggedInUser.league.info;
-      this.leagueService
-        .getLeague(leagueId)
-        .then(response => {
-          this.setState({
-            league: response
-          });
-        })
-        .catch(err => console.log(err));
-    }
-  }
+  // componentDidUpdate() {
+  //   if (
+  //     // this.state.endDate.length <= 0 &&
+  //     this.state.league &&
+  //     this.state.league.status === "active"
+  //   ) {
+  //     const leagueId = this.state.loggedInUser.league.info;
+  //     this.leagueService
+  //       .getLeague(leagueId)
+  //       .then(response => {
+  //         this.setState({
+  //           league: response
+  //         });
+  //       })
+  //       .catch(err => console.log(err));
+  //   }
+  // }
 
   deleteMember = () => {
     let leagueId = this.state.league._id;
@@ -92,7 +92,11 @@ class MyLeague extends Component {
       return <p>Loading...</p>;
     }
     // if user isn't part of any league
-    else if (this.state.league && this.state.league.status === "active") {
+    else if (
+      this.state.league &&
+      this.state.loggedInUser.league.confirmed &&
+      this.state.league.status === "active"
+    ) {
       return (
         <Dashboard
           endDate={this.state.league.endDate}
