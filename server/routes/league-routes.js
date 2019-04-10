@@ -55,6 +55,7 @@ leagueRoutes.delete("/leagues/:leagueId/delete", (req, res, next) => {
 
 // create new league
 leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
+  console.log("hello");
   const name = req.body.name;
   const duration = req.body.duration;
   const administratorId = req.body.administrator;
@@ -66,7 +67,7 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
   } else {
     let nonRotatedUrlArr = req.file.url.split("/");
     nonRotatedUrlArr.splice(6, 0, "a_exif");
-    profilepic = nonRotatedUrlArr.join("/");
+    let profilePic = nonRotatedUrlArr.join("/");
     photo = profilePic;
   }
 
@@ -103,7 +104,9 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
             to: response.email,
             subject: "You've been invited to join a league!",
             text: "https://waste-less.herokuapp.com/myleague",
-            html: templateInvited.templateInvited("https://waste-less.herokuapp.com/myleague")
+            html: templateInvited.templateInvited(
+              "https://waste-less.herokuapp.com/myleague"
+            )
           })
         )
         .catch(err => console.log(err))
@@ -129,7 +132,9 @@ leagueRoutes.post("/addMember", (req, res, next) => {
         to: user.email,
         subject: "You've been invited to join a league!",
         text: "https://waste-less.herokuapp.com/myleague",
-        html: templateInvited.templateInvited("https://waste-less.herokuapp.com/myleague")
+        html: templateInvited.templateInvited(
+          "https://waste-less.herokuapp.com/myleague"
+        )
       });
       res.status(200).json(user);
     })
@@ -208,7 +213,9 @@ leagueRoutes.put("/leagues/:leagueId/start/:duration", (req, res, next) => {
         bcc: mailList,
         subject: "Your league has just started!",
         text: "https://waste-less.herokuapp.com/tasks",
-        html: templateStarted.templateStarted("https://waste-less.herokuapp.com/tasks")
+        html: templateStarted.templateStarted(
+          "https://waste-less.herokuapp.com/tasks"
+        )
       });
     })
     .catch(err => console.log(err));

@@ -159,7 +159,7 @@ class Dashboard extends Component {
             {this.props.userInSession.username}
           </h4>
           <div className="container">
-            <div className="row noborder">
+            <div className="row">
               {/* league's profile picture */}
               <div className="col-md-6 col-xs-12 p-0 mb-3">
                 <span>
@@ -200,14 +200,14 @@ class Dashboard extends Component {
                   ) : null}
                 </div>
               </div>
-              <div className="col-md-6 col-xs-12 p-0">
+              <div className="col-md-6 col-xs-12 p-0 mb-3">
                 <h4 className="text-center mb-3">Latest league activities</h4>
                 <Carouseltasks tasks={this.state.completedTasks} />
               </div>
             </div>
           </div>
 
-          <div className="highscore text-center white-top">
+          <div className="highscore text-center">
             <Highscore
               members={this.state.members}
               userInSession={this.props.userInSession}
@@ -255,7 +255,7 @@ class Dashboard extends Component {
             )}
           </div>
 
-          <div className="row noborder">
+          <div className="row noborder mt-5">
             <div className="col-3">
               {" "}
               {this.props.userInSession._id !==

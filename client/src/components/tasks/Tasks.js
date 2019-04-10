@@ -39,7 +39,7 @@ class Tasks extends Component {
   searchNameHandler = query => {
     let filteredTasks = this.state.tasks.filter(task => {
       const taskLowerCase = task.description.toLowerCase();
-      const filter = query;
+      const filter = query.toLowerCase();
       return taskLowerCase.includes(filter);
     });
     this.setState({ filtered: filteredTasks });
@@ -88,7 +88,7 @@ class Tasks extends Component {
           <h1 className="font-weight-light Quicksand">Tasks</h1>
           <hr className="w-75" />
           <h4 className="mb-5">
-            What else can you do to rise your score today?
+            What else can you do to raise your score today?
           </h4>
 
           <div className="container-fluid">
@@ -155,7 +155,7 @@ class Tasks extends Component {
                       <div className="card-footer text-muted container-fluid">
                         <div className="row noborder">
                           <div className="col-10">{task.category}</div>
-                          <div className="col-2 text-right">
+                          <div className="col-2 text-left px-0">
                             {task.popup && (
                               <Popup
                                 trigger={

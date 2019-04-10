@@ -17,6 +17,7 @@ class LeagueService {
     formData.append("administrator", administrator);
     formData.append("members", JSON.stringify(members));
     formData.append("duration", duration);
+
     return this.service
       .post("/leagues", formData, {
         headers: {

@@ -5,7 +5,7 @@ import DeleteMemberButton from "./DeleteMemberButton";
 class ActiveLeague extends Component {
   render() {
     return (
-      <div>
+      <div className="mt-4">
         {this.props.status === "short" ? (
           <h4>- Top 3 -</h4>
         ) : (
