@@ -3,7 +3,7 @@ import axios from "axios";
 class LeagueService {
   constructor() {
     let service = axios.create({
-      baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
+      baseURL: process.env.REACT_APP_API_URL || "http://192.168.1.35:5000/api",
       withCredentials: true
     });
     this.service = service;
