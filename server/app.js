@@ -10,13 +10,13 @@ const path = require("path");
 const cors = require("cors");
 
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 const passport = require("passport");
 
 require("./configs/passport");
 
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/waste-less", {
+  .connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/waste-less", {
     useNewUrlParser: true,
   })
   .then((x) => {
@@ -60,7 +60,7 @@ app.use(
     secret: "some secret goes here",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: MongoStore.create({ client: mongoose.connection.getClient() }),
   })
 );
 
