@@ -42,6 +42,16 @@ app.use(
   })
 );
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 // Middleware Setup
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -58,8 +68,12 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 app.use(
   session({
     secret: "some secret goes here",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    },
+    cookie: { secure: false },
     store: MongoStore.create({ client: mongoose.connection.getClient() }),
   })
 );
@@ -83,5 +97,7 @@ app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/public/index.html");
 });
+
+app.listen(5000);
 
 module.exports = app;

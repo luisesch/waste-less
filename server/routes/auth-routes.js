@@ -14,8 +14,8 @@ let transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD
-  }
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 authRoutes.post("/signup", (req, res, next) => {
@@ -39,7 +39,7 @@ authRoutes.post("/signup", (req, res, next) => {
   if (password.length < 7) {
     res.status(200).json({
       message:
-        "Please make your password at least 8 characters long for security purposes."
+        "Please make your password at least 8 characters long for security purposes.",
     });
     return;
   }
@@ -62,10 +62,10 @@ authRoutes.post("/signup", (req, res, next) => {
       username: username,
       password: hashPass,
       email: email,
-      confirmationCode: confirmationCode
+      confirmationCode: confirmationCode,
     });
 
-    aNewUser.save(err => {
+    aNewUser.save((err) => {
       if (err) {
         res
           .status(400)
@@ -81,10 +81,10 @@ authRoutes.post("/signup", (req, res, next) => {
           text: "https://waste-less.herokuapp.com/confirm/" + confirmationCode,
           html: templateVerification.templateVerification(
             "https://waste-less.herokuapp.com/confirm/" + confirmationCode
-          )
+          ),
         })
         .then(() => {
-          req.login(aNewUser, err => {
+          req.login(aNewUser, (err) => {
             if (err) {
               res.status(500).json({ message: "Login after signup went bad." });
               return;
@@ -95,7 +95,7 @@ authRoutes.post("/signup", (req, res, next) => {
             res.status(200).json(aNewUser);
           });
         })
-        .catch(error => {
+        .catch((error) => {
           next(error);
         });
     });
@@ -109,10 +109,10 @@ authRoutes.put("/auth/:userId/confirm/:code", (req, res) => {
     { $set: { status: "Active" } },
     { new: true }
   )
-    .then(user => {
+    .then((user) => {
       res.status(200).json(user);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 authRoutes.post("/login", (req, res, next) => {
@@ -128,13 +128,13 @@ authRoutes.post("/login", (req, res, next) => {
       // "failureDetails" contains the error messages
       // from our logic in "LocalStrategy" { message: '...' }.
       res.status(200).json({
-        message: "Username doesn't exist."
+        message: "Username doesn't exist.",
       });
       return;
     }
 
     // save user in session
-    req.login(theUser, err => {
+    req.login(theUser, (err) => {
       if (err) {
         res.status(500).json({ message: "Session save went bad." });
         return;

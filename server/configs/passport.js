@@ -4,17 +4,18 @@ const bcrypt = require("bcryptjs"); // !!!
 const passport = require("passport");
 
 // store connection between cookie Id (sid) and the user ID
-passport.serializeUser((loggedInUser, cb) => {
-  cb(null, loggedInUser._id);
+passport.serializeUser((loggedInUser, done) => {
+  //console.log(loggedInUser._id);
+  done(null, loggedInUser._id);
 });
 
-passport.deserializeUser((userIdFromSession, cb) => {
+passport.deserializeUser((userIdFromSession, done) => {
   User.findById(userIdFromSession, (err, userDocument) => {
     if (err) {
       cb(err);
       return;
     }
-    cb(null, userDocument);
+    done(null, userDocument);
   });
 });
 
