@@ -4,7 +4,7 @@ class UserService {
   constructor() {
     let service = axios.create({
       baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
-      withCredentials: true
+      withCredentials: true,
     });
     this.service = service;
   }
@@ -12,19 +12,20 @@ class UserService {
   showAll = () => {
     return this.service
       .get("/users")
-      .then(response => {
+      .then((response) => {
         return response.data;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
-  getOneUser = userId => {
+  getOneUser = (userId) => {
+    console.log(userId);
     return this.service
       .get("/users/" + userId)
-      .then(response => {
+      .then((response) => {
         return response.data;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   addPicture(file, userId) {
@@ -34,27 +35,27 @@ class UserService {
     return this.service
       .post("/users/" + userId + "/pictures", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   editProfile(userId, attribute, value) {
     return this.service
       .put("/users/" + userId + "/edit/" + attribute + "/" + value)
-      .then(res => res.data)
-      .catch(err => console.log(err));
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
   }
 
   inviteUser(email, invitedBy) {
     return this.service
       .post("/users/invite", { email, invitedBy })
-      .then(res => res.data)
-      .catch(err => console.log(err));
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
   }
 }
 

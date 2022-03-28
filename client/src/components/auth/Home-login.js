@@ -9,7 +9,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ""
+      message: "",
     };
     this.service = new AuthService();
   }
@@ -17,39 +17,39 @@ class Home extends Component {
   login = (username, password) => {
     this.service
       .login(username, password)
-      .then(response => {
-        if (response.message) {
+      .then((response) => {
+        if (response.message !== undefined) {
           this.setState({ message: response.message });
         } else {
           this.setState({
             username: "",
             password: "",
-            message: ""
+            message: "",
           });
           this.props.getUser(response);
           this.props.history.push("/myleague");
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   signup = (username, password) => {
     this.service
       .signup(username, password)
-      .then(response => {
+      .then((response) => {
         if (response.message) {
           this.setState({ message: response.message });
         } else {
           this.setState({
             username: "",
             password: "",
-            message: ""
+            message: "",
           });
           this.props.getUser(response);
           this.props.history.push("/welcome");
         }
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   render() {

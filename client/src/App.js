@@ -26,7 +26,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: null
+      loggedInUser: null,
     };
     this.authService = new AuthService();
     this.taskService = new TaskService();
@@ -36,22 +36,22 @@ class App extends Component {
     if (this.state.loggedInUser === null) {
       this.authService
         .loggedin()
-        .then(response => {
+        .then((response) => {
           this.setState({
-            loggedInUser: response
+            loggedInUser: response,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
-            loggedInUser: false
+            loggedInUser: false,
           });
         });
     }
   }
 
-  getTheUser = userObj => {
+  getTheUser = (userObj) => {
     this.setState({
-      loggedInUser: userObj
+      loggedInUser: userObj,
     });
   };
 
@@ -78,13 +78,13 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/myleague"
-                component={props => <MyLeague {...props} />}
+                component={(props) => <MyLeague {...props} />}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
                 exact
                 path={`/confirm/:confirmationCode`}
-                component={props => <Verification {...props} />}
+                component={(props) => <Verification {...props} />}
               />
               <ProtectedRoute
                 user={this.state.loggedInUser}
@@ -107,7 +107,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/newleague"
-                component={props => (
+                component={(props) => (
                   // only thing that's needed is id and that doesn't change
                   <CreateLeague
                     {...props}
@@ -144,7 +144,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/contact"
-                component={props => <Contact {...props} />}
+                component={(props) => <Contact {...props} />}
               />
             </Switch>
           </div>
@@ -162,7 +162,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/"
-                component={props => (
+                component={(props) => (
                   <HomeSignup {...props} getUser={this.getTheUser} />
                 )}
               />
@@ -170,7 +170,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/login"
-                component={props => (
+                component={(props) => (
                   <HomeLogin {...props} getUser={this.getTheUser} />
                 )}
               />
@@ -178,7 +178,7 @@ class App extends Component {
                 user={this.state.loggedInUser}
                 exact
                 path="/contact"
-                component={props => <Contact {...props} />}
+                component={(props) => <Contact {...props} />}
               />
 
               {/*<ProtectedRoute

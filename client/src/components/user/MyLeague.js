@@ -19,7 +19,7 @@ class MyLeague extends Component {
       league: {},
       endDate: "",
       firstThree: [],
-      mounted: false
+      mounted: false,
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
@@ -27,9 +27,10 @@ class MyLeague extends Component {
 
   componentDidMount() {
     // get logged in user and add to state
-    this.authService.loggedin().then(response => {
+    this.authService.loggedin().then((response) => {
+      console.log(response);
       this.setState({
-        loggedInUser: response
+        loggedInUser: response,
       });
       // if user has no league
       if (!this.state.loggedInUser.league.hasOwnProperty("info")) {
@@ -41,12 +42,12 @@ class MyLeague extends Component {
         //get user's league
         this.leagueService
           .getLeague(leagueId)
-          .then(league => {
+          .then((league) => {
             newState.league = league;
             newState.mounted = true;
             return this.leagueService.getMembers(leagueId);
           })
-          .then(members => {
+          .then((members) => {
             let sortedMembers = [...members];
             let firstThree = [];
             sortedMembers.sort((a, b) => b.score - a.score);
@@ -56,7 +57,7 @@ class MyLeague extends Component {
             this.setState(newState);
           })
 
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       }
     });
   }
@@ -84,7 +85,7 @@ class MyLeague extends Component {
     let memberId = this.state.loggedInUser._id;
     this.leagueService
       .deleteMember(leagueId, memberId)
-      .then(response => console.log(response));
+      .then((response) => console.log(response));
   };
 
   render() {

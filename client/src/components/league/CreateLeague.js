@@ -17,7 +17,7 @@ class CreateLeague extends Component {
       users: null,
       filteredUsers: [],
       picture: null,
-      duration: 30
+      duration: 30,
     };
     this.leagueService = new LeagueService();
     this.userService = new UserService();
@@ -27,17 +27,17 @@ class CreateLeague extends Component {
   componentDidMount() {
     this.authService
       .loggedin()
-      .then(response => {
+      .then((response) => {
         this.setState({
-          loggedInUser: response
+          loggedInUser: response,
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     // get all users except the loggedin, so they can't select themselves
     this.userService
       .showAll()
-      .then(response => {
+      .then((response) => {
         for (var i = response.length - 1; i >= 0; i--) {
           if (response[i].username === this.state.loggedInUser.username) {
             response.splice(i, 1);
@@ -45,13 +45,13 @@ class CreateLeague extends Component {
         }
         this.setState({ users: response });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   //upload a league picture
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
   handleSubmit(e) {
@@ -59,7 +59,7 @@ class CreateLeague extends Component {
     this.userService.addPicture(this.state.file, this.state.league._id);
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     let { name, value } = event.target;
     if (name === "picture") {
       this.setState({ picture: event.target.files[0] });
@@ -70,7 +70,7 @@ class CreateLeague extends Component {
 
   membersArr = [];
 
-  selectUser = event => {
+  selectUser = (event) => {
     this.membersArr.push(event.target.value);
 
     // make sure user disappears from available user list once he is selected
@@ -86,11 +86,11 @@ class CreateLeague extends Component {
       members: this.membersArr,
       users: array,
       filteredUsers: [],
-      button: ""
+      button: "",
     });
   };
 
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     const name = this.state.name;
     const picture = this.state.picture;
@@ -103,23 +103,23 @@ class CreateLeague extends Component {
       .then(() => {
         this.setState({
           name: "",
-          members: []
+          members: [],
         });
         this.props.history.push("/myleague");
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
-  searchUserHandler = query => {
+  searchUserHandler = (query) => {
     if (query.length < 1) {
       this.setState({ filteredUsers: [] });
     } else {
       // only show users that aren't currently in any league
-      let leaguelessUsers = this.state.users.filter(user => {
+      let leaguelessUsers = this.state.users.filter((user) => {
         return !user.league.hasOwnProperty("info");
       });
 
-      let filteredUsers = leaguelessUsers.filter(user => {
+      let filteredUsers = leaguelessUsers.filter((user) => {
         const userLowerCase = user.username.toLowerCase();
         const filter = query.toLowerCase();
         return userLowerCase.includes(filter);
@@ -129,17 +129,17 @@ class CreateLeague extends Component {
     }
   };
 
-  setDuration = event => {
+  setDuration = (event) => {
     event.preventDefault();
     this.setState({
       duration: Number(event.target.value),
-      button: event.target.value
+      button: event.target.value,
     });
   };
 
-  deleteMember = event => {
+  deleteMember = (event) => {
     event.preventDefault();
-    let newMembers = this.state.members.filter(value => {
+    let newMembers = this.state.members.filter((value) => {
       return value !== event.target.value;
     });
     this.setState({ members: newMembers });
@@ -256,7 +256,7 @@ class CreateLeague extends Component {
                       type="file"
                       name="picture"
                       className="form-control-file blue"
-                      onChange={e => this.handleChange(e)}
+                      onChange={(e) => this.handleChange(e)}
                     />
                   </div>
 
