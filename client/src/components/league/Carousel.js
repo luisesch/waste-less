@@ -12,14 +12,12 @@ class Carouseltasks extends Component {
 
     this.state = {
       index: 0,
-      direction: null
     };
   }
 
   handleSelect(selectedIndex, e) {
     this.setState({
       index: selectedIndex,
-      direction: e.direction
     });
   }
 
@@ -38,13 +36,9 @@ class Carouseltasks extends Component {
         </p>
       );
     } else {
-      const { index, direction } = this.state;
+      const { index } = this.state;
       return (
-        <Carousel
-          activeIndex={index}
-          direction={direction}
-          onSelect={this.handleSelect}
-        >
+        <Carousel activeIndex={index} onSelect={this.handleSelect}>
           {this.props.tasks.map((task, index) => {
             if (index <= 10) {
               return (
@@ -63,9 +57,7 @@ class Carouseltasks extends Component {
                         {task.task.description}
                       </p>
                       <small>
-                        {Moment(task.created_at)
-                          .startOf("minute")
-                          .fromNow()}
+                        {Moment(task.created_at).startOf("minute").fromNow()}
                       </small>
                     </div>
                   </Carousel.Caption>
