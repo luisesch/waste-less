@@ -38,11 +38,9 @@ taskRoutes.get("/tasks/league/:leagueId", (req, res, next) => {
 
 taskRoutes.get("/tasks/user/:userId", (req, res, next) => {
   const userId = req.params.userId;
-  if (mongoose.Types.ObjectId.isValid(userId)) {
-    CompletedTask.find({ user: userId })
-      .then((response) => res.status(200).json(response))
-      .catch((err) => console.log(err));
-  }
+  CompletedTask.find({ user: userId })
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 module.exports = taskRoutes;
