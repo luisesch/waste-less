@@ -17,14 +17,14 @@ require("./configs/passport");
 
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/waste-less", {
-    useNewUrlParser: true
+    useNewUrlParser: true,
   })
-  .then(x => {
+  .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to mongo", err);
   });
 
@@ -38,7 +38,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"] // <== URL of our React app
+    origin: ["http://localhost:3000"], // <== URL of our React app
   })
 );
 
@@ -50,14 +50,6 @@ app.use(cookieParser());
 
 // Express View engine setup
 
-app.use(
-  require("node-sass-middleware")({
-    src: path.join(__dirname, "public"),
-    dest: path.join(__dirname, "public"),
-    sourceMap: true
-  })
-);
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -68,7 +60,7 @@ app.use(
     secret: "some secret goes here",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
 
