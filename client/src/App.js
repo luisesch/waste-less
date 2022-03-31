@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 // import axios from "axios";
-import { Switch, Route } from "react-router-dom";
-import { withRouter } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import HomeSignup from "./components/auth/Home-signup";
 import HomeLogin from "./components/auth/Home-login";
 import Navbar from "./components/Navbar";
@@ -67,86 +66,100 @@ class App extends Component {
             getUser={this.getTheUser}
           />
           <div className="fixfooter text-center">
-            <Switch>
-              {/* <Route
-                user={this.state.loggedInUser}
-                exact
-                path="/"
-                component={props => <MyLeague {...props} />}
-              /> */}
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+            <Routes>
+              <Route
                 exact
                 path="/myleague"
-                component={(props) => <MyLeague {...props} />}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route exact path="/myleague" element={<MyLeague />} />
+              </Route>
+              <Route
                 exact
                 path={`/confirm/:confirmationCode`}
-                component={(props) => <Verification {...props} />}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route
+                  exact
+                  path={`/confirm/:confirmationCode`}
+                  element={<Verification />}
+                />
+              </Route>
+              <Route
                 exact
                 path="/welcome"
-                component={Welcome}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route exact path="/welcome" element={<Welcome />} />
+              </Route>
+              <Route
                 exact
                 path="/tasks"
-                component={() => (
-                  <Tasks
-                    setScore={this.raiseScore}
-                    userInSession={this.state.loggedInUser}
-                  />
-                )}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route
+                  exact
+                  path="/tasks"
+                  element={
+                    <Tasks
+                      setScore={this.raiseScore}
+                      userInSession={this.state.loggedInUser}
+                    />
+                  }
+                />
+              </Route>
+              <Route
                 exact
                 path="/newleague"
-                component={(props) => (
-                  // only thing that's needed is id and that doesn't change
-                  <CreateLeague
-                    {...props}
-                    userInSession={this.state.loggedInUser}
-                  />
-                )}
-              />
-
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route
+                  exact
+                  path="/newleague"
+                  element={
+                    <CreateLeague userInSession={this.state.loggedInUser} />
+                  }
+                />
+              </Route>
+              <Route
                 exact
                 path="/profile"
-                component={Profile}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route exact path="/profile" element={<Profile />} />
+              </Route>
+              <Route
                 exact
                 path="/archive"
-                component={Archive}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route exact path="/archive" element={<Archive />} />
+              </Route>
+              <Route
                 exact
                 path="/archive/:id"
-                component={Archive}
-              />
-              <ProtectedRoute
-                user={this.state.loggedInUser}
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route exact path="/archive/:id" element={<Archive />} />
+              </Route>
+              <Route
                 exact
                 path="/profile/:id"
-                component={OtherUserProfile}
-              />
+                element={<ProtectedRoute user={this.state.loggedInUser} />}
+              >
+                <Route
+                  exact
+                  path="/profile/:id"
+                  element={<OtherUserProfile />}
+                />
+              </Route>
               <Route
                 user={this.state.loggedInUser}
                 exact
                 path="/contact"
-                component={(props) => <Contact {...props} />}
+                element={<Contact />}
               />
-            </Switch>
+            </Routes>
           </div>
           <Footer />
         </div>
@@ -157,52 +170,26 @@ class App extends Component {
         <div className="App">
           <Navbar userInSession={this.state.loggedInUser} />
           <div className="fixfooter text-center">
-            <Switch>
+            <Routes>
               <Route
                 user={this.state.loggedInUser}
                 exact
                 path="/"
-                component={(props) => (
-                  <HomeSignup {...props} getUser={this.getTheUser} />
-                )}
+                element={<HomeSignup getUser={this.getTheUser} />}
               />
               <Route
                 user={this.state.loggedInUser}
                 exact
                 path="/login"
-                component={(props) => (
-                  <HomeLogin {...props} getUser={this.getTheUser} />
-                )}
+                element={<HomeLogin getUser={this.getTheUser} />}
               />
               <Route
                 user={this.state.loggedInUser}
                 exact
                 path="/contact"
-                component={(props) => <Contact {...props} />}
+                element={<Contact />}
               />
-
-              {/*<ProtectedRoute
-              user={this.state.loggedInUser}
-              exact
-              path="/myleague"
-            />
-            <ProtectedRoute
-              user={this.state.loggedInUser}
-              exact
-              path="/newleague"
-            />
-            <ProtectedRoute
-              user={this.state.loggedInUser}
-              exact
-              path="/tasks"
-            />
-            <ProtectedRoute
-              user={this.state.loggedInUser}
-              exact
-              path="/profile"
-            />
-            */}
-            </Switch>
+            </Routes>
           </div>
           <Footer />
         </div>
@@ -211,4 +198,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default App;

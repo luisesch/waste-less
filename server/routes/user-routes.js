@@ -11,17 +11,17 @@ let transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD
-  }
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 // get all users
 userRoutes.get("/users", (req, res, next) => {
   User.find()
-    .then(allUsers => {
+    .then((allUsers) => {
       res.status(200).json(allUsers);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });
@@ -38,18 +38,18 @@ userRoutes.post("/users/invite", (req, res, next) => {
     text: "https://waste-less.herokuapp.com/myleague",
     html: templateNewInvited.templateNewInvited(
       "https://waste-less.herokuapp.com/"
-    )
+    ),
   };
 
   transporter.sendMail(mail, (err, data) => {
     if (err) {
       console.log(err);
       res.json({
-        msg: "fail"
+        msg: "fail",
       });
     } else {
       res.json({
-        msg: "success"
+        msg: "success",
       });
     }
   });
@@ -61,15 +61,15 @@ userRoutes.post(
   (req, res, next) => {
     const userId = req.params.userId;
 
-    let nonRotatedUrlArr = req.file.url.split("/");
+    let nonRotatedUrlArr = req.file.path.split("/");
     nonRotatedUrlArr.splice(6, 0, "a_exif");
     profilepic = nonRotatedUrlArr.join("/");
 
     User.findOneAndUpdate({ _id: userId }, { photo: profilepic }, { new: true })
-      .then(response => {
+      .then((response) => {
         res.status(200).json(response);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 );
 
@@ -87,20 +87,20 @@ userRoutes.put("/users/:userId/edit/:attribute/:value", (req, res, next) => {
       { password: hashPass },
       { new: true }
     )
-      .then(user => {
+      .then((user) => {
         res.status(200).json(user);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   } else {
     User.findOneAndUpdate(
       { _id: userId },
       { [attribute]: value },
       { new: true }
     )
-      .then(user => {
+      .then((user) => {
         res.status(200).json(user);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 });
 
@@ -108,10 +108,10 @@ userRoutes.get("/users/:userId", (req, res, next) => {
   const userId = req.params.userId;
   User.findById(userId)
     .populate("league.info")
-    .then(user => {
+    .then((user) => {
       res.status(200).json(user);
     })
-    .catch(err => {
+    .catch((err) => {
       res.json(err);
     });
 });

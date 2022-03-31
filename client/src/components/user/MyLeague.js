@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
+import React, { useState, useEffect } from "react";
 
 import AuthService from "../auth/auth-service";
 import WaitingLeague from "../league/WaitingLeague";
@@ -10,123 +9,72 @@ import NoLeague from "../league/NoLeague";
 
 import JoinLeague from "../league/JoinLeague";
 
-class MyLeague extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedInUser: {},
-      members: [],
-      league: {},
-      endDate: "",
-      firstThree: [],
-      mounted: false,
-    };
-    this.authService = new AuthService();
-    this.leagueService = new LeagueService();
-  }
+function MyLeague() {
+  const [loggedInUser, setLoggedInUser] = useState({});
+  const [members, setMembers] = useState([]);
+  const [league, setLeague] = useState({});
+  const [firstThree, setFirstThree] = useState([]);
+  const [mounted, setMounted] = useState(false);
+  const authService = new AuthService();
+  const leagueService = new LeagueService();
 
-  componentDidMount() {
+  useEffect(() => {
     // get logged in user and add to state
-    this.authService.loggedin().then((response) => {
-      console.log(response);
-      this.setState({
-        loggedInUser: response,
-      });
+    authService.loggedin().then((response) => {
+      setLoggedInUser(response);
       // if user has no league
-      if (!this.state.loggedInUser.league.hasOwnProperty("info")) {
-        this.setState({ league: {}, mounted: true });
+      if (!response.league.hasOwnProperty("info")) {
+        setLeague({});
+        setMounted(true);
         // if user has league
       } else {
-        let newState = {};
-        const leagueId = this.state.loggedInUser.league.info;
+        const leagueId = response.league.info;
         //get user's league
-        this.leagueService
+        leagueService
           .getLeague(leagueId)
           .then((league) => {
-            newState.league = league;
-            newState.mounted = true;
-            return this.leagueService.getMembers(leagueId);
+            setLeague(league);
+            setMounted(true);
+            return leagueService.getMembers(leagueId);
           })
           .then((members) => {
             let sortedMembers = [...members];
             let firstThree = [];
             sortedMembers.sort((a, b) => b.score - a.score);
             firstThree = sortedMembers.slice(0, 2);
-            newState.members = members;
-            newState.firstThree = firstThree;
-            this.setState(newState);
+            setMembers(members);
+            setFirstThree(firstThree);
           })
 
           .catch((err) => console.log(err));
       }
     });
+  }, []);
+
+  if (!mounted) {
+    return <p>Loading...</p>;
   }
-
-  // componentDidUpdate() {
-  //   if (
-  //     // this.state.endDate.length <= 0 &&
-  //     this.state.league &&
-  //     this.state.league.status === "active"
-  //   ) {
-  //     const leagueId = this.state.loggedInUser.league.info;
-  //     this.leagueService
-  //       .getLeague(leagueId)
-  //       .then(response => {
-  //         this.setState({
-  //           league: response
-  //         });
-  //       })
-  //       .catch(err => console.log(err));
-  //   }
-  // }
-
-  deleteMember = () => {
-    let leagueId = this.state.league._id;
-    let memberId = this.state.loggedInUser._id;
-    this.leagueService
-      .deleteMember(leagueId, memberId)
-      .then((response) => console.log(response));
-  };
-
-  render() {
-    if (!this.state.mounted) {
-      return <p>Loading...</p>;
-    }
-    // if user isn't part of any league
-    else if (
-      this.state.league &&
-      this.state.loggedInUser.league.confirmed &&
-      this.state.league.status === "active"
-    ) {
-      return (
-        <Dashboard
-          endDate={this.state.league.endDate}
-          userInSession={this.state.loggedInUser}
-          league={this.state.league}
-        />
-      );
-    } else if (
-      !this.state.league ||
-      Object.entries(this.state.league).length === 0
-    ) {
-      return <NoLeague user={this.state.loggedInUser} />;
-      // if league has recently been completed and user has joined a new league
-    } else if (!this.state.loggedInUser.league.confirmed) {
-      return (
-        <JoinLeague
-          userInSession={this.state.loggedInUser}
-          league={this.state.league}
-        />
-      );
-    } else if (this.state.league.status === "waiting") {
-      return (
-        <WaitingLeague
-          userInSession={this.state.loggedInUser}
-          league={this.state.league}
-        />
-      );
-    }
+  // if user isn't part of any league
+  else if (
+    league &&
+    loggedInUser.league.confirmed &&
+    league.status === "active"
+  ) {
+    return (
+      <Dashboard
+        endDate={league.endDate}
+        userInSession={loggedInUser}
+        league={league}
+      />
+    );
+  } else if (!league || Object.entries(league).length === 0) {
+    return <NoLeague user={loggedInUser} />;
+    // if league has recently been completed and user has joined a new league
+  } else if (!loggedInUser.league.confirmed) {
+    return <JoinLeague userInSession={loggedInUser} league={league} />;
+  } else if (league.status === "waiting") {
+    return <WaitingLeague userInSession={loggedInUser} league={league} />;
   }
 }
 
-export default withRouter(MyLeague);
+export default MyLeague;

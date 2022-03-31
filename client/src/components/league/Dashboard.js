@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
 
 import AuthService from "../auth/auth-service";
 
@@ -27,7 +26,7 @@ class Dashboard extends Component {
       members: [],
       filteredUsers: [],
       users: null,
-      edit: false
+      edit: false,
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
@@ -38,28 +37,28 @@ class Dashboard extends Component {
   componentDidMount() {
     this.leagueService
       .getMembers(this.props.league._id)
-      .then(response => {
+      .then((response) => {
         let sortedMembers = [...response];
         sortedMembers.sort((a, b) => b.score - a.score);
         this.setState({ members: sortedMembers });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     this.taskService
       .getCompletedTasksLeague(this.props.league._id)
-      .then(response => {
+      .then((response) => {
         let tasks = [];
-        response.forEach(completedTask => {
+        response.forEach((completedTask) => {
           tasks.push(completedTask);
         });
         tasks.reverse();
         this.setState({ completedTasks: tasks });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     this.userService
       .showAll()
-      .then(response => {
+      .then((response) => {
         for (var i = response.length - 1; i <= 0; i--) {
           if (response[i].username === this.props.userInSession.username) {
             response.splice(i, 1);
@@ -68,19 +67,19 @@ class Dashboard extends Component {
 
         this.setState({ users: response });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
-  searchUserHandler = query => {
+  searchUserHandler = (query) => {
     if (query.length < 1) {
       this.setState({ filteredUsers: [] });
     } else {
       // only show users that aren't currently in any league
-      let leaguelessUsers = this.state.users.filter(user => {
+      let leaguelessUsers = this.state.users.filter((user) => {
         return !user.league.hasOwnProperty("info");
       });
 
-      let filteredUsers = leaguelessUsers.filter(user => {
+      let filteredUsers = leaguelessUsers.filter((user) => {
         const userLowerCase = user.username.toLowerCase();
         const filter = query.toLowerCase();
         return userLowerCase.includes(filter);
@@ -89,20 +88,20 @@ class Dashboard extends Component {
     }
   };
 
-  addUser = async event => {
+  addUser = async (event) => {
     const userId = event.target.value;
     const leagueId = this.state.league._id;
     await this.leagueService.addMember(leagueId, userId);
 
     this.leagueService
       .getMembers(leagueId)
-      .then(response => this.setState({ members: response }))
-      .catch(err => console.log(err));
+      .then((response) => this.setState({ members: response }))
+      .catch((err) => console.log(err));
 
     // get all users again to see changes
     this.userService
       .showAll()
-      .then(response => {
+      .then((response) => {
         for (var i = response.length - 1; i >= 0; i--) {
           if (response[i].username === this.state.loggedInUser.username) {
             response.splice(i, 1);
@@ -110,7 +109,7 @@ class Dashboard extends Component {
         }
         this.setState({ users: response, filteredUsers: [] });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
 
   editPicture = () => {
@@ -121,7 +120,7 @@ class Dashboard extends Component {
 
   handleChange(e) {
     this.setState({
-      file: e.target.files[0]
+      file: e.target.files[0],
     });
   }
 
@@ -129,7 +128,7 @@ class Dashboard extends Component {
     e.preventDefault();
     this.leagueService
       .addLeaguePicture(this.state.file, this.props.league._id)
-      .then(res => this.setState({ league: res }));
+      .then((res) => this.setState({ league: res }));
   }
 
   changeHighscore = () => {
@@ -189,9 +188,12 @@ class Dashboard extends Component {
                   {this.state.editPicture ? (
                     <form
                       className="overlay"
-                      onSubmit={e => this.handleSubmit(e)}
+                      onSubmit={(e) => this.handleSubmit(e)}
                     >
-                      <input type="file" onChange={e => this.handleChange(e)} />{" "}
+                      <input
+                        type="file"
+                        onChange={(e) => this.handleChange(e)}
+                      />{" "}
                       <br />
                       <button type="submit" className="btn-light">
                         Save new league picture
@@ -290,4 +292,4 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+export default Dashboard;

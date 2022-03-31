@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
 import AuthService from "../../auth/auth-service";
 import LeagueService from "../league-service";
 import ArchiveDetail from "./ArchiveDetail";
@@ -12,7 +11,7 @@ class Archive extends Component {
     super(props);
     this.state = {
       loggedInUser: {},
-      leagues: []
+      leagues: [],
     };
     this.authService = new AuthService();
     this.leagueService = new LeagueService();
@@ -22,19 +21,19 @@ class Archive extends Component {
     // get logged in user and add to state
     this.authService
       .loggedin()
-      .then(response => {
+      .then((response) => {
         this.setState({
-          loggedInUser: response
+          loggedInUser: response,
         });
         this.leagueService
           .getArchive(this.state.loggedInUser._id)
-          .then(response => {
+          .then((response) => {
             response.completedLeagues.reverse();
             this.setState({ leagues: response.completedLeagues });
           })
-          .catch(err => console.log(err));
+          .catch((err) => console.log(err));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -73,4 +72,4 @@ class Archive extends Component {
   }
 }
 
-export default withRouter(Archive);
+export default Archive;

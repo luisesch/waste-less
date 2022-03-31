@@ -15,8 +15,8 @@ let transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD
-  }
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 // DELETE /leagues/:leagueID/members/:userID
@@ -33,24 +33,24 @@ leagueRoutes.post("/deleteMember", (req, res, next) => {
     { $unset: { league: {} }, $set: { score: 0 } },
     { new: true }
   )
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 leagueRoutes.delete("/leagues/:leagueId/delete", (req, res, next) => {
   const leagueId = req.params.leagueId;
 
-  League.findByIdAndDelete(leagueId).then(response => console.log(response));
+  League.findByIdAndDelete(leagueId).then((response) => console.log(response));
 
   User.updateMany(
     { "league.info": leagueId },
     { $set: { score: 0 }, $unset: { league: {} } },
     { new: true }
   )
-    .then(response2 => {
+    .then((response2) => {
       res.status(200).json(response2);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 // create new league
@@ -75,10 +75,10 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
     name: name,
     administrator: administratorId,
     photo: photo,
-    duration: duration
+    duration: duration,
   });
 
-  aNewLeague.save(err => {
+  aNewLeague.save((err) => {
     if (err) {
       res
         .status(400)
@@ -92,13 +92,13 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
       { new: true }
     ).then(() => console.log("found"));
 
-    members.forEach(member =>
+    members.forEach((member) =>
       User.findOneAndUpdate(
         { username: member },
         { $set: { league: { info: aNewLeague._id, confirmed: false } } },
         { new: true }
       )
-        .then(response =>
+        .then((response) =>
           transporter.sendMail({
             from: '"waste-less" <waste.less.ironhack@gmail.com>',
             to: response.email,
@@ -106,10 +106,10 @@ leagueRoutes.post("/leagues", parser.single("picture"), (req, res, next) => {
             text: "https://waste-less.herokuapp.com/myleague",
             html: templateInvited.templateInvited(
               "https://waste-less.herokuapp.com/myleague"
-            )
+            ),
           })
         )
-        .catch(err => console.log(err))
+        .catch((err) => console.log(err))
     );
 
     // Send the team's information to the frontend
@@ -126,7 +126,7 @@ leagueRoutes.post("/addMember", (req, res, next) => {
     { $set: { score: 0, league: { info: leagueId, confirmed: false } } },
     { new: true }
   )
-    .then(user => {
+    .then((user) => {
       transporter.sendMail({
         from: '"waste-less" <waste.less.ironhack@gmail.com>',
         to: user.email,
@@ -134,11 +134,11 @@ leagueRoutes.post("/addMember", (req, res, next) => {
         text: "https://waste-less.herokuapp.com/myleague",
         html: templateInvited.templateInvited(
           "https://waste-less.herokuapp.com/myleague"
-        )
+        ),
       });
       res.status(200).json(user);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 // change league picture
@@ -148,7 +148,7 @@ leagueRoutes.post(
   (req, res, next) => {
     const leagueId = req.params.leagueId;
 
-    let nonRotatedUrlArr = req.file.url.split("/");
+    let nonRotatedUrlArr = req.file.path.split("/");
     nonRotatedUrlArr.splice(6, 0, "a_exif");
     profilepic = nonRotatedUrlArr.join("/");
 
@@ -158,10 +158,10 @@ leagueRoutes.post(
       { new: true }
     )
       .populate("administrator")
-      .then(response => {
+      .then((response) => {
         res.status(200).json(response);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 );
 
@@ -169,16 +169,16 @@ leagueRoutes.post(
 leagueRoutes.get("/leagues/:leagueId/members", (req, res, next) => {
   const leagueId = req.params.leagueId;
   User.find({ "league.info": leagueId })
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 //get ex-members
 leagueRoutes.get("/leagues/:leagueId/exmembers", (req, res, next) => {
   const leagueId = req.params.leagueId;
   User.find({ "completedLeagues.info": leagueId })
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 // enter league
@@ -191,22 +191,20 @@ leagueRoutes.put("/leagues/:leagueId/enterLeague/:userId", (req, res, next) => {
     { $set: { league: { info: leagueId, confirmed: true } } },
     { new: true }
   )
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 leagueRoutes.put("/leagues/:leagueId/start/:duration", (req, res, next) => {
   const leagueId = req.params.leagueId;
   const duration = req.params.duration;
   const startDate = moment().format("L");
-  const endDate = moment()
-    .add(duration, "day")
-    .format("L");
+  const endDate = moment().add(duration, "day").format("L");
 
   User.find({ "league.info": leagueId })
-    .then(users => {
+    .then((users) => {
       let mailList = [];
-      users.forEach(user => mailList.push(user.email));
+      users.forEach((user) => mailList.push(user.email));
       transporter.sendMail({
         from: '"waste-less" <waste.less.ironhack@gmail.com>',
         to: "waste.less.ironhack@gmail.com",
@@ -215,18 +213,18 @@ leagueRoutes.put("/leagues/:leagueId/start/:duration", (req, res, next) => {
         text: "https://waste-less.herokuapp.com/tasks",
         html: templateStarted.templateStarted(
           "https://waste-less.herokuapp.com/tasks"
-        )
+        ),
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 
   League.findOneAndUpdate(
     { _id: leagueId },
     { $set: { status: "active", startDate: startDate, endDate: endDate } },
     { new: true }
   )
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 // if 30 days are over, change status of league to "completed" and move league to completedLeagues Array
@@ -236,11 +234,11 @@ leagueRoutes.get("/leagues/checkover", (req, res, next) => {
     { endDate: moment().format("L") },
     { $set: { status: "completed" } }
   );
-  League.find({ endDate: moment().format("L") }).then(leagues => {
-    leagues.forEach(league => {
-      User.find({ "league.info": league._id }).then(users => {
+  League.find({ endDate: moment().format("L") }).then((leagues) => {
+    leagues.forEach((league) => {
+      User.find({ "league.info": league._id }).then((users) => {
         let mailList = [];
-        users.forEach(user => mailList.push(user.email));
+        users.forEach((user) => mailList.push(user.email));
         transporter.sendMail({
           from: '"waste-less" <waste.less.ironhack@gmail.com>',
           to: "waste.less.ironhack@gmail.com",
@@ -249,14 +247,14 @@ leagueRoutes.get("/leagues/checkover", (req, res, next) => {
           text: "https://waste-less.herokuapp.com/archive/" + league._id,
           html: templateEnded.templateEnded(
             "https://waste-less.herokuapp.com/archive/" + league._id
-          )
+          ),
         });
 
         Promise.all(
-          users.map(user => {
+          users.map((user) => {
             user.completedLeagues.push({
               info: league._id,
-              score: user.score
+              score: user.score,
             });
             user.score = 0;
             return user.save();
@@ -265,7 +263,7 @@ leagueRoutes.get("/leagues/checkover", (req, res, next) => {
           User.update(
             { "league.info": league._id },
             { $unset: { league: {} } }
-          ).then(response => res.status(200).json(response));
+          ).then((response) => res.status(200).json(response));
         });
       });
     });
@@ -291,8 +289,8 @@ leagueRoutes.get("/archive/:userId", (req, res, next) => {
   const userId = req.params.userId;
   User.findById({ _id: userId })
     .populate("completedLeagues.info")
-    .then(response => res.status(200).json(response))
-    .catch(err => console.log(err));
+    .then((response) => res.status(200).json(response))
+    .catch((err) => console.log(err));
 });
 
 module.exports = leagueRoutes;

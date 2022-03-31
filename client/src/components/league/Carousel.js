@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import Moment from "moment";
@@ -73,4 +72,4 @@ class Carouseltasks extends Component {
   }
 }
 
-export default withRouter(Carouseltasks);
+export default Carouseltasks;
