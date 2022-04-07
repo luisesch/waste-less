@@ -1,5 +1,7 @@
 # waste-less
 
+[Visit waste-less](https://waste-less.herokuapp.com/)
+
 ### What the page does:
 
 - **Signup and login:** Users have to enter a (unique) name and email address and will receive an email to confirm their email address.
