@@ -15,6 +15,7 @@
 
 - **React**
 - **Node**
+- **MongoDB**
 - **Passport**
 - **Express**
 - **HTML/CSS/Bootstrap**
